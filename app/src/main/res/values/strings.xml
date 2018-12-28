@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">FoodyPOS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="administratorlogin">Administrator Login</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="no_account_text">Don\'t have an account?</string>
+    <string name="sign_up_here">Sign Up Here</string>
+    <string name="forgot_password_head">Forgot password</string>
+    <string name="submit">Submit</string>
+    <string name="back_to">Back to</string>
+    <string name="login">Login</string>
+    <string name="total_sale_symbol">$</string>
+    <string name="total_sale_txt">Total Sale</string>
+    <string name="total_sale_value">12332.99</string>
+    <string name="weekly_sale_symbol">$</string>
+    <string name="weekly_sale_txt">Weekly Sale</string>
+    <string name="weekly_sale_value">530.88</string>
+    <string name="total_orders_txt">Total Orders</string>
+    <string name="total_order_value">2082</string>
+    <string name="weekly_order_txt">Weekly Order</string>
+    <string name="weekly_order_value">21</string>
+    <string name="total_customers_txt">Total Customers</string>
+    <string name="total_customers_value">749</string>
+    <string name="weekly_customer_txt">Weekly Customer</string>
+    <string name="weekly_customer_value">749</string>
+    <string name="sales">Sales</string>
+
+    <string name="online_order_list">Online order list</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="order_list">Order List</string>
+    <string name="best_seller">Bestseller</string>
+    <string name="top_sale">Top Sale</string>
+    <string name="title_activity_order_list">OrderListActivity</string>
+    <string name="weekly_bestsellers_item">Weekly Bestseller Items</string>
+    <string name="subitem_name">SubItem Name</string>
+    <string name="counting">Counting</string>
+    <string name="greek_gyro">Greek Gyro</string>
+    <string name="_8">8</string>
+    <string name="chicken_tikka_masala">Chicken Tikka Masala</string>
+    <string name="_7">7</string>
+    <string name="baklava">Baklava</string>
+    <string name="_5">5</string>
+    <string name="_16">16</string>
+    <string name="chicken_curry">Chicken Curry</string>
+    <string name="_28">28</string>
+    <string name="_29">29</string>
+    <string name="yearly_bestsellers_item">Yearly Bestseller Items</string>
+    <string name="_263">263</string>
+    <string name="_214">214</string>
+    <string name="gyro_supreme">Gyro Supreme</string>
+    <string name="_187">187</string>
+    <string name="monthly_bestsellers_item">Monthly Bestseller Items</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="total_order">Total Order</string>
+    <string name="total_sale">Total Sale</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change Password</string>
+    <string name="orders">Orders</string>
+    <string name="reports">Reports</string>
+    <string name="search">Search</string>
+
+
+</resources>

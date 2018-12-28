@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ctpl_dt10.foodypos.AmountCustomer">
+
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+        android:id="@+id/subTotalText"
+        android:text="SubTotal: "
+        android:textColor="#000"
+        android:textSize="18sp"
+    />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:id="@+id/itemPriceValue"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tax: "
+            android:id="@+id/taxText"
+            android:layout_below="@id/subTotalText"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/taxText"
+        android:textColor="#000"
+        android:textSize="18sp"
+        android:id="@+id/taxPer"
+        android:layout_toRightOf="@id/taxText"
+        android:layout_alignBaseline="@id/taxText"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/itemPriceValue"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:id="@+id/taxValue"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tip: "
+            android:id="@+id/tipText"
+            android:layout_below="@id/taxText"
+            android:layout_margin="5dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/taxValue"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:id="@+id/tipValue"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "
+            android:layout_below="@id/tipText"
+            android:layout_margin="5dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_below="@id/tipValue"
+            android:layout_margin="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/totalValue"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/topSale"
+        android:title="@string/top_sale"
+        android:icon="@drawable/top"
+        android:checked="true"
+        app:showAsAction="always|withText"/>
+
+
+<item
+    android:id="@+id/orderList"
+    android:title="@string/order_list"
+    android:icon="@drawable/orderlist"
+    app:showAsAction="always|withText"
+    android:checked="true"
+    />
+
+
+
+    <item
+        android:id="@+id/bestSeller"
+        android:title="@string/best_seller"
+        android:icon="@drawable/bestseller"
+        app:showAsAction="always|withText"
+        android:checked="true"
+        />
+
+
+
+
+</menu>

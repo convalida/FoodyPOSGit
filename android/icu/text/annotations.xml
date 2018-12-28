@@ -1,0 +1,5 @@
+<root>
+    <item name='android.icu.text.DateFormat java.lang.String format(java.util.Date)'>
+        <annotation name='java.lang.Deprecated' />
+    </item>
+</root>
