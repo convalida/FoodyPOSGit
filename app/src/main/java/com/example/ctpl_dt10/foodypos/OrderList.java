@@ -83,7 +83,7 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
     RecyclerView recyclerView;
     ArrayList<DetailChildInfo> ordersOnADay=new ArrayList<>();
     RequestQueue requestQueue;
-    ArrayList<ArrayList<String>> parentArray=new ArrayList<>();
+    ArrayList<ArrayList<String>> parentArray;
     Gson gson;
     Button dateBtn;
     Date date1,date2;
@@ -503,6 +503,7 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
        double currentPrice,totalPrice=0.0,roundedPrice;
         String totalOrders,totalAmount,finalPrice;
         int flagResult=1;
+
         @Override
         protected ArrayList<HeaderInfo> doInBackground(String... response) {
             try {
@@ -517,6 +518,7 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
                 else{
            //  if(jsonObject)
                  //  flagResult=1;
+                    parentArray=new ArrayList<>();
                    headerList=new ArrayList<>();
                 JSONObject jsonObject1=jsonObject.getJSONObject("By_DateSelection");
                 totalOrders=jsonObject1.getString("TotalOrders");

@@ -5,7 +5,7 @@ package com.example.ctpl_dt10.foodypos;
  */
 
 public class OrderDetailChild {
-    private String itemName, itemPrice,modifier,addOn,addOnPrice,instructions;
+    private String itemName, itemPrice,modifier,addOn,addOnPrice,instructions,total;
 
     public String getItemName() {
         return itemName;
@@ -53,5 +53,13 @@ public class OrderDetailChild {
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public String getTotal(){
+        return total;
+    }
+
+    public void setTotal(String total){
+        this.total=total;
     }
 }

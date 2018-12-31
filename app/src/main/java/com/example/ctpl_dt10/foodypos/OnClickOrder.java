@@ -9,9 +9,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,11 +36,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class OnClickOrder extends AppCompatActivity {
-    TextView ordersImg, nameText, emailText,phone,amountValue;
-    ExpandableListView ordersExpandable;
+    TextView ordersImg, nameText, emailText,phone,amountValue,menuIcon;
+  //  ExpandableListView ordersExpandable;
     ExpandableOnClickList expandableOnClickListAdapter;
     private ArrayList<OrderDetailHeader> orderDetailHeaders=new ArrayList<>();
     String receivedJson;
+
+    ListView listView;
     OrderDetailData orderDetailData=new OrderDetailData();
    public static ArrayList<OrderDetailChild> itemDetails;
     OrderDetailChild orderDetailChild;
@@ -46,6 +51,7 @@ public class OnClickOrder extends AppCompatActivity {
     String startDate,endDate,orderNum;
     RequestQueue requestQueue;
     String restId;
+    public ArrayList<OrderDetailChild> itemsList=new ArrayList<>();
     private static final String TAG="OnCLickOrder";
     ArrayList<OrderDetailData> orderDetailDataArrayList;
 
@@ -64,7 +70,20 @@ public class OnClickOrder extends AppCompatActivity {
         phone=findViewById(R.id.contactText);
         amountValue=findViewById(R.id.amountTotal);
         relativeLayout=findViewById(R.id.amount);
-        ordersExpandable=findViewById(R.id.expandleOrderItems);
+        menuIcon=findViewById(R.id.menuIcon);
+        Typeface font=Typeface.createFromAsset(getAssets(),"fonts/fontawesome-webfont.ttf");
+        menuIcon.setTypeface(font);
+        menuIcon.setText("\uf0f5");
+        listView=findViewById(R.id.list);
+     /**   listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });**/
+   //  Utility.setListViewHeightBasedOnChildren(listView);
+    //    ordersExpandable=findViewById(R.id.expandleOrderItems);
         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId", MODE_PRIVATE);
         restId=sharedPreferences.getString("Id","");
         Log.e(TAG, restId);
@@ -129,12 +148,12 @@ public class OnClickOrder extends AppCompatActivity {
         }
     };
 
-    private class GetOrderDetails extends AsyncTask<String,Void,OrderDetailData>{
+    private class GetOrderDetails extends AsyncTask<String,Void,Wrapper2>{
         int flagResult=1;
      //   OrderDetailData orderDetailData=new OrderDetailData();
 
         @Override
-        protected OrderDetailData doInBackground(String... response) {
+        protected Wrapper2 doInBackground(String... response) {
             try {
                 JSONObject jsonObject=new JSONObject(response[0]);
                 if(jsonObject.has("Message")){
@@ -156,16 +175,28 @@ public class OnClickOrder extends AppCompatActivity {
                           String taxVal=jsonObject2.getString("Taxvalue");
                           String tip=jsonObject2.getString("Tip");
                           String grandTotal=jsonObject2.getString("GrandTotal");
-
+                        itemsList=new ArrayList<>();
                         JSONArray itemDetailsArray=jsonObject2.getJSONArray("OrderItemDetails");
                         for(int j=0;j<itemDetailsArray.length();j++){
+
                             JSONObject jsonObject3=itemDetailsArray.getJSONObject(j);
                             String itemName=jsonObject3.getString("SubitemsNames");
                             String modifier=jsonObject3.getString("Modifier");
-                            String addOn=jsonObject3.getString("Instruction");
+                            String addOn=jsonObject3.getString("AddOn");
+                            String instruction=jsonObject3.getString("Instruction");
                             String price=jsonObject3.getString("Price");
                             String addOnPrice=jsonObject3.getString("AddOnPrices");
                             String total=jsonObject3.getString("Total");
+                            orderDetailChild=new OrderDetailChild();
+                            orderDetailChild.setItemName(itemName);
+                            orderDetailChild.setModifier(modifier);
+                            orderDetailChild.setAddOn(addOn);
+                            orderDetailChild.setItemPrice(price);
+                            orderDetailChild.setAddOnPrice(addOnPrice);
+                            orderDetailChild.setInstructions(instruction);
+                            orderDetailChild.setTotal(total);
+
+                            itemsList.add(orderDetailChild);
                         }
                      //   OrderDetailData orderDetailData=new OrderDetailData();
                         orderDetailData.setCustomerName(name);
@@ -177,23 +208,31 @@ public class OnClickOrder extends AppCompatActivity {
                         orderDetailData.setTaxValue(taxVal);
                         orderDetailData.setTip(tip);
                       //  orderDetailDataArrayList.add(orderDetailData);
+
                     }
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
            // return orderDetailDataArrayList;
-            return orderDetailData;
+           // return orderDetailData;
+            Wrapper2 w2=new Wrapper2();
+            w2.itemsList=itemsList;
+            w2.orderDetailData=orderDetailData;
+        return w2;
         }
 
-        public void onPostExecute(OrderDetailData orderDetailData){
+        public void onPostExecute(Wrapper2 wrapper2){
          //   super.onPostExecute(orderDetailDataArrayList);
-            super.onPostExecute(orderDetailData);
+            super.onPostExecute(wrapper2);
             if(flagResult==1){
                 nameText.setText(orderDetailData.getCustomerName());
                 emailText.setText(orderDetailData.getMailId());
                 phone.setText(orderDetailData.getContact());
                 amountValue.setText("$"+orderDetailData.getGrandTotal());
+                OrderItemsAdapter adapter=new OrderItemsAdapter(itemsList,OnClickOrder.this);
+                listView.setAdapter(adapter);
             }
             else{
                 if(flagResult==0){
