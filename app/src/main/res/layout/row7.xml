@@ -15,22 +15,31 @@
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/nameText"
-            android:textSize="15sp"/>
+            android:textSize="20sp"
+            android:layout_margin="5dp"
+            android:textColor="#000"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/itemValue"
-            android:textSize="15sp"
-            android:layout_alignParentRight="true"/>
+            android:textSize="20sp"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/price"
-            android:textSize="15sp"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
             android:layout_below="@id/nameText"
             />
 
@@ -39,15 +48,25 @@
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/priceValue"
-            android:textSize="15sp"
+            android:textSize="20sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/colorAccent"
             android:layout_below="@id/itemValue"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Instruction"
+            android:textSize="20sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
             android:id="@+id/instruction"
             android:layout_below="@id/price"/>
 
@@ -57,12 +76,23 @@
             android:text="Some instructions"
             android:id="@+id/instructionValue"
             android:layout_below="@id/priceValue"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Total"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="20sp"
+            android:textColor="#000"
             android:id="@+id/total"
             android:layout_below="@id/instruction"
             />
@@ -73,7 +103,13 @@
             android:text="$0.00"
             android:id="@+id/totalValue"
             android:layout_below="@id/instructionValue"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
