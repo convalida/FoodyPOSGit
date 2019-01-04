@@ -231,7 +231,7 @@ public class OnClickOrder extends AppCompatActivity {
                 emailText.setText(orderDetailData.getMailId());
                 phone.setText(orderDetailData.getContact());
                 amountValue.setText("$"+orderDetailData.getGrandTotal());
-                OrderItemsAdapter adapter=new OrderItemsAdapter(itemsList,OnClickOrder.this);
+               OrderItemsAdapter adapter=new OrderItemsAdapter(itemsList,OnClickOrder.this);
                 listView.setAdapter(adapter);
             }
             else{

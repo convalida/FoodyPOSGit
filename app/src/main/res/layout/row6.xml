@@ -3,19 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:elevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relative">
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/nameText"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textColor="#000"
             android:layout_margin="5dp"/>
 
@@ -23,19 +32,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:gravity="end"
+            android:layout_weight="2"
             android:textColor="@color/colorAccent"
             android:id="@+id/itemValue"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:layout_margin="5dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
+</TableRow>
 
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/price"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
@@ -47,8 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:gravity="end"
+            android:layout_weight="2"
             android:id="@+id/priceValue"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -57,13 +74,19 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addon"
             android:text="AddOn"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
@@ -74,21 +97,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/addonValue"
             android:text="AddOn value"
+            android:layout_weight="2"
+            android:gravity="end"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textColor="@color/colorAccent"
             android:layout_below="@id/priceValue"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             />
+            </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AddOn Price"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
@@ -99,7 +128,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$0.00"
-            android:textSize="20sp"
+            android:gravity="end"
+            android:textSize="19sp"
+            android:layout_weight="2"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
@@ -108,8 +139,11 @@
             android:layout_below="@id/addonValue"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
+        </TableRow>
 
-
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -118,7 +152,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textColor="#000"
             android:layout_below="@id/addonPrice"
             />
@@ -127,15 +161,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$0.00"
+            android:layout_weight="2"
+            android:gravity="end"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
-            android:textSize="20sp"
+            android:textSize="19sp"
             android:textColor="@color/colorAccent"
             android:id="@+id/totalValue"
             android:layout_below="@id/addOnPriceValue"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
+        </TableRow>
+        </TableLayout>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

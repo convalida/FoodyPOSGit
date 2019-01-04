@@ -46,28 +46,36 @@ public class OrderItemsAdapter extends BaseAdapter {
 
             // }
             switch (possibility) {
-                case 1:
+              //  case 1:
+                case 0:
                     view = LayoutInflater.from(context).inflate(R.layout.row1, parent, false);
                     break;
-                case 2:
+               // case 2:
+                case 1:
                     view = LayoutInflater.from(context).inflate(R.layout.row2, parent, false);
                     break;
-                case 3:
+                //case 3:
+                case 2:
                     view = LayoutInflater.from(context).inflate(R.layout.row3, parent, false);
                     break;
-                case 4:
+                //case 4:
+                case 3:
                     view = LayoutInflater.from(context).inflate(R.layout.row4, parent, false);
                     break;
-                case 5:
+               // case 5:
+                case 4:
                     view = LayoutInflater.from(context).inflate(R.layout.row5, parent, false);
                     break;
-                case 6:
+                //case 6:
+                case 5:
                     view = LayoutInflater.from(context).inflate(R.layout.row6, parent, false);
                     break;
-                case 7:
+                //case 7:
+                case 6:
                     view = LayoutInflater.from(context).inflate(R.layout.row7, parent, false);
                     break;
-                case 8:
+                //case 8:
+                case 7:
                     view = LayoutInflater.from(context).inflate(R.layout.row8, parent, false);
                     break;
             }
@@ -80,20 +88,27 @@ public class OrderItemsAdapter extends BaseAdapter {
         totalKey = view.findViewById(R.id.total);
         totalValue = view.findViewById(R.id.totalValue);
 
+        String dollar="$";
         itemNameKey.setText("Name");
         itemNameValue.setText(itemsList.get(position).getItemName());
         priceKey.setText("Price");
-        priceValue.setText(itemsList.get(position).getItemPrice());
+       // priceValue.setText("$"+itemsList.get(position).getItemPrice());
+      //  priceValue.setText(R.string.price,itemsList.get(position).getItemPrice());
+      //  priceValue.setText(dollar+itemsList.get(position).getItemPrice());
+        priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
+
         totalKey.setText("Total");
-        totalValue.setText(itemsList.get(position).getTotal());
+        totalValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getTotal()));
 
         try {
             switch (possibility) {
-                case 1:
+               // case 1:
+                case 0:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
+                   // priceValue.setText("$"+itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
                     totalValue.setText(itemsList.get(position).getTotal());
                     modifierKey = view.findViewById(R.id.modifier);
@@ -107,30 +122,34 @@ public class OrderItemsAdapter extends BaseAdapter {
                     addOnPriceKey = view.findViewById(R.id.addonPrice);
                     addOnPriceKey.setText("AddOn Price");
                     addOnPriceValue = view.findViewById(R.id.addOnPriceValue);
-                    addOnPriceValue.setText(itemsList.get(position).getAddOnPrice());
+                 //   addOnPriceValue.setText("$"+itemsList.get(position).getAddOnPrice());
+                    addOnPriceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getAddOnPrice()));
                     TextView instructionKey = view.findViewById(R.id.instruction);
                     instructionKey.setText("Instructions");
                     TextView instructionsValue = view.findViewById(R.id.instructionValue);
                     instructionsValue.setText(itemsList.get(position).getInstructions());
                     break;
+                //case 2:
+                case 1:
+                    itemNameKey.setText("Name");
+                    itemNameValue.setText(itemsList.get(position).getItemName());
+                    priceKey.setText("Price");
+                   // priceValue.setText("$"+itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
+                    totalKey.setText("Total");
+                   // totalValue.setText("$"+itemsList.get(position).getTotal());
+                    totalValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getTotal()));
+                    break;
+               // case 3:
                 case 2:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText("$"+itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
-                    totalValue.setText("$"+itemsList.get(position).getTotal());
-                    break;
-                case 3:
-                    itemNameKey.setText("Name");
-                    itemNameValue.setText(itemsList.get(position).getItemName());
-                    priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
-                    totalKey.setText("Total");
-                    totalValue.setText(itemsList.get(position).getTotal());
+                    totalValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getTotal()));
                     modifierKey = view.findViewById(R.id.modifier);
                     modifierValue = view.findViewById(R.id.modifierValue);
-
                     modifierKey.setText("Modifier");
                     modifierValue.setText(itemsList.get(position).getModifier());
                     addOnKey = view.findViewById(R.id.addon);
@@ -140,13 +159,14 @@ public class OrderItemsAdapter extends BaseAdapter {
                     addOnPriceKey = view.findViewById(R.id.addonPrice);
                     addOnPriceKey.setText("AddOn Price");
                     addOnPriceValue = view.findViewById(R.id.addOnPriceValue);
-                    addOnPriceValue.setText(itemsList.get(position).getAddOnPrice());
+                    addOnPriceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getAddOnPrice()));
                     break;
-                case 4:
+               // case 4:
+                case 3:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
                     addOnKey = view.findViewById(R.id.addon);
                     addOnValue = view.findViewById(R.id.addonValue);
@@ -156,20 +176,23 @@ public class OrderItemsAdapter extends BaseAdapter {
                     addOnKey.setText("Add On");
                     addOnValue.setText(itemsList.get(position).getAddOn());
                     addOnPriceKey.setText("AddOn Price");
-                    addOnPriceValue.setText(itemsList.get(position).getAddOnPrice());
+                    addOnPriceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getAddOnPrice()));
 
                     instructionKey = view.findViewById(R.id.instruction);
                     instructionKey.setText("Instructions");
                     instructionsValue = view.findViewById(R.id.instructionValue);
                     instructionsValue.setText(itemsList.get(position).getInstructions());
                     break;
-                case 5:
+               // case 5:
+                case 4:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText("$"+itemsList.get(position).getItemPrice());
+                  //  priceValue.setText("$"+itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
-                    totalValue.setText("$"+itemsList.get(position).getTotal());
+                   // totalValue.setText("$"+itemsList.get(position).getTotal());
+                    totalValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getTotal()));
 
                     modifierKey = view.findViewById(R.id.modifier);
                     modifierValue = view.findViewById(R.id.modifierValue);
@@ -177,11 +200,12 @@ public class OrderItemsAdapter extends BaseAdapter {
                     modifierKey.setText("Modifier");
                     modifierValue.setText(itemsList.get(position).getModifier());
                     break;
-                case 6:
+                //case 6:
+                case 5:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
                     addOnKey = view.findViewById(R.id.addon);
                     addOnValue = view.findViewById(R.id.addonValue);
@@ -190,13 +214,14 @@ public class OrderItemsAdapter extends BaseAdapter {
                     addOnKey.setText("Add On");
                     addOnValue.setText(itemsList.get(position).getAddOn());
                     addOnPriceKey.setText("AddOn Price");
-                    addOnPriceValue.setText(itemsList.get(position).getAddOnPrice());
+                    addOnPriceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getAddOnPrice()));
                     break;
-                case 7:
+                //case 7:
+                case 6:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
 
                     instructionKey = view.findViewById(R.id.instruction);
@@ -204,11 +229,12 @@ public class OrderItemsAdapter extends BaseAdapter {
                     instructionsValue = view.findViewById(R.id.instructionValue);
                     instructionsValue.setText(itemsList.get(position).getInstructions());
                     break;
-                case 8:
+                //case 8:
+                case 7:
                     itemNameKey.setText("Name");
                     itemNameValue.setText(itemsList.get(position).getItemName());
                     priceKey.setText("Price");
-                    priceValue.setText(itemsList.get(position).getItemPrice());
+                    priceValue.setText(context.getResources().getString(R.string.price,itemsList.get(position).getItemPrice()));
                     totalKey.setText("Total");
 
                     modifierKey = view.findViewById(R.id.modifier);
@@ -234,22 +260,27 @@ public class OrderItemsAdapter extends BaseAdapter {
 
     public int getItemViewType(int position) {
        if (itemsList.get(position).getInstructions().equals("") && !itemsList.get(position).getAddOn().equals("") && !itemsList.get(position).getModifier().equals("")) {
-            possibility = 3;
+           // possibility = 3;
+           possibility=2;
         }
         if (!itemsList.get(position).getInstructions().equals("") && itemsList.get(position).getAddOn().equals("") && !itemsList.get(position).getModifier().equals("")) {
-            possibility = 8;
-        }
+           // possibility = 8;
+       possibility=7;
+       }
         if (itemsList.get(position).getInstructions().equals("") && itemsList.get(position).getAddOn().equals("") && !itemsList.get(position).getModifier().equals("")) {
-            possibility = 5;
+            //possibility = 5;
+            possibility=4;
         }
         // } else {
         //           if (!itemsList.get(position).getAddOn().equals("")) {
         if (!itemsList.get(position).getInstructions().equals("") && !itemsList.get(position).getAddOn().equals("") && itemsList.get(position).getModifier().equals("")) {
-            possibility = 4;
+            //possibility = 4;
+            possibility=3;
         }
         //else {
         if (itemsList.get(position).getInstructions().equals("") && !itemsList.get(position).getAddOn().equals("") && itemsList.get(position).getModifier().equals("")) {
-            possibility = 6;
+            //possibility = 6;
+            possibility=5;
         }
 
         //        }
@@ -257,10 +288,12 @@ public class OrderItemsAdapter extends BaseAdapter {
         //}
         //   else {
         if (!itemsList.get(position).getInstructions().equals("") && itemsList.get(position).getAddOn().equals("") && itemsList.get(position).getModifier().equals("")) {
-            possibility = 7;
+           // possibility = 7;
+            possibility=6;
         } //else
         if (itemsList.get(position).getInstructions().equals("") && itemsList.get(position).getAddOn().equals("") && itemsList.get(position).getModifier().equals("")) {
-            possibility = 2;
+          //  possibility = 2;
+            possibility=1;
         }
         //  }
         // }
@@ -268,7 +301,8 @@ public class OrderItemsAdapter extends BaseAdapter {
 
         //} else {
         if (!itemsList.get(position).getModifier().equals("") && !itemsList.get(position).getAddOn().equals("") && !itemsList.get(position).getInstructions().equals("")) {
-            possibility = 1;
+          //  possibility = 1;
+            possibility=0;
         }
         return possibility;
     }
