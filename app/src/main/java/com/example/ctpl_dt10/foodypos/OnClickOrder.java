@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -54,6 +56,8 @@ public class OnClickOrder extends AppCompatActivity {
     public ArrayList<OrderDetailChild> itemsList=new ArrayList<>();
     private static final String TAG="OnCLickOrder";
     ArrayList<OrderDetailData> orderDetailDataArrayList;
+    RelativeLayout progress;
+    LinearLayout mainLayout;
 
 
 
@@ -65,6 +69,8 @@ public class OnClickOrder extends AppCompatActivity {
        // Typeface font=Typeface.createFromAsset(getAssets(),"fonts/fontawesome-webfont.ttf");
        // ordersImg.setTypeface(font);
        // ordersImg.setText("\uf0f5");
+        progress=findViewById(R.id.orderDetailProgress);
+        mainLayout=findViewById(R.id.orderDetailLayout);
         nameText=findViewById(R.id.userText);
         emailText=findViewById(R.id.mailText);
         phone=findViewById(R.id.contactText);
@@ -90,6 +96,10 @@ public class OnClickOrder extends AppCompatActivity {
         requestQueue=Volley.newRequestQueue(OnClickOrder.this);
         GsonBuilder gsonBuilder=new GsonBuilder();
         gson=gsonBuilder.create();
+        if (getSupportActionBar() != null) {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("Order Details");
+        }
 
      /**   Intent i=getIntent();
         receivedJson=i.getStringExtra("OrderDetails");
@@ -227,6 +237,8 @@ public class OnClickOrder extends AppCompatActivity {
          //   super.onPostExecute(orderDetailDataArrayList);
             super.onPostExecute(wrapper2);
             if(flagResult==1){
+                mainLayout.setVisibility(View.VISIBLE);
+                progress.setVisibility(View.INVISIBLE);
                 nameText.setText(orderDetailData.getCustomerName());
                 emailText.setText(orderDetailData.getMailId());
                 phone.setText(orderDetailData.getContact());

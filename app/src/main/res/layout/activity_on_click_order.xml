@@ -7,13 +7,27 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context="com.example.ctpl_dt10.foodypos.OnClickOrder">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/orderDetailProgress">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
 
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+        android:visibility="invisible"
+        android:id="@+id/orderDetailLayout"
     >
 
     <android.support.v7.widget.CardView
@@ -128,4 +142,5 @@
         android:id="@+id/list"/>
 
 </LinearLayout>
+    </FrameLayout>
 </ScrollView>

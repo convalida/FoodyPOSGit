@@ -432,7 +432,7 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
             intent.putExtra("Start date",fromDate.getText().toString());
             intent.putExtra("End date",toDate.getText().toString());
             intent.putExtra("Order num",parentArray.get(groupPosition).get(childPosition));
-            Toast.makeText(getApplicationContext(),parentArray.get(groupPosition).get(childPosition),Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getApplicationContext(),parentArray.get(groupPosition).get(childPosition),Toast.LENGTH_LONG).show();
             startActivity(intent);
             return false;
         }

@@ -3,12 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:elevation="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relative">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -36,8 +33,7 @@
             android:textSize="19sp"
             android:layout_margin="5dp"
             android:textColor="@color/colorAccent"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            />
             </TableRow>
 
             <TableRow
@@ -53,7 +49,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="#000"
-            android:layout_below="@id/nameText"
             />
 
         <TextView
@@ -68,9 +63,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:textColor="@color/colorAccent"
-            android:layout_below="@id/itemValue"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            />
             </TableRow>
 <TableRow
     android:layout_width="match_parent"
@@ -85,7 +78,7 @@
             android:layout_marginBottom="5dp"
             android:textColor="#000"
             android:id="@+id/instruction"
-            android:layout_below="@id/price"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,9 +87,6 @@
             android:gravity="end"
             android:layout_weight="2"
             android:id="@+id/instructionValue"
-            android:layout_below="@id/priceValue"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
@@ -117,7 +107,6 @@
             android:textSize="19sp"
             android:textColor="#000"
             android:id="@+id/total"
-            android:layout_below="@id/instruction"
             />
 
         <TextView
@@ -127,9 +116,6 @@
             android:gravity="end"
             android:layout_weight="2"
             android:id="@+id/totalValue"
-            android:layout_below="@id/instructionValue"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
@@ -137,7 +123,7 @@
             android:textSize="19sp"/>
             </TableRow>
         </TableLayout>
-    </RelativeLayout>
+
 
 
 </android.support.v7.widget.CardView>
