@@ -1,5 +1,6 @@
 package com.example.ctpl_dt10.foodypos;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -41,7 +43,9 @@ public class BestSeller extends AppCompatActivity {
     RelativeLayout monthRelativeLayout,weekRelativeLayout;
     TableLayout monthTableLayout,weekTableLayout;
     LinearLayout mainLayout;
-    RelativeLayout progressLayout;
+    Button weekMore,monthMore,yearMore;
+  //  RelativeLayout progressLayout;
+    ProgressBar progressLayout;
     BestSellerItemModel bestSellerItemModel1=new BestSellerItemModel();
     private Gson gson;
    // JsonParser jsonParser=new JsonParser();
@@ -86,13 +90,40 @@ public class BestSeller extends AppCompatActivity {
         weekTopThird=findViewById(R.id.weekItem3);
         weekTopThirdNum=findViewById(R.id.weekItem3Qty);
 
+        weekMore=findViewById(R.id.weeklyMore);
+        monthMore=findViewById(R.id.monthlyMore);
+        yearMore=findViewById(R.id.yearlyMore);
 
      requestQueue= Volley.newRequestQueue(this);
         GsonBuilder gsonBuilder=new GsonBuilder();
         gson=gsonBuilder.create();
      fetchPosts();
 
+        weekMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(BestSeller.this,BestsellerMore.class);
+                intent.putExtra("Flag",1);
+                startActivity(intent);
+            }
+        });
+        monthMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(BestSeller.this,BestsellerMore.class);
+                intent.putExtra("Flag",2);
+                startActivity(intent);
+            }
+        });
 
+        yearMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(BestSeller.this,BestsellerMore.class);
+                intent.putExtra("Flag",3);
+                startActivity(intent);
+            }
+        });
     }
 
     private void fetchPosts() {

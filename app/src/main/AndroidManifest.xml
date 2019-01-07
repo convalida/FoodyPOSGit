@@ -74,11 +74,12 @@
             android:name=".AmountCustomer"
             android:theme="@style/ForgotPasswordDialog" />
         <activity android:name=".CustomerOrderDetails" />
-        <activity android:name=".EmptyActivity"
-            android:theme="@style/generateNoTitle"
-            android:noHistory="true"
+        <activity
+            android:name=".EmptyActivity"
             android:launchMode="singleInstance"
-            />
+            android:noHistory="true"
+            android:theme="@style/generateNoTitle" />
+        <activity android:name=".BestsellerMore"></activity>
     </application>
 
 </manifest>
