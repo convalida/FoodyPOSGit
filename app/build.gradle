@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.example.ctpl_dt10.foodypos"
+        applicationId "com.convalida.ctpl_dt10.foodypos"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -43,4 +44,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 }

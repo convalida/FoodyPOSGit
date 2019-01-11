@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ctpl_dt10.foodypos.DateNdTimeCustomer">
+    tools:context="com.convalida.ctpl_dt10.foodypos.DateNdTimeCustomer">
 
     <ImageView
         android:layout_width="wrap_content"

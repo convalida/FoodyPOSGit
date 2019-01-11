@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.ctpl_dt10.foodypos.BestSeller">
+    tools:context="com.convalida.ctpl_dt10.foodypos.BestSeller">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

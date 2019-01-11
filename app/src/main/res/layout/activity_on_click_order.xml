@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.example.ctpl_dt10.foodypos.OnClickOrder">
+    tools:context="com.convalida.ctpl_dt10.foodypos.OnClickOrder">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

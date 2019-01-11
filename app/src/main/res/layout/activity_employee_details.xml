@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ctpl_dt10.foodypos.EmployeeDetails">
+    tools:context="com.convalida.ctpl_dt10.foodypos.EmployeeDetails">
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.ctpl_dt10.foodypos.Reports">
+    tools:context="com.convalida.ctpl_dt10.foodypos.Reports">
 
     <FrameLayout
         android:layout_width="match_parent"
