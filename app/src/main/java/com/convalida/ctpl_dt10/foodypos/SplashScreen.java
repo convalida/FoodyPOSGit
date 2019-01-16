@@ -29,13 +29,18 @@ public class SplashScreen extends AppCompatActivity {
                 Log.e(TAG,"Mail id is "+mail);
                 pass=sp.getString("password","");
                 Log.e(TAG,"password is "+pass);
-                if(mail.equals("")||pass.equals("")) {
-                    Intent intent = new Intent(SplashScreen.this, Login.class);
+                if(getIntent().hasExtra("Extra key")){
+                    Intent intent=new Intent(SplashScreen.this,OrderList.class);
                     startActivity(intent);
                 }
-                else{
-                    Intent intent=new Intent(SplashScreen.this,MainActivity.class);
-                    startActivity(intent);
+                else {
+                    if (mail.equals("") || pass.equals("")) {
+                        Intent intent = new Intent(SplashScreen.this, Login.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 finish();
             }

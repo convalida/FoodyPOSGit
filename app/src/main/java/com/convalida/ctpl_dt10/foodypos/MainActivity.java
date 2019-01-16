@@ -163,34 +163,9 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         Menu menu = mainNavigationView.getMenu();
         MenuItem sale = menu.findItem(R.id.customer_details);
 
-    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
-        @Override
-        public void onSuccess(InstanceIdResult instanceIdResult) {
-            final String newToken=instanceIdResult.getToken();
-            Log.e("NEW_TOKEN",newToken);
-            String token=newToken;
 
-            Toast.makeText(getApplicationContext(),newToken,Toast.LENGTH_LONG).show();
-            new AlertDialog.Builder(MainActivity.this)
-                    .setMessage(""+newToken)
-                    .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ClipboardManager clipboardManager;
-                            clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                            ClipData myClip;
-                            myClip=ClipData.newPlainText("text",newToken);
-                            assert clipboardManager != null;
-                            clipboardManager.setPrimaryClip(myClip);
-                        }
-                    })
-                    .setCancelable(true)
-                    .create()
-                    .show();
-        }
-    });
 
-    if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.O){
+   if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.O){
         NotificationManager notificationManager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         int importance=NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel notificationChannel=new NotificationChannel(Constants.CHANNEL_ID,Constants.CHANNEL_NAME,importance);
@@ -203,8 +178,11 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         notificationManager.createNotificationChannel(notificationChannel);
     }
 
-    MyNotificationManager.getmInstance(this).displayNotification("Hello","Hi");
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
+ //  MyNotificationManager.getmInstance(this).displayNotification("Hello","Hi");
+  //  MyFirebaseMessagingService.s
+
+
+    Typeface font = Typeface.createFromAsset(getAssets(), "fonts/fontawesome-webfont.ttf");
         tCustomerImg.setTypeface(font);
         //sale.setIcon("\uf007");
 

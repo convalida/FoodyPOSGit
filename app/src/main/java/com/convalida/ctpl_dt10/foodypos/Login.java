@@ -1,10 +1,14 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +27,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,6 +50,7 @@ public class Login extends AppCompatActivity {
     private static final String TAG="Login";
     private RequestQueue requestQueue;
     Gson gson;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,38 @@ public class Login extends AppCompatActivity {
         inputLayoutPassword = findViewById(R.id.input_password);
         signIn = findViewById(R.id.signInBtn);
         rememberCheck=findViewById(R.id.rememberMe);
+        if(SharedPrefManagerToken.getmInstance(this).getDeviceToken()!=null) {
+            token = SharedPrefManagerToken.getmInstance(this).getDeviceToken();
+        }
+        else{
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, new OnSuccessListener<InstanceIdResult>() {
+                @Override
+                public void onSuccess(InstanceIdResult instanceIdResult) {
+                    final String newToken=instanceIdResult.getToken();
+                    Log.e("NEW_TOKEN",newToken);
+                    String token=newToken;
+                    SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(newToken);
+
+                    //    Toast.makeText(getApplicationContext(),newToken,Toast.LENGTH_LONG).show();
+                    new AlertDialog.Builder(Login.this)
+                            .setMessage(""+newToken)
+                            .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ClipboardManager clipboardManager;
+                                    clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                                    ClipData myClip;
+                                    myClip=ClipData.newPlainText("text",newToken);
+                                    assert clipboardManager != null;
+                                    clipboardManager.setPrimaryClip(myClip);
+                                }
+                            })
+                            .setCancelable(true)
+                            .create()
+                            .show();
+                }
+            });
+        }
     }
 
     public void forgotPassword(View view) {
@@ -149,7 +189,8 @@ public class Login extends AppCompatActivity {
         }**/
 
      String encodedPassword=URLEncoder.encode(password);
-     String encodedUrl="http://business.foodypos.com/App/Api.asmx/GetLogin?email="+mail+"&password="+encodedPassword;
+   //  String encodedUrl="http://business.foodypos.com/App/Api.asmx/GetLogin?email="+mail+"&password="+encodedPassword;
+        String encodedUrl="http://business.foodypos.com/App/Api.asmx/LoginByApp?email="+mail+"&password="+encodedPassword+"&deviceId="+token+"&buildversion=null&AppId=android";
         StringRequest stringRequest=new StringRequest(Request.Method.GET,encodedUrl,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
