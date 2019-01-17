@@ -6,4 +6,5 @@
     <color name="hightlight">#4d4f56</color>
     <color name="disabledBtn">#ffccaa</color>
     <color name="transparent">#000000</color>
+    <color name="white">#ffffff</color>
 </resources>

@@ -1,11 +1,13 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
@@ -53,12 +55,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             //intent.setAction(Intent.ACTION_MAIN);
             // intent.addCategory(Intent.CATEGORY_LAUNCHER);
             PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),1,intent,0);
-            Notification notification=new NotificationCompat.Builder(this,"my_channel_01")
+            @SuppressLint("ResourceType") Notification notification=new NotificationCompat.Builder(this,"my_channel_01")
        //     Notification notification=new Notification.Builder(getApplicationContext())
                     .setContentTitle(Objects.requireNonNull(remoteMessage.getNotification()).getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
-                    .setSmallIcon(R.mipmap.logo)
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setColor(getResources().getColor(R.color.colorAccent))
                     .build();
             NotificationManagerCompat managerCompat=NotificationManagerCompat.from(getApplicationContext());
            // NotificationManager managerCompat= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -69,6 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
   //      String body=remoteMessage.getNotification().getBody();
     //}
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void sendPushNotification(JSONObject jsonObject) {
         Log.e(TAG,"Notification JSON "+jsonObject.toString());
 //        Toast.makeText(getApplicationContext(),"NotificationJson "+jsonObject.toString(),Toast.LENGTH_LONG).show();
@@ -108,7 +113,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentTitle(title)
                     .setContentText(message)
                     .setContentIntent(pendingIntent)
-                    .setSmallIcon(R.mipmap.logo)
+                    .setSmallIcon(R.drawable.icon)
                     .build();
             NotificationManager notificationManager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             assert notificationManager != null;
