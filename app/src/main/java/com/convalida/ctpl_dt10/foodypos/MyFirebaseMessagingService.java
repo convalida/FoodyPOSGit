@@ -73,7 +73,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
   //      String body=remoteMessage.getNotification().getBody();
     //}
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  /**  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void sendPushNotification(JSONObject jsonObject) {
         Log.e(TAG,"Notification JSON "+jsonObject.toString());
 //        Toast.makeText(getApplicationContext(),"NotificationJson "+jsonObject.toString(),Toast.LENGTH_LONG).show();
@@ -99,7 +99,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }**/
         //    myNotificationManager.displayNotification(title,message,intent);
        //     myNotificationManager.displayNotification(title,message);
-            Intent intent=new Intent(getApplicationContext(),com.convalida.ctpl_dt10.foodypos.OrderList.class);
+     /**       Intent intent=new Intent(getApplicationContext(),com.convalida.ctpl_dt10.foodypos.OrderList.class);
             //   TaskStackBuilder stackBuilder=TaskStackBuilder.create(context);
             // stackBuilder.addNextIntentWithParentStack(intent);
             // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -107,7 +107,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // intent.addCategory(Intent.CATEGORY_LAUNCHER);
             // intent.putExtra("Extra key",1);
             /**     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);**/
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        /**    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent=PendingIntent.getService(getApplicationContext(),1,intent,PendingIntent.FLAG_ONE_SHOT);
             Notification notification=new Notification.Builder(getApplicationContext())
                     .setContentTitle(title)
@@ -123,5 +123,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }**/
 }
