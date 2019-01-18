@@ -9,11 +9,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,7 +54,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderList extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class OrderList extends AppCompatActivity {
 
     public String user_id;
     // List<OrderlistData> data = new ArrayList<>();
@@ -93,7 +95,8 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
 
   // SharedPreferences.Editor editor;
     @Override
-    public boolean onQueryTextSubmit(String query) {
+ /**   public boolean onQueryTextSubmit(String query) {
+
         return false;
     }
 
@@ -109,7 +112,7 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
      //  final ArrayList<DetailChildInfo> filteredList=filter(ordersOnADay,newText);
        // expandableListAdapter.setmFilter(filteredList);
 
-        return false;
+    /**    return false;
     }
 
     private ArrayList<DetailChildInfo> filter(ArrayList<DetailChildInfo> ordersOnADay, String newText) {
@@ -459,22 +462,24 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
         //super.onCreateOptionsMenu(menu);
         //menuInflater.inflate(R.menu.menu_search,menu);
         getMenuInflater().inflate(R.menu.menu_search,menu);
-        MenuItem item=menu.findItem(R.id.search);
-        SearchView searchView= (SearchView) item.getActionView();
+        MenuItem item=menu.findItem(R.id.search_icon);
+        final SearchView searchView= (SearchView) item.getActionView();
+        searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchView.setQueryHint("Enter Order No.");
         int searchPlateId=android.support.v7.appcompat.R.id.search_plate;
         View searchPlate=searchView.findViewById(searchPlateId);
+       final TextView searchText ;
         if(searchPlate!=null){
             searchPlate.setBackgroundColor(Color.parseColor("#ff6501"));
             int searchTextId=searchPlate.getContext().getResources().getIdentifier("@android:search_src_text",null,null);
-            TextView searchText=searchPlate.findViewById(searchTextId);
+            searchText=searchPlate.findViewById(searchTextId);
             if(searchText!=null){
                 searchText.setTextColor(Color.WHITE);
                 searchText.setHintTextColor(Color.WHITE);
             }
         }
 
-        AutoCompleteTextView searchTextView=searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        final AutoCompleteTextView searchTextView=searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         try {
             Field mCursorDrawable=TextView.class.getDeclaredField("mCursorDrawableRes");
             mCursorDrawable.setAccessible(true);
@@ -484,9 +489,26 @@ public class OrderList extends AppCompatActivity implements SearchView.OnQueryTe
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        searchView.setOnQueryTextListener(this);
-//return super.onCreateOptionsMenu(menu);
-        return true;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.clearFocus();
+                Intent intent=new Intent(OrderList.this,OnClickOrder.class);
+                intent.putExtra("Order num",query);
+                startActivity(intent);
+                return true;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+return super.onCreateOptionsMenu(menu);
+
+
+//        return true;
     }
 
 

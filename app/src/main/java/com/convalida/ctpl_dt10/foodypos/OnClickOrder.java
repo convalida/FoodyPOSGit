@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -155,6 +156,7 @@ public class OnClickOrder extends AppCompatActivity {
 
     private class GetOrderDetails extends AsyncTask<String,Void,Wrapper2>{
         int flagResult=1;
+        int flagOderNum=1;
      //   OrderDetailData orderDetailData=new OrderDetailData();
 
         @Override
@@ -170,50 +172,54 @@ public class OnClickOrder extends AppCompatActivity {
                     JSONArray jsonArray=jsonObject.getJSONArray("By_OrderNumber");
                     for(int i=0;i<jsonArray.length();i++) {
                           JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                          JSONObject jsonObject2=jsonObject1.getJSONObject("OnClick");
-                          String name=jsonObject2.getString("CustomerName");
-                          String id=jsonObject2.getString("CustomerId");
-                          String email=jsonObject2.getString("Email");
-                          String contact=jsonObject2.getString("ContactNumber");
-                          String subTotal=jsonObject2.getString("SubTotal");
-                          String taxPer=jsonObject2.getString("TaxInPercentage");
-                          String taxVal=jsonObject2.getString("Taxvalue");
-                          String tip=jsonObject2.getString("Tip");
-                          String grandTotal=jsonObject2.getString("GrandTotal");
-                        itemsList=new ArrayList<>();
-                        JSONArray itemDetailsArray=jsonObject2.getJSONArray("OrderItemDetails");
-                        for(int j=0;j<itemDetailsArray.length();j++){
+                          if(jsonObject1.has("Message")){
+                              flagOderNum=0;
+                          }
+                          else {
+                              JSONObject jsonObject2 = jsonObject1.getJSONObject("OnClick");
+                              String name = jsonObject2.getString("CustomerName");
+                              String id = jsonObject2.getString("CustomerId");
+                              String email = jsonObject2.getString("Email");
+                              String contact = jsonObject2.getString("ContactNumber");
+                              String subTotal = jsonObject2.getString("SubTotal");
+                              String taxPer = jsonObject2.getString("TaxInPercentage");
+                              String taxVal = jsonObject2.getString("Taxvalue");
+                              String tip = jsonObject2.getString("Tip");
+                              String grandTotal = jsonObject2.getString("GrandTotal");
+                              itemsList = new ArrayList<>();
+                              JSONArray itemDetailsArray = jsonObject2.getJSONArray("OrderItemDetails");
+                              for (int j = 0; j < itemDetailsArray.length(); j++) {
 
-                            JSONObject jsonObject3=itemDetailsArray.getJSONObject(j);
-                            String itemName=jsonObject3.getString("SubitemsNames");
-                            String modifier=jsonObject3.getString("Modifier");
-                            String addOn=jsonObject3.getString("AddOn");
-                            String instruction=jsonObject3.getString("Instruction");
-                            String price=jsonObject3.getString("Price");
-                            String addOnPrice=jsonObject3.getString("AddOnPrices");
-                            String total=jsonObject3.getString("Total");
-                            orderDetailChild=new OrderDetailChild();
-                            orderDetailChild.setItemName(itemName);
-                            orderDetailChild.setModifier(modifier);
-                            orderDetailChild.setAddOn(addOn);
-                            orderDetailChild.setItemPrice(price);
-                            orderDetailChild.setAddOnPrice(addOnPrice);
-                            orderDetailChild.setInstructions(instruction);
-                            orderDetailChild.setTotal(total);
+                                  JSONObject jsonObject3 = itemDetailsArray.getJSONObject(j);
+                                  String itemName = jsonObject3.getString("SubitemsNames");
+                                  String modifier = jsonObject3.getString("Modifier");
+                                  String addOn = jsonObject3.getString("AddOn");
+                                  String instruction = jsonObject3.getString("Instruction");
+                                  String price = jsonObject3.getString("Price");
+                                  String addOnPrice = jsonObject3.getString("AddOnPrices");
+                                  String total = jsonObject3.getString("Total");
+                                  orderDetailChild = new OrderDetailChild();
+                                  orderDetailChild.setItemName(itemName);
+                                  orderDetailChild.setModifier(modifier);
+                                  orderDetailChild.setAddOn(addOn);
+                                  orderDetailChild.setItemPrice(price);
+                                  orderDetailChild.setAddOnPrice(addOnPrice);
+                                  orderDetailChild.setInstructions(instruction);
+                                  orderDetailChild.setTotal(total);
 
-                            itemsList.add(orderDetailChild);
-                        }
-                     //   OrderDetailData orderDetailData=new OrderDetailData();
-                        orderDetailData.setCustomerName(name);
-                        orderDetailData.setMailId(email);
-                        orderDetailData.setContact(contact);
-                        orderDetailData.setGrandTotal(grandTotal);
-                        orderDetailData.setSubTotal(subTotal);
-                        orderDetailData.setTaxPercent(taxPer);
-                        orderDetailData.setTaxValue(taxVal);
-                        orderDetailData.setTip(tip);
-                      //  orderDetailDataArrayList.add(orderDetailData);
-
+                                  itemsList.add(orderDetailChild);
+                              }
+                              //   OrderDetailData orderDetailData=new OrderDetailData();
+                              orderDetailData.setCustomerName(name);
+                              orderDetailData.setMailId(email);
+                              orderDetailData.setContact(contact);
+                              orderDetailData.setGrandTotal(grandTotal);
+                              orderDetailData.setSubTotal(subTotal);
+                              orderDetailData.setTaxPercent(taxPer);
+                              orderDetailData.setTaxValue(taxVal);
+                              orderDetailData.setTip(tip);
+                              //  orderDetailDataArrayList.add(orderDetailData);
+                          }
                     }
 
                 }
@@ -231,7 +237,7 @@ public class OnClickOrder extends AppCompatActivity {
         public void onPostExecute(Wrapper2 wrapper2){
          //   super.onPostExecute(orderDetailDataArrayList);
             super.onPostExecute(wrapper2);
-            if(flagResult==1){
+            if(flagResult==1 && flagOderNum==1){
                 mainLayout.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.INVISIBLE);
                 nameText.setText(orderDetailData.getCustomerName());
@@ -255,6 +261,11 @@ public class OnClickOrder extends AppCompatActivity {
                             .setCancelable(false)
                             .create()
                             .show();
+                }
+                else if(flagOderNum==0){
+                    Intent intent=new Intent(OnClickOrder.this,OrderList.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(),"Entered order no. not found",Toast.LENGTH_LONG).show();
                 }
             }
 
