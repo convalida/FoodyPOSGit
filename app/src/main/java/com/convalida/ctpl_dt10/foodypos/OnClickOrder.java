@@ -1,10 +1,17 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class OnClickOrder extends AppCompatActivity {
     TextView ordersImg, nameText, emailText,phone,amountValue,menuIcon;
@@ -57,6 +65,7 @@ public class OnClickOrder extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +74,11 @@ public class OnClickOrder extends AppCompatActivity {
        // Typeface font=Typeface.createFromAsset(getAssets(),"fonts/fontawesome-webfont.ttf");
        // ordersImg.setTypeface(font);
        // ordersImg.setText("\uf0f5");
-        progress=findViewById(R.id.orderDetailProgress);
+
+
+
+
+            progress=findViewById(R.id.orderDetailProgress);
         mainLayout=findViewById(R.id.orderDetailLayout);
         nameText=findViewById(R.id.userText);
         emailText=findViewById(R.id.mailText);
@@ -77,7 +90,8 @@ public class OnClickOrder extends AppCompatActivity {
         menuIcon.setTypeface(font);
         menuIcon.setText("\uf0f5");
         listView=findViewById(R.id.list);
-     /**   listView.setOnTouchListener(new View.OnTouchListener() {
+
+        /**   listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 view.getParent().requestDisallowInterceptTouchEvent(false);
@@ -97,23 +111,39 @@ public class OnClickOrder extends AppCompatActivity {
             actionBar.setTitle("Order Details");
         }
 
-     /**   Intent i=getIntent();
-        receivedJson=i.getStringExtra("OrderDetails");
-        try {
-            parseJson();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(Objects.requireNonNull(getIntent().getExtras()).get("body")!=null) {
+            String extras = getIntent().getExtras().get("body").toString();
+           // Toast.makeText(getApplicationContext(), extras, Toast.LENGTH_LONG).show();
+            assert extras != null;
+            String[] individualStrings=extras.split(" ");
+            String order=individualStrings[1];
+            String orderNo=order.substring(1);
+
+            orderNum=orderNo;
+
+        }
+     /**   else if(getIntent().getExtras().get("OrderNo")!=null){
+            String orderNo=getIntent().getExtras().get("OrderNo").toString();
+            orderNum=orderNo;
         }**/
-     Intent i=getIntent();
-     startDate=i.getStringExtra("Start date");
-     endDate=i.getStringExtra("End date");
-     orderNum=i.getStringExtra("Order num");
+        else{
+           // Toast.makeText(getApplicationContext(),"No extras",Toast.LENGTH_LONG).show();
+         //   Toast.makeText(getApplicationContext(),orderNum,Toast.LENGTH_LONG).show();
+            Intent i=getIntent();
+            startDate=i.getStringExtra("Start date");
+            endDate=i.getStringExtra("End date");
+         orderNum=i.getStringExtra("Order num");
+
+        //    Toast.makeText(getApplicationContext(),orderNum,Toast.LENGTH_LONG).show();
+        }
+
+
         fetchPosts();
-   //     ordersExpandable.setOnChildClickListener(myListItemClicked);
-     //   ordersExpandable.setOnGroupClickListener(myListGroupClicked);
-      //  expandableOnClickListAdapter=new ExpandableOnClickList(this,orderDetailHeaders);
+        //     ordersExpandable.setOnChildClickListener(myListItemClicked);
+        //   ordersExpandable.setOnGroupClickListener(myListGroupClicked);
+        //  expandableOnClickListAdapter=new ExpandableOnClickList(this,orderDetailHeaders);
         //ordersExpandable.setAdapter(expandableOnClickListAdapter);
-    //    expandAll();
+        //    expandAll();
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,11 +156,57 @@ public class OnClickOrder extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+     /**   Intent i=getIntent();
+        receivedJson=i.getStringExtra("OrderDetails");
+        try {
+            parseJson();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }**/
 
    //     nameText.setText(orderDetailData.getCustomerName());
      //   emailText.setText(orderDetailData.getMailId());
       //  phone.setText(orderDetailData.getContact());
     }
+
+  /**  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(resultCode,requestCode,data);
+        if(requestCode!=2){
+            if (data.getExtras() != null) {
+                //    for (String key : getIntent().getExtras().keySet()) {
+                //  if (key.equals("body")) {
+                String title = getIntent().getExtras().getString("title");
+                String msg = Objects.requireNonNull(getIntent().getExtras()).getString("body");
+                assert msg != null;
+                String[] individualStrings = msg.split(" ");
+                String order = individualStrings[1];
+                String orderNum = order.substring(1);
+
+                Intent intent = new Intent(getApplicationContext(), OnClickOrder.class);
+                //  intent.putExtra("Msg",msg);
+                intent.putExtra("Order num", orderNum);
+
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
+                @SuppressLint("ResourceType") Notification notification = new NotificationCompat.Builder(this, "my_channel_01")
+                        .setContentTitle(title)
+                        .setContentText(msg)
+                        .setContentIntent(pendingIntent)
+                        .setSmallIcon(R.drawable.icon)
+                        .setAutoCancel(true)
+                        .setColor(getResources().getColor(R.color.colorAccent))
+                        .build();
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+                // NotificationManager managerCompat= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                managerCompat.notify(123, notification);
+            }
+
+
+        }
+
+
+    }**/
 
     private void fetchPosts() {
         final String url="http://business.foodypos.com/App/Api.asmx/Orderlist?RestaurantId="+restId+"&startdate="+startDate+"&enddate="+endDate+"&ordernumber="+orderNum;

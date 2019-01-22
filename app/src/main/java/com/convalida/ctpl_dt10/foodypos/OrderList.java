@@ -1,7 +1,11 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +13,8 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +59,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class OrderList extends AppCompatActivity {
 
@@ -155,6 +162,7 @@ public class OrderList extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +175,33 @@ public class OrderList extends AppCompatActivity {
         //    setContentView(R.layout.activity_order_list);
         fromDate = findViewById(R.id.From);
         toDate = findViewById(R.id.To);
+   /**     if(getIntent().getExtras()!=null){
+            String title = Objects.requireNonNull(getIntent().getExtras()).getString("title");
+            String msg = Objects.requireNonNull(getIntent().getExtras()).getString("body");
+            assert msg != null;
+            String[] individualStrings = msg.split(" ");
+            String order = individualStrings[1];
+            String orderNum = order.substring(1);
+
+            Intent intent = new Intent(getApplicationContext(), OnClickOrder.class);
+            //  intent.putExtra("Msg",msg);
+            intent.putExtra("Order num", orderNum);
+
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 1, intent, 0);
+            @SuppressLint("ResourceType") Notification notification = new NotificationCompat.Builder(this, "my_channel_01")
+                    .setContentTitle(title)
+                    .setContentText(msg)
+                    .setContentIntent(pendingIntent)
+                    .setSmallIcon(R.drawable.icon)
+                    .setAutoCancel(true)
+                    .setColor(getResources().getColor(R.color.colorAccent))
+                    .build();
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getApplicationContext());
+            // NotificationManager managerCompat= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            managerCompat.notify(123, notification);
+        }**/
+
         if (CheckNetwork.isNetworkAvailable(OrderList.this)) {
             orders = findViewById(R.id.orders);
             amount = findViewById(R.id.amountValue);
@@ -434,7 +469,8 @@ public class OrderList extends AppCompatActivity {
             intent.putExtra("End date",toDate.getText().toString());
             intent.putExtra("Order num",parentArray.get(groupPosition).get(childPosition));
           //  Toast.makeText(getApplicationContext(),parentArray.get(groupPosition).get(childPosition),Toast.LENGTH_LONG).show();
-            startActivity(intent);
+          //  startActivity(intent);
+            startActivityForResult(intent,2);
             return false;
         }
     };
@@ -457,12 +493,14 @@ public class OrderList extends AppCompatActivity {
     }
 **/
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public boolean onCreateOptionsMenu(Menu menu){
         //super.onCreateOptionsMenu(menu);
         //menuInflater.inflate(R.menu.menu_search,menu);
         getMenuInflater().inflate(R.menu.menu_search,menu);
         MenuItem item=menu.findItem(R.id.search_icon);
+
         final SearchView searchView= (SearchView) item.getActionView();
         searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchView.setQueryHint("Enter Order No.");

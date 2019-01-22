@@ -51,10 +51,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
        }
        else{**/
-            Intent intent=new Intent(getApplicationContext(),OrderList.class);
+    String msg=Objects.requireNonNull(remoteMessage.getNotification()).getBody();
+        assert msg != null;
+        String[] individualStrings=msg.split(" ");
+        String order=individualStrings[1];
+        String orderNum=order.substring(1);
+int id= (int) (Math.random()*10);
+            Intent intent=new Intent(getApplicationContext(),OnClickOrder.class);
+          //  intent.putExtra("Msg",msg);
+        intent.putExtra("Order num",orderNum);
             //intent.setAction(Intent.ACTION_MAIN);
             // intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),1,intent,0);
+            PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(),1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             @SuppressLint("ResourceType") Notification notification=new NotificationCompat.Builder(this,"my_channel_01")
        //     Notification notification=new Notification.Builder(getApplicationContext())
                     .setContentTitle(Objects.requireNonNull(remoteMessage.getNotification()).getTitle())
@@ -64,9 +72,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
                     .build();
+       // intent.removeExtra("Order num");
             NotificationManagerCompat managerCompat=NotificationManagerCompat.from(getApplicationContext());
            // NotificationManager managerCompat= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            managerCompat.notify(123,notification);
+            managerCompat.notify(id,notification);
+            Log.e(TAG, Integer.toString(id));
+         //   Toast.makeText(getApplicationContext(),id.hashCode(),Toast.LENGTH_LONG).show();
 
         }
 //        String title=Objects.requireNonNull(remoteMessage.getNotification()).getTitle();

@@ -38,10 +38,7 @@
         <activity android:name="com.convalida.ctpl_dt10.foodypos.Login" />
         <activity android:name="com.convalida.ctpl_dt10.foodypos.OrderList"
             >
-            <intent-filter>
-                <action android:name="OPEN_ACTIVITY"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+
         </activity>
         <activity android:name="com.convalida.ctpl_dt10.foodypos.BestSeller" />
         <activity android:name="com.convalida.ctpl_dt10.foodypos.TopSeller" />
@@ -68,7 +65,13 @@
         <activity
             android:name="com.convalida.ctpl_dt10.foodypos.ResetPassword"
             android:theme="@style/ForgotPasswordDialog" />
-        <activity android:name="com.convalida.ctpl_dt10.foodypos.OnClickOrder" />
+        <activity android:name="com.convalida.ctpl_dt10.foodypos.OnClickOrder" >
+            <intent-filter>
+                <action android:name="OPEN_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+        </activity>
         <activity
             android:name="com.convalida.ctpl_dt10.foodypos.AmountDetails"
             android:theme="@style/ForgotPasswordDialog" />
