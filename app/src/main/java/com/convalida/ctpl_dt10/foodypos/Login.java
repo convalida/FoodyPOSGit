@@ -64,6 +64,7 @@ public class Login extends AppCompatActivity {
         rememberCheck=findViewById(R.id.rememberMe);
         if(SharedPrefManagerToken.getmInstance(this).getDeviceToken()!=null) {
             token = SharedPrefManagerToken.getmInstance(this).getDeviceToken();
+            Log.e(TAG,token);
         }
         else{
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, new OnSuccessListener<InstanceIdResult>() {

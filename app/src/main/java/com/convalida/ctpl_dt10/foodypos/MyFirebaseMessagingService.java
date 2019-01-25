@@ -8,7 +8,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,10 +24,12 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG="MyFirebaseMessaginging";
+    Uri defaultSoundUri=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
     public void onNewToken(String s){
         super.onNewToken(s);
@@ -36,6 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onTokenRefresh(){
 
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onMessageReceived(RemoteMessage remoteMessage){
@@ -57,6 +63,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String order=individualStrings[1];
         String orderNum=order.substring(1);
 int id= (int) (Math.random()*10);
+
+       // Map<String,String> data=remoteMessage.getData();
+       // data.get("vibrate");
             Intent intent=new Intent(getApplicationContext(),OnClickOrder.class);
           //  intent.putExtra("Msg",msg);
         intent.putExtra("Order num",orderNum);
@@ -68,15 +77,32 @@ int id= (int) (Math.random()*10);
                     .setContentTitle(Objects.requireNonNull(remoteMessage.getNotification()).getTitle())
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setSmallIcon(R.drawable.icon)
+                    .setSound(defaultSoundUri)
+                    .setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE)
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .setVisibility(Notification.VISIBILITY_PUBLIC)
+                    .setVibrate(new long[]{1000,100,1000,100,1000})
+                   // .setLights()
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
                     .setColor(getResources().getColor(R.color.colorAccent))
                     .build();
-       // intent.removeExtra("Order num");
+       // intent.removeExtra("Order num");x
             NotificationManagerCompat managerCompat=NotificationManagerCompat.from(getApplicationContext());
            // NotificationManager managerCompat= (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             managerCompat.notify(id,notification);
+        /**Vibrator vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        assert vibrator != null;
+        vibrator.vibrate(new long[] {1000, 100, 1000, 100, 1000},1);**/
             Log.e(TAG, Integer.toString(id));
+        if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.O){
+
+            NotificationChannel notificationChannel=new NotificationChannel(Constants.CHANNEL_ID,Constants.CHANNEL_NAME,NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100,200,300, 400,500, 400, 300, 200, 400});
+            NotificationManager notificationManager= (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(notificationChannel);
          //   Toast.makeText(getApplicationContext(),id.hashCode(),Toast.LENGTH_LONG).show();
 
         }
@@ -135,4 +161,7 @@ int id= (int) (Math.random()*10);
             e.printStackTrace();
         }
     }**/
+
+
+}
 }

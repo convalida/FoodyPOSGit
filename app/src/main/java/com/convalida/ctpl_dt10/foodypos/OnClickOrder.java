@@ -111,13 +111,14 @@ public class OnClickOrder extends AppCompatActivity {
             actionBar.setTitle("Order Details");
         }
 
-        if(Objects.requireNonNull(getIntent().getExtras()).get("body")!=null) {
-            String extras = getIntent().getExtras().get("body").toString();
+        if(Objects.requireNonNull(getIntent().getExtras()).get("OrderNo")!=null) {
+          /**  String extras = getIntent().getExtras().get("body").toString();
            // Toast.makeText(getApplicationContext(), extras, Toast.LENGTH_LONG).show();
             assert extras != null;
             String[] individualStrings=extras.split(" ");
             String order=individualStrings[1];
-            String orderNo=order.substring(1);
+            String orderNo=order.substring(1);**/
+          String orderNo=getIntent().getExtras().get("OrderNo").toString();
 
             orderNum=orderNo;
 
