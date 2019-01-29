@@ -2,13 +2,16 @@ package com.convalida.ctpl_dt10.foodypos;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,11 +19,21 @@ import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,6 +51,7 @@ public class BestsellerMore extends AppCompatActivity {
     ProgressBar progressBar;
     Button searchBtn;
     Date date1,date2;
+    private static final String TAG="BestsellerMore";
     //  ArrayList<BestsellerHeaderList> bestsellerHeaderLists=new ArrayList<>();
 
     BestsellerHeaderList bestsellerHeaderList;
@@ -168,7 +182,7 @@ public class BestsellerMore extends AppCompatActivity {
                             dialog.setIcon(R.drawable.mark1);
                             dialog.setTitle("Invalid date selection");
                             dialog.setMessage("To date is less than from date");
-                            dialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            dialog.setButton(Dialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -193,7 +207,7 @@ public class BestsellerMore extends AppCompatActivity {
                 }
             });
 //getData();
-            ArrayList<BestsellerHeaderList> headerLists = new ArrayList<>();
+          /**  ArrayList<BestsellerHeaderList> headerLists = new ArrayList<>();
             BestsellerHeaderList bestsellerHeaderList1 = new BestsellerHeaderList();
             BestsellerChildlist bestsellerChildlist = new BestsellerChildlist();
             ArrayList<BestsellerChildlist> bestsellerChildlists = new ArrayList<>();
@@ -241,12 +255,91 @@ public class BestsellerMore extends AppCompatActivity {
             int count = bestsellerMoreAdapter.getGroupCount();
             for (int i = 0; i < count; i++) {
                 expandableListBestseller.expandGroup(i);
-            }
+            }**/
 
         }
 
     }
 
     private void fetchData() {
+        final String url="http://business.foodypos.com/App/Api.asmx/GetAllBestselleritems?RestaurantId="+restId+"&fromdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString();
+        StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(300000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(stringRequest);
+
+
+            }
+    Response.Listener<String> onPostsLoaded=new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            Log.e(TAG,response);
+            GetBestsellerMore bestsellerMore=new GetBestsellerMore();
+            bestsellerMore.execute(response);
+        }
+    };
+    Response.ErrorListener onPostsError=new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(getApplicationContext(),"Sorry, some error occured",Toast.LENGTH_LONG).show();
+        }
+    };
+
+    private class GetBestsellerMore extends AsyncTask<String, Void, ArrayList<BestsellerHeaderList>> {
+        ArrayList<BestsellerHeaderList> parentArrayList;
+        ArrayList<BestsellerChildlist> childArrayList;
+        BestsellerHeaderList bestsellerHeaderList;
+        BestsellerChildlist bestsellerChildlist;
+        int flagResult=1;
+        int orderCount=0;
+        @Override
+        protected ArrayList<BestsellerHeaderList> doInBackground(String... response) {
+            try {
+                JSONObject jsonObject=new JSONObject(response[0]);
+                if(jsonObject.has("Message")){
+                    flagResult=0;
+                }
+                else{
+
+                    JSONObject jsonObject1=jsonObject.getJSONObject("By_DateSelection");
+                    JSONArray headingArray=jsonObject1.getJSONArray("YearlyBestsellerItems");
+                    parentArrayList=new ArrayList<>();
+                    for(int i=0;i<headingArray.length();i++){
+                        bestsellerHeaderList=new BestsellerHeaderList();
+                        JSONObject jsonObject2=headingArray.getJSONObject(i);
+                        String year=jsonObject2.getString("Year");
+
+                       // parentArrayList.add(year)
+                        JSONArray itemsArray=jsonObject2.getJSONArray("Items_Details");
+                        childArrayList=new ArrayList<>();
+                        for(int j=0;j<itemsArray.length();j++){
+                            bestsellerChildlist=new BestsellerChildlist();
+                            JSONObject jsonObject3=itemsArray.getJSONObject(j);
+                            String itemName=jsonObject3.getString("Subitems");
+                            String count=jsonObject3.getString("Counting");
+                            int counting=Integer.parseInt(count);
+                            bestsellerChildlist.setCounting(count);
+                            bestsellerChildlist.setItemname(itemName);
+                            childArrayList.add(bestsellerChildlist);
+                            orderCount=orderCount+counting;
+                        }
+                        bestsellerHeaderList.setDay(year);
+                        bestsellerHeaderList.setChildlists(childArrayList);
+                        parentArrayList.add(bestsellerHeaderList);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return parentArrayList;
+        }
+        public void onPostExecute(ArrayList<BestsellerHeaderList> parentList){
+            super.onPostExecute(parentList);
+            progressBar.setVisibility(View.INVISIBLE);
+            mainLayout.setVisibility(View.VISIBLE);
+            BestsellerMoreAdapter bestsellerMoreAdapter = new BestsellerMoreAdapter(BestsellerMore.this, parentList);
+            expandableListBestseller.setAdapter(bestsellerMoreAdapter);
+            expandableListBestseller.expandGroup(0);
+            orders.setText(String.valueOf(orderCount));
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
@@ -413,7 +414,7 @@ public class OrderList extends AppCompatActivity {
                             dialog.setIcon(R.drawable.mark1);
                             dialog.setTitle("Invalid date selection");
                             dialog.setMessage("To date is less than from date");
-                            dialog.setButton("OK", new DialogInterface.OnClickListener() {
+                            dialog.setButton(Dialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
