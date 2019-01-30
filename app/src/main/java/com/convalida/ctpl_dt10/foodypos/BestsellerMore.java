@@ -49,6 +49,7 @@ public class BestsellerMore extends AppCompatActivity {
     BestsellerMoreAdapter bestsellerMoreAdapter;
     RelativeLayout mainLayout;
     ProgressBar progressBar;
+    int flagDay;
     Button searchBtn;
     Date date1,date2;
     private static final String TAG="BestsellerMore";
@@ -94,11 +95,27 @@ public class BestsellerMore extends AppCompatActivity {
             }
             if(in.getIntExtra("Flag",0)==1){
                 actionBar.setTitle("Weekly Bestseller Items");
+                flagDay=0;
+                Calendar calendar=Calendar.getInstance();
+                calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+                calendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+                fromDate.setText(simpleDateFormat.format(calendar.getTime()));
+
+                Date date=Calendar.getInstance().getTime();
+                toDate.setText(simpleDateFormat.format(date));
             }
             else if(in.getIntExtra("Flag",0)==2){
                 actionBar.setTitle("Monthly Bestseller items");
+                flagDay=1;
+                Calendar calendar=Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH,1);
+                fromDate.setText(simpleDateFormat.format(calendar.getTime()));
+
+                Date date=Calendar.getInstance().getTime();
+                toDate.setText(simpleDateFormat.format(date));
             }
             else{
+                flagDay=2;
                 actionBar.setTitle("Yearly Bestseller items");
                 int year=Calendar.getInstance().get(Calendar.YEAR);
                 myCalendar.set(Calendar.YEAR,year);
@@ -298,33 +315,85 @@ public class BestsellerMore extends AppCompatActivity {
                 if(jsonObject.has("Message")){
                     flagResult=0;
                 }
-                else{
+                else {
 
-                    JSONObject jsonObject1=jsonObject.getJSONObject("By_DateSelection");
-                    JSONArray headingArray=jsonObject1.getJSONArray("YearlyBestsellerItems");
-                    parentArrayList=new ArrayList<>();
-                    for(int i=0;i<headingArray.length();i++){
-                        bestsellerHeaderList=new BestsellerHeaderList();
-                        JSONObject jsonObject2=headingArray.getJSONObject(i);
-                        String year=jsonObject2.getString("Year");
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("By_DateSelection");
+                    if (flagDay == 2) {
+                        JSONArray headingArray = jsonObject1.getJSONArray("YearlyBestsellerItems");
+                        parentArrayList = new ArrayList<>();
+                        for (int i = 0; i < headingArray.length(); i++) {
+                            bestsellerHeaderList = new BestsellerHeaderList();
+                            JSONObject jsonObject2 = headingArray.getJSONObject(i);
+                            String year = jsonObject2.getString("Year");
 
-                       // parentArrayList.add(year)
-                        JSONArray itemsArray=jsonObject2.getJSONArray("Items_Details");
-                        childArrayList=new ArrayList<>();
-                        for(int j=0;j<itemsArray.length();j++){
-                            bestsellerChildlist=new BestsellerChildlist();
-                            JSONObject jsonObject3=itemsArray.getJSONObject(j);
-                            String itemName=jsonObject3.getString("Subitems");
-                            String count=jsonObject3.getString("Counting");
-                            int counting=Integer.parseInt(count);
-                            bestsellerChildlist.setCounting(count);
-                            bestsellerChildlist.setItemname(itemName);
-                            childArrayList.add(bestsellerChildlist);
-                            orderCount=orderCount+counting;
+                            // parentArrayList.add(year)
+                            JSONArray itemsArray = jsonObject2.getJSONArray("Items_Details");
+                            childArrayList = new ArrayList<>();
+                            for (int j = 0; j < itemsArray.length(); j++) {
+                                bestsellerChildlist = new BestsellerChildlist();
+                                JSONObject jsonObject3 = itemsArray.getJSONObject(j);
+                                String itemName = jsonObject3.getString("Subitems");
+                                String count = jsonObject3.getString("Counting");
+                                int counting = Integer.parseInt(count);
+                                bestsellerChildlist.setCounting(count);
+                                bestsellerChildlist.setItemname(itemName);
+                                childArrayList.add(bestsellerChildlist);
+                                orderCount = orderCount + counting;
+                            }
+                            bestsellerHeaderList.setDay(year);
+                            bestsellerHeaderList.setChildlists(childArrayList);
+                            parentArrayList.add(bestsellerHeaderList);
                         }
-                        bestsellerHeaderList.setDay(year);
-                        bestsellerHeaderList.setChildlists(childArrayList);
-                        parentArrayList.add(bestsellerHeaderList);
+                    }
+                    if(flagDay==1){
+                        JSONArray headingArray=jsonObject1.getJSONArray("MonthlyBestsellerItems");
+                        parentArrayList=new ArrayList<>();
+                        for(int i=0;i<headingArray.length();i++){
+                            bestsellerHeaderList=new BestsellerHeaderList();
+                            JSONObject jsonObject2=headingArray.getJSONObject(i);
+                            String month=jsonObject2.getString("Month");
+                            JSONArray itemsArray = jsonObject2.getJSONArray("Items_Details");
+                            childArrayList = new ArrayList<>();
+                            for (int j = 0; j < itemsArray.length(); j++) {
+                                bestsellerChildlist = new BestsellerChildlist();
+                                JSONObject jsonObject3 = itemsArray.getJSONObject(j);
+                                String itemName = jsonObject3.getString("Subitems");
+                                String count = jsonObject3.getString("Counting");
+                                int counting = Integer.parseInt(count);
+                                bestsellerChildlist.setCounting(count);
+                                bestsellerChildlist.setItemname(itemName);
+                                childArrayList.add(bestsellerChildlist);
+                                orderCount = orderCount + counting;
+                            }
+                            bestsellerHeaderList.setDay(month);
+                            bestsellerHeaderList.setChildlists(childArrayList);
+                            parentArrayList.add(bestsellerHeaderList);
+                        }
+                    }
+                    if(flagDay==0){
+                        JSONArray headingArray=jsonObject1.getJSONArray("WeeklyBestsellerItems");
+                        parentArrayList=new ArrayList<>();
+                        for(int i=0;i<headingArray.length();i++){
+                            bestsellerHeaderList=new BestsellerHeaderList();
+                            JSONObject jsonObject2=headingArray.getJSONObject(i);
+                            String week=jsonObject2.getString("Week");
+                            JSONArray itemsArray = jsonObject2.getJSONArray("Items_Details");
+                            childArrayList = new ArrayList<>();
+                            for (int j = 0; j < itemsArray.length(); j++) {
+                                bestsellerChildlist = new BestsellerChildlist();
+                                JSONObject jsonObject3 = itemsArray.getJSONObject(j);
+                                String itemName = jsonObject3.getString("Subitems");
+                                String count = jsonObject3.getString("Counting");
+                                int counting = Integer.parseInt(count);
+                                bestsellerChildlist.setCounting(count);
+                                bestsellerChildlist.setItemname(itemName);
+                                childArrayList.add(bestsellerChildlist);
+                                orderCount = orderCount + counting;
+                            }
+                            bestsellerHeaderList.setDay(week);
+                            bestsellerHeaderList.setChildlists(childArrayList);
+                            parentArrayList.add(bestsellerHeaderList);
+                        }
                     }
                 }
             } catch (JSONException e) {
