@@ -18,6 +18,10 @@ public class CustomerClickModel {
         this.taxPer=taxPer;
     }
 
+    public CustomerClickModel() {
+
+    }
+
     public String getTaxPer() {
         return taxPer;
     }

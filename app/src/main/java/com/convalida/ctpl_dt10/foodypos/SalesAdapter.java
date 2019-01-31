@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-public class SalesAdapter extends RecyclerView.Adapter<SalesListViewHolder> implements View.OnClickListener {
+public class SalesAdapter extends RecyclerView.Adapter<SalesListViewHolder>  {
 
     List<SalesData> list = Collections.emptyList();
     Context context;
@@ -42,7 +42,15 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesListViewHolder> impl
         holder.phone.setText(list.get(position).phone);
         holder.orders.setText(list.get(position).orders);
         holder.ammount.setText(list.get(position).ammount);
-        holder.name.setOnClickListener(this);
+    //    holder.name.setOnClickListener(this);
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,CustomerClick.class);
+                intent.putExtra("Customer click",list.get(position).customerId);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -72,12 +80,12 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesListViewHolder> impl
     }
 
 
-    @Override
+  /**  @Override
     public void onClick(View v) {
         Intent intent=new Intent(context,CustomerClick.class);
       //  intent.putExtra()
         context.startActivity(intent);
-    }
+    }**/
 }
 
 

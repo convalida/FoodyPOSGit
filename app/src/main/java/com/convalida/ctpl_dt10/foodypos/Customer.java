@@ -281,6 +281,7 @@ public class Customer extends AppCompatActivity{
                     String contact =jsonObject2.getString("ContactNo");
                     String amount=jsonObject2.getString("Totalamount");
                     String orders=jsonObject2.getString("TotalOrders");
+                    String custId=jsonObject2.getString("CustomerId");
                     currentOrder=Integer.parseInt(orders);
                     currentAmount=Double.parseDouble(amount);
                     SalesData salesData=new SalesData();
@@ -288,6 +289,7 @@ public class Customer extends AppCompatActivity{
                     salesData.setPhone(contact);
                     salesData.setAmmount("$ "+amount);
                     salesData.setOrders(orders);
+                    salesData.setCustomerId(custId);
                     salesData.setImageText(String.valueOf(cusName.charAt(0)));
                     salesList.add(salesData);
                     amountTotal=amountTotal+currentAmount;

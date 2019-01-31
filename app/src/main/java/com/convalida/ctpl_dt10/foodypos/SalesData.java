@@ -2,7 +2,7 @@ package com.convalida.ctpl_dt10.foodypos;
 
 public class SalesData {
 
-    String imageText,name,phone,orders,ammount;
+    String imageText,name,phone,orders,ammount,customerId;
 
     public SalesData(){
 
@@ -54,5 +54,13 @@ public class SalesData {
 
     public void setAmmount(String ammount) {
         this.ammount = ammount;
+    }
+
+    public String getCustomerId(){
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId){
+        this.customerId=customerId;
     }
 }

@@ -318,6 +318,13 @@ public class OnClickOrder extends AppCompatActivity {
                 mainLayout.setVisibility(View.VISIBLE);
                 progress.setVisibility(View.INVISIBLE);
                 nameText.setText(orderDetailData.getCustomerName());
+              /**  nameText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent=new Intent(OnClickOrder.this,CustomerClick.class);
+                        startActivity(intent);
+                    }
+                });**/
                 emailText.setText(orderDetailData.getMailId());
                 phone.setText(orderDetailData.getContact());
                 amountValue.setText("$"+orderDetailData.getGrandTotal());
