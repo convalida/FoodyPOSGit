@@ -215,11 +215,13 @@ public class Login extends AppCompatActivity {
                   String restId=jsonObject.getString("RestaurantId");
                   String restName=jsonObject.getString("RestaurentName");
                   String name=jsonObject.getString("UserName");
+                  String role=jsonObject.getString("Role");
                   SharedPreferences preferences=getSharedPreferences("RestaurantId",MODE_PRIVATE);
                   SharedPreferences.Editor editor=preferences.edit();
                   editor.putString("Id",restId);
                   editor.putString("Name",restName);
                   editor.putString("userName",name);
+                  editor.putString("RoleType",role);
                   editor.apply();
               }
           } catch (JSONException e) {

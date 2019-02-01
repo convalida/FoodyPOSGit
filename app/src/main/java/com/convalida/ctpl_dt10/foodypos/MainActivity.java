@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity
     RecyclerView recyclerView;
     ArrayList<String> heading;
     XAxis xAxis;
-    String restId, restName;
+    Menu menu;
+    String restId, restName, roleType;
     ArrayList<Entry> weekOrdersList, weekSalesList, monthOrdersList, monthSalesList, yearOrderList, yearSalesList;
     ArrayList<String> xWeekLabel = new ArrayList<>();
     ArrayList<String> xMonthLabel = new ArrayList<>();
@@ -117,9 +118,15 @@ public class MainActivity extends AppCompatActivity
 if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    mainNavigationView = findViewById(R.id.nav_view);
+    menu = mainNavigationView.getMenu();
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("RestaurantId", MODE_PRIVATE);
         restId = sharedPreferences.getString("Id", "");
         restName = sharedPreferences.getString("Name", "");
+        roleType = sharedPreferences.getString("RoleType","");
+        if(roleType.equals("Employee")){
+            hideItem();
+        }
         Log.e(TAG, restId);
         Log.e(TAG, restName);
         if (getSupportActionBar() != null) {
@@ -159,8 +166,8 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 //        bottomNavigationView.inflateMenu(R.menu.bottom_navigation);
-        mainNavigationView = findViewById(R.id.nav_view);
-        Menu menu = mainNavigationView.getMenu();
+
+    //    hideItem();
         MenuItem sale = menu.findItem(R.id.customer_details);
 
 
@@ -417,6 +424,10 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
 
     }
 }
+
+    private void hideItem() {
+        menu.findItem(R.id.employee).setVisible(false);
+    }
 
 
     private void getLables() {
