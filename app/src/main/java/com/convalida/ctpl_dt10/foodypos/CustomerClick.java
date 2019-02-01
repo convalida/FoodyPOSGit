@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,8 @@ public class CustomerClick extends AppCompatActivity {
     CustomerClickModel customerClickModel;
     ArrayList<CustomerClickModel> customerHistory;
     Gson gson;
+    LinearLayout linearLayout;
+    ProgressBar progressBar;
     String restId;
     TextView name,email,contact;
     OrderDetailData orderDetailData=new OrderDetailData();
@@ -52,6 +57,8 @@ private static final String TAG="CustomerClick";
             name=findViewById(R.id.userText);
             contact=findViewById(R.id.contactText);
             email=findViewById(R.id.mailText);
+            linearLayout=findViewById(R.id.mainLayout);
+            progressBar=findViewById(R.id.progressBar);
             Intent intent=getIntent();
             customerId=intent.getStringExtra("Customer click");
           //  Toast.makeText(getApplicationContext(),customerId,Toast.LENGTH_LONG).show();
@@ -160,14 +167,21 @@ private static final String TAG="CustomerClick";
 
         public void onPostExecute(Wrapper3 wrapper3){
             super.onPostExecute(wrapper3);
-            name.setText(orderDetailData.getCustomerName());
-            email.setText(orderDetailData.getMailId());
-            contact.setText(orderDetailData.getContact());
-            customerClickAdapter = new CustomerClickAdapter(customerHistory);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(customerClickAdapter);
-        }
+            if(flagResult==1) {
+                linearLayout.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                name.setText(orderDetailData.getCustomerName());
+                email.setText(orderDetailData.getMailId());
+                contact.setText(orderDetailData.getContact());
+                customerClickAdapter = new CustomerClickAdapter(customerHistory);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(customerClickAdapter);
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Server error",Toast.LENGTH_LONG).show();
+            }
+            }
 
     }
 }

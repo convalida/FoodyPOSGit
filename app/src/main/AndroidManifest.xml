@@ -84,7 +84,6 @@
         <activity
             android:name="com.convalida.ctpl_dt10.foodypos.AmountCustomer"
             android:theme="@style/ForgotPasswordDialog" />
-        <activity android:name="com.convalida.ctpl_dt10.foodypos.CustomerOrderDetails" />
         <activity
             android:name="com.convalida.ctpl_dt10.foodypos.EmptyActivity"
             android:launchMode="singleInstance"

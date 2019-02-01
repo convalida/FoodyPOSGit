@@ -35,7 +35,10 @@ public class CustomerClickAdapter extends RecyclerView.Adapter<CustomerClickAdap
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getRootView().getContext(),CustomerOrderDetails.class);
+             //   Intent intent=new Intent(v.getRootView().getContext(),CustomerOrderDetails.class);
+              //  v.getRootView().getContext().startActivity(intent);
+                Intent intent=new Intent(v.getRootView().getContext(),OnClickOrder.class);
+                intent.putExtra("Order num",customerOrdersList.get(position).getOrderNum());
                 v.getRootView().getContext().startActivity(intent);
             }
         });
@@ -48,7 +51,7 @@ public class CustomerClickAdapter extends RecyclerView.Adapter<CustomerClickAdap
             v.getRootView().getContext().startActivity(intent);
         }
     });
-    holder.price.setOnClickListener(new View.OnClickListener() {
+   /** holder.price.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intent=new Intent(v.getRootView().getContext(),AmountCustomer.class);
@@ -59,7 +62,7 @@ public class CustomerClickAdapter extends RecyclerView.Adapter<CustomerClickAdap
             intent.putExtra("TaxPer",customerOrdersList.get(position).getTaxPer());
             v.getRootView().getContext().startActivity(intent);
         }
-    });
+    });**/
 
     }
 

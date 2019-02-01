@@ -643,6 +643,15 @@ return super.onCreateOptionsMenu(menu);
             }
            else if(flagResult==0){
                 Toast.makeText(OrderList.this,"Server error",Toast.LENGTH_LONG).show();
+            /**   Log.e(TAG,"Server error");
+               new AlertDialog.Builder(OrderList.this)
+                       .setMessage("Soory, unable to connect to server. Please try after some time")
+                       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+
+                           }
+                       })**/
             }
 
         }
