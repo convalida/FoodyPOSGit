@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+<group android:checkableBehavior="none">
         <item
             android:title="@string/dashboard"
             android:id="@+id/dashboard"
+            android:checked="true"
             android:icon="@drawable/ic_home_black_24dp"/>
         <item
             android:icon="@drawable/ic_shopping_cart_black_24dp"
@@ -20,9 +21,9 @@
             android:id="@+id/reports"
             android:icon="@drawable/orderlist"
             android:title="@string/reports" />
-    </group>
 
 
+</group>
 
 
         <item

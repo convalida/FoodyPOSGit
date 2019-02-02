@@ -127,6 +127,7 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         if(roleType.equals("Employee")){
             hideItem();
         }
+       MenuItem item= menu.findItem(R.id.dashboard);
         Log.e(TAG, restId);
         Log.e(TAG, restName);
         if (getSupportActionBar() != null) {
@@ -251,11 +252,13 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
                         // fragment=new OrderListFragment();
                         Intent intent = new Intent(MainActivity.this, OrderList.class);
                         startActivity(intent);
+
                         break;
                     case R.id.bestSeller:
                         // selectedFragment=BestSellerFragment.newInstance();
                         Intent bestSeller = new Intent(MainActivity.this, BestSeller.class);
                         startActivity(bestSeller);
+
                         break;
                     case R.id.topSale:
                         //selectedFragment=TopSaleFragment.newInstance();
@@ -424,6 +427,13 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
 
     }
 }
+   /** public void onNavigationItemSelected(MenuItem item){
+        int id=item.getItemId();
+        if(id==R.id.dashboard){
+            item.setChecked(false);
+        }
+    }**/
+
 
     private void hideItem() {
         menu.findItem(R.id.employee).setVisible(false);
@@ -509,13 +519,14 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+       // item.setChecked(false);
         switch (id){
             case R.id.dashboard:
                 Intent intentDashboard=new Intent(MainActivity.this,MainActivity.class);
                 startActivity(intentDashboard);
                 break;
             case R.id.orderList:
+              //  item.setChecked(false);
                 Intent intentOrderList=new Intent(MainActivity.this,OrderList.class);
                 startActivity(intentOrderList);
 
@@ -523,7 +534,7 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
             case R.id.customer_details:
                 Intent intentCustomer=new Intent(MainActivity.this,Customer.class);
                 startActivity(intentCustomer);
-
+               // item.setChecked(false);
                 //new activity with fields similar to TopSeller, but datewise customer details, bt topseller shows top 3 Customer
               //  Intent intentCustomer=new Intent(MainActivity.this,TopSeller.class);
                // startActivity(intentCustomer);
@@ -531,16 +542,18 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
             case R.id.reports:
                 Intent reportsIntent=new Intent(MainActivity.this,Reports.class);
                 startActivity(reportsIntent);
-
+               // item.setChecked(false);
                 break;
             case R.id.employee:
                 Intent intentEmployee=new Intent(MainActivity.this,EmployeeDetails.class);
                 startActivity(intentEmployee);
+               // item.setChecked(false);
                 break;
 
             case R.id.changePassword:
                 Intent intentChangePassword=new Intent(MainActivity.this,ChangePassword.class);
                 startActivity(intentChangePassword);
+               // item.setChecked(false);
                 break;
             case R.id.logout:
                 //webservice for user logout using sharedprefernces
@@ -551,6 +564,7 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
                 finish();
                 Intent intentLogout=new Intent(MainActivity.this,Login.class);
                 startActivity(intentLogout);
+               // item.setChecked(false);
                 break;
         }
 

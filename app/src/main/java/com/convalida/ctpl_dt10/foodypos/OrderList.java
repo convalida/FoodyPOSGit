@@ -1,12 +1,9 @@
 package com.convalida.ctpl_dt10.foodypos;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +11,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,7 +54,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class OrderList extends AppCompatActivity {
 
@@ -557,6 +550,7 @@ return super.onCreateOptionsMenu(menu);
         editor.remove("From date");
         editor.commit();**/
     }
+
 
     private class GetOrderList extends AsyncTask<String,Void,ArrayList<HeaderInfo>> {
        double currentPrice,totalPrice=0.0,roundedPrice;
