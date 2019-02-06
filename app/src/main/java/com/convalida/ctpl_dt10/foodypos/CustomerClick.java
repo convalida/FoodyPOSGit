@@ -1,9 +1,11 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +42,9 @@ public class CustomerClick extends AppCompatActivity {
     CustomerClickModel customerClickModel;
     ArrayList<CustomerClickModel> customerHistory;
     Gson gson;
-    LinearLayout linearLayout;
+    RelativeLayout noDataLayout;
+  //  LinearLayout linearLayout;
+    RelativeLayout relativeLayout;
     ProgressBar progressBar;
     String restId;
     TextView name,email,contact;
@@ -57,7 +62,8 @@ private static final String TAG="CustomerClick";
             name=findViewById(R.id.userText);
             contact=findViewById(R.id.contactText);
             email=findViewById(R.id.mailText);
-            linearLayout=findViewById(R.id.mainLayout);
+            noDataLayout=findViewById(R.id.noDataLayout);
+            relativeLayout=findViewById(R.id.mainLayout);
             progressBar=findViewById(R.id.progressBar);
             Intent intent=getIntent();
             customerId=intent.getStringExtra("Customer click");
@@ -168,7 +174,7 @@ private static final String TAG="CustomerClick";
         public void onPostExecute(Wrapper3 wrapper3){
             super.onPostExecute(wrapper3);
             if(flagResult==1) {
-                linearLayout.setVisibility(View.VISIBLE);
+                relativeLayout.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
                 name.setText(orderDetailData.getCustomerName());
                 email.setText(orderDetailData.getMailId());
@@ -179,7 +185,21 @@ private static final String TAG="CustomerClick";
                 recyclerView.setAdapter(customerClickAdapter);
             }
             else{
-                Toast.makeText(getApplicationContext(),"Server error",Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(),"Server error",Toast.LENGTH_LONG).show();
+                Log.e(TAG,"Server error");
+                new AlertDialog.Builder(CustomerClick.this)
+                        .setMessage("Sorry, Unable to connect to server. Please try after some time")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                noDataLayout.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
+                                relativeLayout.setVisibility(View.INVISIBLE);
+                            }
+                        })
+                        .setCancelable(false)
+                        .create()
+                        .show();
             }
             }
 

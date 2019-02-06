@@ -235,8 +235,13 @@ confirmPassword.addTextChangedListener(new TextWatcher() {
                                     JSONObject jsonObject1 = jsonObject.getJSONObject("Result");
                                     String resultCode = jsonObject1.getString("ResultCode");
                                     String msg = jsonObject1.getString("Message");
-                                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
+                                    if(resultCode.equals("0")) {
+                                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                                    }
+                                    else if(resultCode.equals("1")){
+                                        Toast.makeText(getApplicationContext(),"Employee added successfully",Toast.LENGTH_LONG).show();
+                                    }
+                                    } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
@@ -261,6 +266,7 @@ confirmPassword.addTextChangedListener(new TextWatcher() {
                         requestQueue.add(stringRequest);
                         Intent intent=new Intent(AddEmployeeDetail.this,EmployeeDetails.class);
                         startActivity(intent);
+                        finish();
 
                     }
                     //add code to add employee details in database

@@ -305,6 +305,7 @@ public void onSaveInstanceState(Bundle state){
                             String num = jObj.getString("ContactNumber");
                             String amount = jObj.getString("TotalAmount");
                             String order = jObj.getString("TotalOrder");
+                            String customerId=jObj.getString("CustomerId");
                             currentOrder = Integer.parseInt(order);
                             currentAmount = Double.parseDouble(amount);
                             SalesData salesData = new SalesData();
@@ -313,6 +314,7 @@ public void onSaveInstanceState(Bundle state){
                             salesData.setPhone(num);
                             salesData.setAmmount("$ " + amount);
                             salesData.setOrders(order);
+                            salesData.setCustomerId(customerId);
                             saleList.add(salesData);
                             amountTotal = currentAmount + amountTotal;
                             orderTotal = currentOrder + orderTotal;

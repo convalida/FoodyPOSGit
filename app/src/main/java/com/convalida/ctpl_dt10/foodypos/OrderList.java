@@ -75,7 +75,7 @@ public class OrderList extends AppCompatActivity {
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog startDateDialog, endDateDialog;
     TextView fromDate, toDate;
-    RelativeLayout progress;
+    RelativeLayout progress, noDataLayout;
     LinearLayout mainLayout;
     String orderNum;
     ArrayList<String> orderNumList;
@@ -204,6 +204,7 @@ public class OrderList extends AppCompatActivity {
             gson = gsonBuilder.create();
             mainLayout = findViewById(R.id.mainOrderlistLayout);
             progress = findViewById(R.id.orderProgress);
+            noDataLayout=findViewById(R.id.noDataLayout);
 
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("RestaurantId", MODE_PRIVATE);
             restId = sharedPreferences.getString("Id", "");
@@ -636,16 +637,21 @@ return super.onCreateOptionsMenu(menu);
                 }
             }
            else if(flagResult==0){
-                Toast.makeText(OrderList.this,"Server error",Toast.LENGTH_LONG).show();
-            /**   Log.e(TAG,"Server error");
-               new AlertDialog.Builder(OrderList.this)
-                       .setMessage("Soory, unable to connect to server. Please try after some time")
-                       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(DialogInterface dialogInterface, int i) {
+            //    Toast.makeText(OrderList.this,"Server error",Toast.LENGTH_LONG).show();
 
+               new android.support.v7.app.AlertDialog.Builder(OrderList.this)
+                       .setMessage("Sorry, Unable to connect to server. Please try after some time")
+                       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               noDataLayout.setVisibility(View.VISIBLE);
+                               progress.setVisibility(View.INVISIBLE);
+                               mainLayout.setVisibility(View.INVISIBLE);
                            }
-                       })**/
+                       })
+                       .setCancelable(false)
+                       .create()
+                       .show();
             }
 
         }

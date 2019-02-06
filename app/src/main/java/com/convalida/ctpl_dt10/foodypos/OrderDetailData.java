@@ -5,7 +5,7 @@ package com.convalida.ctpl_dt10.foodypos;
  */
 
 public class OrderDetailData {
-    private String customerName,contact,mailId,subTotal,taxPercent,taxValue,tip,grandTotal;
+    private String customerName,contact,mailId,subTotal,taxPercent,taxValue,tip,grandTotal,customerId;
 
     public String getCustomerName() {
         return customerName;
@@ -69,5 +69,13 @@ public class OrderDetailData {
 
     public void setGrandTotal(String grandTotal) {
         this.grandTotal = grandTotal;
+    }
+
+    public String getCustomerId(){
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId){
+        this.customerId=customerId;
     }
 }

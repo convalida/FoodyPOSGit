@@ -1,10 +1,12 @@
 package com.convalida.ctpl_dt10.foodypos;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +45,7 @@ public class BestSeller extends AppCompatActivity {
     RelativeLayout monthRelativeLayout,weekRelativeLayout;
     TableLayout monthTableLayout,weekTableLayout;
     LinearLayout mainLayout;
+    RelativeLayout noDataLayout;
     Button weekMore,monthMore,yearMore;
   //  RelativeLayout progressLayout;
     ProgressBar progressLayout;
@@ -67,6 +70,7 @@ public class BestSeller extends AppCompatActivity {
         }
         mainLayout=findViewById(R.id.mainLayout);
         progressLayout=findViewById(R.id.progressLayout);
+        noDataLayout=findViewById(R.id.noDataLayout);
         monthRelativeLayout=findViewById(R.id.noDataMonth);
         monthTableLayout=findViewById(R.id.monthTableLayout);
         yearTopFirst=findViewById(R.id.yearBestOne);
@@ -181,6 +185,7 @@ public class BestSeller extends AppCompatActivity {
         private int progressStatus=0;
         private Handler handler=new Handler();
         int flagMonth=1, flagWeek=1;
+        int flagResult=1;
 
         @Override
         protected ArrayList<List<BestSellerItemModel>> doInBackground(String... response) {
@@ -189,63 +194,67 @@ public class BestSeller extends AppCompatActivity {
             ArrayList<List<BestSellerItemModel>> sumArray=new ArrayList<>();
             try {
                 jsonObject=new JSONObject(response[0]);
-                JSONArray weekBestSeller=jsonObject.getJSONArray("WeeklyBestsellersItem");
-                weekSeller=new ArrayList<>();
-                if(weekBestSeller.length()>0) {
-                    for (int k = 0; k < weekBestSeller.length(); k++) {
-                        JSONObject jsonObject1 = weekBestSeller.getJSONObject(k);
+                if(jsonObject.has("Message")){
+                    flagResult=0;
+                }
+                else {
+                    JSONArray weekBestSeller = jsonObject.getJSONArray("WeeklyBestsellersItem");
+                    weekSeller = new ArrayList<>();
+                    if (weekBestSeller.length() > 0) {
+                        for (int k = 0; k < weekBestSeller.length(); k++) {
+                            JSONObject jsonObject1 = weekBestSeller.getJSONObject(k);
+                            String name = jsonObject1.getString("Subitems");
+                            String count = jsonObject1.getString("Counting");
+                            bestSellerItemModel = new BestSellerItemModel();
+                            bestSellerItemModel.setItemName(name);
+                            bestSellerItemModel.setQuantity(count);
+                            weekSeller.add(bestSellerItemModel);
+                        }
+                    } else {
+                        flagWeek = 0;
+                    }
+
+                    JSONArray monthBestSeller = jsonObject.getJSONArray("MonthelyBestsellersItem");
+                    monthSeller = new ArrayList<>();
+                    if (monthBestSeller.length() != 0) {
+                        for (int j = 0; j < monthBestSeller.length(); j++) {
+                            JSONObject jsonObject1 = monthBestSeller.getJSONObject(j);
+                            String name = jsonObject1.getString("Subitems");
+                            String count = jsonObject1.getString("Counting");
+                            bestSellerItemModel = new BestSellerItemModel();
+                            bestSellerItemModel.setItemName(name);
+                            bestSellerItemModel.setQuantity(count);
+                            monthSeller.add(bestSellerItemModel);
+                        }
+                    } else {
+                        flagMonth = 0;
+                    }
+                    JSONArray yearBestSeller = jsonObject.getJSONArray("YearlyBestsellersItem");
+                    /**   if(weekBestSeller.length()>0){
+                     weekSeller= Arrays.asList(gson.fromJson(weekBestSeller.toString(),BestSellerItemModel[].class));
+                     for(BestSellerItemModel bestSellerItemModel1:weekSeller){
+                     BestSellerItemModel bestSellerItemModel2=
+                     }
+                     }**/
+                    yearSeller = new ArrayList<>();
+                    for (int i = 0; i < yearBestSeller.length(); i++) {
+                        JSONObject jsonObject1 = yearBestSeller.getJSONObject(i);
                         String name = jsonObject1.getString("Subitems");
                         String count = jsonObject1.getString("Counting");
                         bestSellerItemModel = new BestSellerItemModel();
                         bestSellerItemModel.setItemName(name);
                         bestSellerItemModel.setQuantity(count);
-                        weekSeller.add(bestSellerItemModel);
-                    }
-                }else{
-                    flagWeek=0;
-                }
+                        yearSeller.add(bestSellerItemModel);
 
-                JSONArray monthBestSeller=jsonObject.getJSONArray("MonthelyBestsellersItem");
-                monthSeller=new ArrayList<>();
-                if(monthBestSeller.length()!=0) {
-                    for (int j = 0; j < monthBestSeller.length(); j++) {
-                        JSONObject jsonObject1 = monthBestSeller.getJSONObject(j);
-                        String name = jsonObject1.getString("Subitems");
-                        String count = jsonObject1.getString("Counting");
-                        bestSellerItemModel = new BestSellerItemModel();
-                        bestSellerItemModel.setItemName(name);
-                        bestSellerItemModel.setQuantity(count);
-                        monthSeller.add(bestSellerItemModel);
                     }
+                    if (flagWeek != 0) {
+                        sumArray.add(weekSeller);
+                    }
+                    if (flagMonth != 0) {
+                        sumArray.add(monthSeller);
+                    }
+                    sumArray.add(yearSeller);
                 }
-                else{
-                   flagMonth=0;
-                }
-                JSONArray yearBestSeller=jsonObject.getJSONArray("YearlyBestsellersItem");
-                /**   if(weekBestSeller.length()>0){
-                 weekSeller= Arrays.asList(gson.fromJson(weekBestSeller.toString(),BestSellerItemModel[].class));
-                 for(BestSellerItemModel bestSellerItemModel1:weekSeller){
-                 BestSellerItemModel bestSellerItemModel2=
-                 }
-                 }**/
-                yearSeller=new ArrayList<>();
-                for(int i=0;i<yearBestSeller.length();i++){
-                    JSONObject jsonObject1=yearBestSeller.getJSONObject(i);
-                    String name=jsonObject1.getString("Subitems");
-                    String count=jsonObject1.getString("Counting");
-                    bestSellerItemModel=new BestSellerItemModel();
-                    bestSellerItemModel.setItemName(name);
-                    bestSellerItemModel.setQuantity(count);
-                    yearSeller.add(bestSellerItemModel);
-
-                }
-                if(flagWeek!=0) {
-                    sumArray.add(weekSeller);
-                }
-                if(flagMonth!=0) {
-                    sumArray.add(monthSeller);
-                }
-                sumArray.add(yearSeller);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -253,40 +262,57 @@ public class BestSeller extends AppCompatActivity {
         }
         public void onPostExecute(ArrayList<List<BestSellerItemModel>> sumArray){
             super.onPostExecute(sumArray);
-            mainLayout.setVisibility(View.VISIBLE);
-            progressLayout.setVisibility(View.INVISIBLE);
-            yearTopFirst.setText(yearSeller.get(0).getItemName());
-            yearTopFirstNum.setText(yearSeller.get(0).getQuantity());
-            yearTopSecond.setText(yearSeller.get(1).getItemName());
-            yearTopSecondNum.setText(yearSeller.get(1).getQuantity());
-            yearTopThird.setText(yearSeller.get(2).getItemName());
-            yearTopThirdNum.setText(yearSeller.get(2).getQuantity());
+            if(flagResult==1) {
+                mainLayout.setVisibility(View.VISIBLE);
+                progressLayout.setVisibility(View.INVISIBLE);
+                yearTopFirst.setText(yearSeller.get(0).getItemName());
+                yearTopFirstNum.setText(yearSeller.get(0).getQuantity());
+                yearTopSecond.setText(yearSeller.get(1).getItemName());
+                yearTopSecondNum.setText(yearSeller.get(1).getQuantity());
+                yearTopThird.setText(yearSeller.get(2).getItemName());
+                yearTopThirdNum.setText(yearSeller.get(2).getQuantity());
 
-            if(flagMonth==1) {
-                monthTopFirst.setText(monthSeller.get(0).getItemName());
-                monthTopFirstNum.setText(monthSeller.get(0).getQuantity());
-                monthTopSecond.setText(monthSeller.get(1).getItemName());
-                monthTopSecondNum.setText(monthSeller.get(1).getQuantity());
-                monthTopThird.setText(monthSeller.get(2).getItemName());
-                monthTopThirdNum.setText(monthSeller.get(2).getQuantity());
-            }
-            else{
-                monthTableLayout.setVisibility(View.INVISIBLE);
-                monthRelativeLayout.setVisibility(View.VISIBLE);
-            }
-            if(flagWeek==1) {
-                weekTopFirst.setText(weekSeller.get(0).getItemName());
-                weekTopFirstNum.setText(weekSeller.get(0).getQuantity());
-                weekTopSecond.setText(weekSeller.get(1).getItemName());
-                weekTopSecondNum.setText(weekSeller.get(1).getQuantity());
-                if (weekSeller.size() > 2 && weekSeller.get(2) != null) {
-                    weekTopThird.setText(weekSeller.get(2).getItemName());
-                    weekTopThirdNum.setText(weekSeller.get(2).getQuantity());
+                if (flagMonth == 1) {
+                    monthTopFirst.setText(monthSeller.get(0).getItemName());
+                    monthTopFirstNum.setText(monthSeller.get(0).getQuantity());
+                    monthTopSecond.setText(monthSeller.get(1).getItemName());
+                    monthTopSecondNum.setText(monthSeller.get(1).getQuantity());
+                    monthTopThird.setText(monthSeller.get(2).getItemName());
+                    monthTopThirdNum.setText(monthSeller.get(2).getQuantity());
+                } else {
+                    monthTableLayout.setVisibility(View.INVISIBLE);
+                    monthRelativeLayout.setVisibility(View.VISIBLE);
+                }
+                if (flagWeek == 1) {
+                    weekTopFirst.setText(weekSeller.get(0).getItemName());
+                    weekTopFirstNum.setText(weekSeller.get(0).getQuantity());
+                    weekTopSecond.setText(weekSeller.get(1).getItemName());
+                    weekTopSecondNum.setText(weekSeller.get(1).getQuantity());
+                    if (weekSeller.size() > 2 && weekSeller.get(2) != null) {
+                        weekTopThird.setText(weekSeller.get(2).getItemName());
+                        weekTopThirdNum.setText(weekSeller.get(2).getQuantity());
+                    }
+                } else {
+                    weekTableLayout.setVisibility(View.INVISIBLE);
+                    weekRelativeLayout.setVisibility(View.VISIBLE);
                 }
             }
-            else{
-                weekTableLayout.setVisibility(View.INVISIBLE);
-                weekRelativeLayout.setVisibility(View.VISIBLE);
+            else if(flagResult==0){
+                Log.e(TAG,"Server error");
+                new AlertDialog.Builder(BestSeller.this)
+                        .setMessage("Sorry, unable to connect to server. Please try after some time")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                mainLayout.setVisibility(View.INVISIBLE);
+                                progressLayout.setVisibility(View.INVISIBLE);
+                                noDataLayout.setVisibility(View.VISIBLE);
+                            }
+                        })
+                        .setCancelable(false)
+                        .create()
+                        .show();
+
             }
             }
     }

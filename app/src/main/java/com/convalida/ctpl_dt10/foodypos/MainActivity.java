@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -72,7 +73,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -489,12 +492,6 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-       /** if (id == R.id.action_settings) {
-            return true;
-        }**/
        switch (id){
            case R.id.changePassword:
                Intent intent=new Intent(MainActivity.this,ChangePassword.class);
@@ -502,16 +499,62 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
                break;
            case R.id.logout:
                //webservice for logout - sharedPrefernces
-               SharedPreferences sharedPreferences=getSharedPreferences("Login",MODE_PRIVATE);
-               SharedPreferences.Editor editor=sharedPreferences.edit();
-               editor.clear();
-               editor.apply();
-               finish();
-               Intent intentLogout=new Intent(MainActivity.this,Login.class);
-               startActivity(intentLogout);
+
+               logoutUser();
+
+
+               //Intent intentLogout=new Intent(MainActivity.this,Login.class);
+              // startActivity(intentLogout);
        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutUser() {
+        final String token;
+
+        token=SharedPrefManagerToken.getmInstance(this).getDeviceToken();
+
+        SharedPreferences sharedPreferences=getSharedPreferences("Login",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+        finish();
+        final String logoutUrl="http://business.foodypos.com/App/Api.asmx/LogoutByApp";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, logoutUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String resultCode = jsonObject.getString("result");
+                    String message = jsonObject.getString("message");
+                    if(resultCode.equals("1")){
+
+                        Toast.makeText(getApplicationContext(),"User logged out successfully",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
+            }
+        }){
+            protected Map<String,String> getParams() throws AuthFailureError {
+                Map<String,String> parameters=new HashMap<>();
+                parameters.put("deviceId",token);
+                return parameters;
+            }
+        };
+        RequestQueue requestQueue=Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(stringRequest);
+        Intent intentLogout=new Intent(MainActivity.this,Login.class);
+        startActivity(intentLogout);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -557,13 +600,14 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
                 break;
             case R.id.logout:
                 //webservice for user logout using sharedprefernces
-                SharedPreferences sharedPreferences=getSharedPreferences("Login",MODE_PRIVATE);
+           /**     SharedPreferences sharedPreferences=getSharedPreferences("Login",MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
                 finish();
                 Intent intentLogout=new Intent(MainActivity.this,Login.class);
-                startActivity(intentLogout);
+                startActivity(intentLogout);**/
+           logoutUser();
                // item.setChecked(false);
                 break;
         }

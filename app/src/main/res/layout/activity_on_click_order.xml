@@ -21,6 +21,19 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:id="@+id/noDataLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="No data found"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"/>
+        </RelativeLayout>
 
     <LinearLayout
     android:layout_width="match_parent"

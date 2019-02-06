@@ -75,7 +75,10 @@ public class ChangePassword extends AppCompatActivity {
                                 if(resultCode.equals("1")){
                                     Intent intent=new Intent(ChangePassword.this,Login.class);
                                     startActivity(intent);
-
+                                    Toast.makeText(getApplicationContext(),"Password changed successfully",Toast.LENGTH_LONG).show();
+                                }
+                                else if(resultCode.equals("0")){
+                                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

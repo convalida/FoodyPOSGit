@@ -49,6 +49,7 @@ public class BestsellerMore extends AppCompatActivity {
     BestsellerMoreAdapter bestsellerMoreAdapter;
     RelativeLayout mainLayout;
     ProgressBar progressBar;
+    RelativeLayout noDataLayout;
     int flagDay;
     Button searchBtn;
     Date date1,date2;
@@ -75,6 +76,7 @@ public class BestsellerMore extends AppCompatActivity {
         setContentView(R.layout.activity_bestseller_more);
         fromDate=findViewById(R.id.From);
         toDate=findViewById(R.id.To);
+        noDataLayout=findViewById(R.id.noDataLayout);
         if(CheckNetwork.isNetworkAvailable(BestsellerMore.this)) {
             orders=findViewById(R.id.ordersValue);
             expandableListBestseller = findViewById(R.id.expandableBestSellerMore);
@@ -403,12 +405,31 @@ public class BestsellerMore extends AppCompatActivity {
         }
         public void onPostExecute(ArrayList<BestsellerHeaderList> parentList){
             super.onPostExecute(parentList);
-            progressBar.setVisibility(View.INVISIBLE);
-            mainLayout.setVisibility(View.VISIBLE);
-            BestsellerMoreAdapter bestsellerMoreAdapter = new BestsellerMoreAdapter(BestsellerMore.this, parentList);
-            expandableListBestseller.setAdapter(bestsellerMoreAdapter);
-            expandableListBestseller.expandGroup(0);
-            orders.setText(String.valueOf(orderCount));
+            if(flagResult==1) {
+                progressBar.setVisibility(View.INVISIBLE);
+                mainLayout.setVisibility(View.VISIBLE);
+                BestsellerMoreAdapter bestsellerMoreAdapter = new BestsellerMoreAdapter(BestsellerMore.this, parentList);
+                expandableListBestseller.setAdapter(bestsellerMoreAdapter);
+                expandableListBestseller.expandGroup(0);
+                orders.setText(String.valueOf(orderCount));
+            }
+            else if(flagResult==0){
+           //     Toast.makeText(getApplicationContext(),"Server error",Toast.LENGTH_LONG).show();
+                Log.e(TAG,"Server error");
+                new android.support.v7.app.AlertDialog.Builder(BestsellerMore.this)
+                        .setMessage("Sorry, Unable to connect to server. Please try after some time")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                noDataLayout.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
+                                mainLayout.setVisibility(View.INVISIBLE);
+                            }
+                        })
+                        .setCancelable(false)
+                        .create()
+                        .show();
+            }
         }
     }
 }

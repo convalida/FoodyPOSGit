@@ -137,7 +137,7 @@ import java.util.Map;
 
         }
         });**/
-
+        int flagResult=1;
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +159,7 @@ import java.util.Map;
              //  StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
               //  stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
               //  requestQueue.add(stringRequest);
+
                 final String url = "http://business.foodypos.com/App/Api.asmx/UpdateEmployee?AccountId="+acctId+"&RestaurantId="+restId+"&ModifiedBy="+modifiedBy+"&Role="+selectedItem+"&Active="+active;
                final String url2="http://business.foodypos.com/App/Api.asmx/UpdateEmployee";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
@@ -168,11 +169,13 @@ import java.util.Map;
                             JSONObject jsonObject = new JSONObject(response);
                             String resultCode = jsonObject.getString("ResultCode");
                             String message = jsonObject.getString("Message");
-                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                     //       if(resultCode.equals("1")){
-                       //         Intent intent=new Intent(EditEmployeeDetail.this,EmployeeDetails.class);
-                         //       startActivity(intent);
-                          //  }
+                            if(resultCode.equals("0")){
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            }
+                            else if(resultCode.equals("1")){
+                                Toast.makeText(getApplicationContext(), "Employee details updated successfully", Toast.LENGTH_LONG).show();
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -182,7 +185,7 @@ import java.util.Map;
                     public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(),"Some error occured",Toast.LENGTH_LONG).show();
                     if(error instanceof TimeoutError || error instanceof NoConnectionError){
-                        Log.e(TAG,"No coonection error");
+                        Log.e(TAG,"No connection error");
                     }
                     else if(error instanceof AuthFailureError){
                         Log.e(TAG,"AuthFailureError");
@@ -231,9 +234,10 @@ import java.util.Map;
 
                 RequestQueue requestQueue=Volley.newRequestQueue(EditEmployeeDetail.this);
                 requestQueue.add(stringRequest);
+
                 Intent intent=new Intent(EditEmployeeDetail.this,EmployeeDetails.class);
                       startActivity(intent);
-                // finish();
+                 finish();
             }
 
          /**   Response.Listener<String> onPostsLoaded=new Response.Listener<String>() {

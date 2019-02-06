@@ -52,7 +52,7 @@ public class OnClickOrder extends AppCompatActivity {
     OrderDetailData orderDetailData=new OrderDetailData();
    public static ArrayList<OrderDetailChild> itemDetails;
     OrderDetailChild orderDetailChild;
-    RelativeLayout relativeLayout;
+    RelativeLayout relativeLayout,noDataLayout;
     Gson gson;
     String startDate,endDate,orderNum;
     RequestQueue requestQueue;
@@ -83,6 +83,7 @@ public class OnClickOrder extends AppCompatActivity {
         nameText=findViewById(R.id.userText);
         emailText=findViewById(R.id.mailText);
         phone=findViewById(R.id.contactText);
+        noDataLayout=findViewById(R.id.noDataLayout);
         amountValue=findViewById(R.id.amountTotal);
         relativeLayout=findViewById(R.id.amount);
         menuIcon=findViewById(R.id.menuIcon);
@@ -294,6 +295,7 @@ public class OnClickOrder extends AppCompatActivity {
                               orderDetailData.setSubTotal(subTotal);
                               orderDetailData.setTaxPercent(taxPer);
                               orderDetailData.setTaxValue(taxVal);
+                              orderDetailData.setCustomerId(id);
                               orderDetailData.setTip(tip);
                               //  orderDetailDataArrayList.add(orderDetailData);
                           }
@@ -325,6 +327,14 @@ public class OnClickOrder extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });**/
+              nameText.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View view) {
+                      Intent intent=new Intent(OnClickOrder.this,CustomerClick.class);
+                      intent.putExtra("Customer click",orderDetailData.getCustomerId());
+                      startActivity(intent);
+                  }
+              });
                 emailText.setText(orderDetailData.getMailId());
                 phone.setText(orderDetailData.getContact());
                 amountValue.setText("$"+orderDetailData.getGrandTotal());
@@ -339,7 +349,9 @@ public class OnClickOrder extends AppCompatActivity {
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                                    noDataLayout.setVisibility(View.VISIBLE);
+                                    progress.setVisibility(View.INVISIBLE);
+                                    mainLayout.setVisibility(View.INVISIBLE);
                                 }
                             })
                             .setCancelable(false)

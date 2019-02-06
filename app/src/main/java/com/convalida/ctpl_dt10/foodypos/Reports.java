@@ -86,6 +86,7 @@ public class Reports extends AppCompatActivity{
 if(CheckNetwork.isNetworkAvailable(Reports.this)){
         if(getSupportActionBar()!=null){
             getSupportActionBar().setTitle("Sales Report");
+
         }
         mainReportsLayout=findViewById(R.id.mainReports);
         mainProgressLayout=findViewById(R.id.mainReportsProgress);
