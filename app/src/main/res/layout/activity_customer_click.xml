@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.convalida.ctpl_dt10.foodypos.CustomerClick">
+    tools:context="com.convalida.android.foodypos.CustomerClick">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -75,8 +75,8 @@
                 android:layout_centerHorizontal="true"
                 android:text="(253)651-8803"
                 android:textColor="#000"
-                android:drawableLeft="@drawable/ic_local_phone_black_28dp"
-                android:drawableStart="@drawable/ic_local_phone_black_28dp"
+                android:drawableLeft="@drawable/ic_call_black_24dp"
+                android:drawableStart="@drawable/ic_call_black_24dp"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"
                 />
@@ -89,8 +89,8 @@
                 android:layout_centerHorizontal="true"
                 android:text="Tallgrassdanger@gmail.com"
                 android:textColor="#000"
-                android:drawableLeft="@drawable/ic_email_black_28dp"
-                android:drawableStart="@drawable/ic_email_black_28dp"
+                android:drawableLeft="@drawable/ic_email_highlight_24dp"
+                android:drawableStart="@drawable/ic_email_highlight_24dp"
                 android:textSize="20sp"
                 android:layout_marginBottom="5dp"
                 />

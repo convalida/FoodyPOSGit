@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.convalida.ctpl_dt10.foodypos"
+        applicationId "com.convalida.android.foodypos"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1

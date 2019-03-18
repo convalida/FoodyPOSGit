@@ -60,7 +60,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
-                    android:drawableLeft="@drawable/ic_local_phone_colorprimary_24dp"
+                    android:drawableLeft="@drawable/ic_call_black_24dp"
                     />
 
             </LinearLayout>

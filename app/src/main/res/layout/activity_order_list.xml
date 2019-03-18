@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.convalida.ctpl_dt10.foodypos.OrderList">
+    tools:context="com.convalida.android.foodypos.OrderList">
 
     <FrameLayout
         android:layout_width="match_parent"

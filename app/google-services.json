@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:159677676272:android:c5cd0cd9af9cdaa9",
         "android_client_info": {
-          "package_name": "com.convalida.ctpl_dt10.foodypos"
+          "package_name": "com.convalida.android.foodypos"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "159677676272-jkt43377jj14t8afu88t16cuf4nc5imo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.convalida.ctpl_dt10.foodypos",
+            "package_name": "com.convalida.android.foodypos",
             "certificate_hash": "c00344220f7965dd9d1d6432917ae6c236093706"
           }
         },

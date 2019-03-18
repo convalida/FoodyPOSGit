@@ -21,24 +21,22 @@
         android:textSize="17sp"
         android:textColor="#000"/>
 
-       <ImageView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerInParent="true"
-           android:id="@+id/clock"
-           android:src="@drawable/ic_watch_later_black_24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/clock"
+            android:layout_centerInParent="true"
             android:text="18:40"
             android:id="@+id/time"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textSize="17sp"
             android:textColor="#000"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:drawableLeft="@drawable/ic_access_time_highlight_24dp"
+            android:drawableStart="@drawable/ic_access_time_highlight_24dp"
+            />
 
         <ImageView
             android:id="@+id/more"
@@ -48,7 +46,7 @@
             android:layout_alignParentRight="true"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+            android:src="@drawable/ic_chevron_right_black_24dp" />
 
 
         <TextView
