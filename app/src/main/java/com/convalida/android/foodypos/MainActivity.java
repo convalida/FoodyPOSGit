@@ -471,21 +471,23 @@ if(CheckNetwork.isNetworkAvailable(MainActivity.this)){
         //  super.onBackPressed();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else
-           // finishAffinity();
-        if(doubleBackToExitPressedOnce){
-            finishAffinity();
-            return;
-        }
-        this.doubleBackToExitPressedOnce=true;
-        Toast.makeText(getApplicationContext(),"Press back again to exit",Toast.LENGTH_LONG).show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
+        } else {
+            // finishAffinity();
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+                return;
             }
-        },2000);
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(getApplicationContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
         //super.onBackPressed();
+
     }
 
     @Override

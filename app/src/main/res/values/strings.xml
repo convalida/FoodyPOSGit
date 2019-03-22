@@ -40,11 +40,11 @@
     <string name="weekly_sale_value">530.88</string>
     <string name="total_orders_txt">Total Orders</string>
     <string name="total_order_value">2082</string>
-    <string name="weekly_order_txt">Weekly Order</string>
+    <string name="weekly_order_txt">Weekly Orders</string>
     <string name="weekly_order_value">21</string>
     <string name="total_customers_txt">Total Customers</string>
     <string name="total_customers_value">749</string>
-    <string name="weekly_customer_txt">Weekly Customer</string>
+    <string name="weekly_customer_txt">Weekly Customers</string>
     <string name="weekly_customer_value">749</string>
     <string name="sales">Sales</string>
 

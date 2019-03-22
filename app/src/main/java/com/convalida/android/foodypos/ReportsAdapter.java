@@ -40,7 +40,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportsV
             holder.day.setText(reportsData.getMonth());
         }
         holder.order.setText(reportsData.getTotalOrder());
-        holder.sales.setText(reportsData.getTotalSale());
+        holder.sales.setText(context.getString(R.string.price,reportsData.getTotalSale()));
     }
 
     @Override

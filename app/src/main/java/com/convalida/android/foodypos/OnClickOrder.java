@@ -182,7 +182,9 @@ public class OnClickOrder extends AppCompatActivity {
 
     private void updateReadStatus() {
        final String token=SharedPrefManagerToken.getmInstance(this).getDeviceToken();
-        final String url="http://business.foodypos.com/App/Api.asmx/ReadNotificationByUser";
+    //    final String url="http://business.foodypos.com/App/Api.asmx/ReadNotificationByUser";
+        final String url="http://demo.metropolisgrill.com/App/Api.asmx/ReadNotificationByUser";
+
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -205,7 +207,7 @@ public class OnClickOrder extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
             }
         }){
-            protected Map<String,String> getParams() throws AuthFailureError{
+            protected Map<String,String> getParams() {
                 Map<String,String> parameters=new HashMap<>();
                 parameters.put("deviceid",token);
                 parameters.put("orderno",orderNum);

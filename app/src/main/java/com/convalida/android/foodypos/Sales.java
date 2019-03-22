@@ -96,8 +96,8 @@ public class Sales extends AppCompatActivity {
 
             final Calendar myCalendar = Calendar.getInstance();
             //  myCalendar.setFirstDayOfWeek(Calendar.SUNDAY);
-            // myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
-            myCalendar.add(Calendar.DATE, -7);
+             myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+          //  myCalendar.add(Calendar.DATE, -7);
             String startDate = simpleDateFormat.format(myCalendar.getTime());
             from.setText(simpleDateFormat.format(myCalendar.getTime()));
             Log.e(TAG, "From date:" + startDate);
