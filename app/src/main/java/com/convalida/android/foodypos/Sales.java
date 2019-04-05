@@ -335,7 +335,8 @@ public void onSaveInstanceState(Bundle state){
             if(flagResult==1) {
                 progressLayout.setVisibility(View.INVISIBLE);
                 totalOrders.setText(finalOrder);
-                totalAmount.setText(finalAmount);
+                //totalAmount.setText("$"+finalAmount);
+                totalAmount.setText(getString(R.string.price,finalAmount));
                 mainLayout.setVisibility(View.VISIBLE);
                 SalesAdapter adapter = new SalesAdapter(saleList, getApplication());
                 recyclerView.setAdapter(adapter);

@@ -242,8 +242,8 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
     private void valueFilled() {
         verify.setBackgroundColor(Color.parseColor("#ff6501"));
         verify.setEnabled(true);
-        resendOtp.setBackgroundColor(Color.parseColor("#ffccaa"));
-        resendOtp.setEnabled(false);
+     //   resendOtp.setBackgroundColor(Color.parseColor("#ffccaa"));
+     //   resendOtp.setEnabled(false);
     }
 
 

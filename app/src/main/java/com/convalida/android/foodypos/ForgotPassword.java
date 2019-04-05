@@ -84,6 +84,7 @@ public class ForgotPassword extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                         if(resultCode.equals("1")){
                             Intent intent=new Intent(getApplication(),EnterOTP.class);
+                        //    Intent intent=new Intent(getApplication(),ResetPassword.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }

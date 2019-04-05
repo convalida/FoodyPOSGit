@@ -393,7 +393,8 @@ defaultDateFlag=1;
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(Reports.this));
             orders.setText(finalOrderDay);
-             amount.setText("$"+finalAmountDay);
+             //amount.setText("$"+finalAmountDay);
+            amount.setText(getString(R.string.price,finalAmountDay));
 
         }
     }
@@ -444,7 +445,8 @@ defaultDateFlag=1;
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(Reports.this));
             orders.setText(finalOrderWeek);
-               amount.setText("$"+finalAmountWeek);
+              // amount.setText("$"+finalAmountWeek);
+            amount.setText(getString(R.string.price,finalAmountWeek));
 
 
             //      childProgressLayout.setVisibility(View.INVISIBLE);
@@ -488,7 +490,8 @@ defaultDateFlag=1;
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(Reports.this));
             orders.setText(finalOrderMonth);
-              amount.setText("$"+finalAmountMonth);
+            //  amount.setText("$"+finalAmountMonth);
+            amount.setText(getString(R.string.price,finalAmountMonth));
         }
     }
     private class GetReports extends AsyncTask<String,Void,ArrayList<ReportsData>> {
