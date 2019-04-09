@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -245,6 +247,10 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
      //   resendOtp.setBackgroundColor(Color.parseColor("#ffccaa"));
      //   resendOtp.setEnabled(false);
     }
+
+  /**  public InputConnection onCreateInputConnection(EditorInfo outAttrs){
+        outAttrs.imeOptions=EditorInfo.IME_FLAG_NO_EXTRACT_UI;
+    }**/
 
 
 

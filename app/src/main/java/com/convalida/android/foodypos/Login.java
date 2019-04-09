@@ -1,5 +1,6 @@
 package com.convalida.android.foodypos;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
@@ -13,11 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -53,6 +58,7 @@ public class Login extends AppCompatActivity {
     Gson gson;
     String token;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +102,38 @@ public class Login extends AppCompatActivity {
                 }
             });
         }
+
+        pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                final String mail = email.getText().toString().trim();
+                if (mail.length() > 0) {
+                    if (!isValidEmail(mail)) {
+                        email.setError("Please enter a valid email id");
+                        requestFocus(email);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        email.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId== EditorInfo.IME_ACTION_NEXT){
+                    final String mail = email.getText().toString().trim();
+                    if (mail.length() > 0) {
+                        if (!isValidEmail(mail)) {
+                            email.setError("Please enter a valid email id");
+                            requestFocus(email);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        });
 
     }
 

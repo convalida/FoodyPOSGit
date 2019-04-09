@@ -78,7 +78,7 @@ public class BestsellerMore extends AppCompatActivity {
         toDate=findViewById(R.id.To);
         noDataLayout=findViewById(R.id.noDataLayout);
         if(CheckNetwork.isNetworkAvailable(BestsellerMore.this)) {
-            orders=findViewById(R.id.ordersValue);
+          //  orders=findViewById(R.id.ordersValue);
             expandableListBestseller = findViewById(R.id.expandableBestSellerMore);
             requestQueue=Volley.newRequestQueue(BestsellerMore.this);
             GsonBuilder gsonBuilder=new GsonBuilder();
@@ -361,7 +361,7 @@ public class BestsellerMore extends AppCompatActivity {
                 BestsellerMoreAdapter bestsellerMoreAdapter = new BestsellerMoreAdapter(BestsellerMore.this, parentList);
                 expandableListBestseller.setAdapter(bestsellerMoreAdapter);
                 expandableListBestseller.expandGroup(0);
-                orders.setText(String.valueOf(orderCount));
+              //  orders.setText(String.valueOf(orderCount));
             }
             else if(flagResult==0){
            //     Toast.makeText(getApplicationContext(),"Server error",Toast.LENGTH_LONG).show();
