@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,11 +46,12 @@ public class BestSeller extends AppCompatActivity {
     RelativeLayout monthRelativeLayout,weekRelativeLayout;
     TableLayout monthTableLayout,weekTableLayout;
   //  LinearLayout mainLayout;
-    ScrollView mainLayout;
+   ScrollView mainLayout;
+    RelativeLayout progressLayout;
     RelativeLayout noDataLayout;
     Button weekMore,monthMore,yearMore;
   //  RelativeLayout progressLayout;
-    ProgressBar progressLayout;
+  //  ProgressBar progressLayout;
     BestsellerChildlist bestsellerChildlist1=new BestsellerChildlist();
     private Gson gson;
    // JsonParser jsonParser=new JsonParser();
@@ -65,6 +67,8 @@ public class BestSeller extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_best_seller);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null) {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("Bestseller Items");
@@ -96,6 +100,8 @@ public class BestSeller extends AppCompatActivity {
         weekTopSecondNum=findViewById(R.id.weekItem2Qty);
         weekTopThird=findViewById(R.id.weekItem3);
         weekTopThirdNum=findViewById(R.id.weekItem3Qty);
+        weekTableLayout=findViewById(R.id.weekTableLayout);
+
 
         weekMore=findViewById(R.id.weeklyMore);
         monthMore=findViewById(R.id.monthlyMore);

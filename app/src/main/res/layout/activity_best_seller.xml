@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.convalida.android.foodypos.BestSeller"
+    tools:showIn="@layout/toolbar">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLayout"/>
+
 
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.convalida.android.foodypos.BestSeller">
+        android:layout_below="@id/toolbarLayout"
+        >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:id="@+id/progressLayout">
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:id="@+id/progressLayout"
             android:visibility="visible"/>
     </RelativeLayout>
         <RelativeLayout
@@ -35,11 +48,16 @@
                 android:textColor="@color/colorPrimary"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/mainLayout"
             android:visibility="gone"
+            android:id="@+id/mainLayout"
 
             >
         <LinearLayout
@@ -484,4 +502,6 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
         </ScrollView>
+        </RelativeLayout>
     </FrameLayout>
+</RelativeLayout>

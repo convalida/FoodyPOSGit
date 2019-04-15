@@ -3,9 +3,13 @@ package com.convalida.android.foodypos;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -20,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -48,12 +53,17 @@ public class BestsellerMore extends AppCompatActivity {
     TextView fromDate,toDate,orders;
     BestsellerMoreAdapter bestsellerMoreAdapter;
     RelativeLayout mainLayout;
+    String prefList;
     ProgressBar progressBar;
     RelativeLayout noDataLayout;
     int flagDay;
     Button searchBtn;
+    private static final String TAG_WORKER_FRAGMENT="WorkerFragment";
+    public Fragment mWorkerFragment;
     Date date1,date2;
+   // ArrayList<BestsellerHeaderList> parentArrayList;
     private static final String TAG="BestsellerMore";
+    private Toolbar toolbar;
     //  ArrayList<BestsellerHeaderList> bestsellerHeaderLists=new ArrayList<>();
 
     BestsellerHeaderList bestsellerHeaderList;
@@ -68,12 +78,32 @@ public class BestsellerMore extends AppCompatActivity {
         super.onSaveInstanceState(state);
         state.putSerializable("From date saved",fromDate.getText().toString());
         state.putSerializable("To date saved",toDate.getText().toString());
+    //    Toast.makeText(getApplicationContext(), "Inside onsave",Toast.LENGTH_LONG).show();
+       // state.putSerializable("List",parentArrayList);
+     //   BestsellerMore bestsellerMore=new BestsellerMore();
+     //   BestsellerMore.GetBestsellerMore getList=bestsellerMore.new GetBestsellerMore();
+     //   state.putSerializable("List",getList.parentArrayList);
+        SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("ListPref", Context.MODE_PRIVATE);
+        prefList=sharedPreferences.getString("Details","");
+        Log.e("OnSave",prefList);
+        state.putSerializable("List",prefList);
+
+       // Log.e(TAG,parentArrayList.toString());
+     //   Log.e(TAG,getList.parentArrayList.toString());
+    }
+
+    protected void onRestoreInstanceState(final Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        prefList=savedInstanceState.getString("List");
+   //     Toast.makeText(getApplicationContext(), "Inside onRestore",Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bestseller_more);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         fromDate=findViewById(R.id.From);
         toDate=findViewById(R.id.To);
         noDataLayout=findViewById(R.id.noDataLayout);
@@ -86,15 +116,25 @@ public class BestsellerMore extends AppCompatActivity {
             mainLayout=findViewById(R.id.mainLayout);
             progressBar=findViewById(R.id.progress);
             searchBtn=findViewById(R.id.search);
+
+
+          /**  FragmentManager fragmentManager=getFragmentManager();
+            mWorkerFragment=fragmentManager.findFragmentByTag(TAG_WORKER_FRAGMENT);
+            if(mWorkerFragment==null) {
+                mWorkerFragment=new WorkerFragment();
+                fragmentManager.beginTransaction().add(mWorkerFragment, TAG_WORKER_FRAGMENT).commit();
+               // mWorkerFragmen
+            }**/
+
             SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
             restId=sharedPreferences.getString("Id","");
-
             simpleDateFormat=new SimpleDateFormat("MM-dd-yyyy",Locale.US);
             final Calendar myCalendar=Calendar.getInstance();
             Intent in=getIntent();
             if(getSupportActionBar()!=null){
                 actionBar=getSupportActionBar();
             }
+
             if(in.getIntExtra("Flag",0)==1){
                 actionBar.setTitle("Weekly Bestseller Items");
                 flagDay=0;
@@ -128,13 +168,18 @@ public class BestsellerMore extends AppCompatActivity {
                 toDate.setText(simpleDateFormat.format(date));
             }
 
+          //  if(savedInstanceState==null) {
+
+           // }
+           // else {
             if(savedInstanceState!=null){
                 fromDate.setText((CharSequence) savedInstanceState.getSerializable("From date saved"));
                 toDate.setText((CharSequence)savedInstanceState.getSerializable("To date saved"));
+                savedInstanceState.getSerializable("List");
             }
-
-            fetchData();
-
+            //  else {
+                fetchData();
+            //}
             fromDate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -230,13 +275,19 @@ public class BestsellerMore extends AppCompatActivity {
 
     }
 
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        if(toolbar==null){
+            return;
+        }
+        final Context context=toolbar.getContext();
+    }
+
     private void fetchData() {
         final String url="http://business.foodypos.com/App/Api.asmx/GetAllBestselleritems?RestaurantId="+restId+"&fromdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(300000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
-
-
             }
     Response.Listener<String> onPostsLoaded=new Response.Listener<String>() {
         @Override
@@ -351,6 +402,11 @@ public class BestsellerMore extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            SharedPreferences preferences=getApplicationContext().getSharedPreferences("ListPref",0);
+            SharedPreferences.Editor editor=preferences.edit();
+            editor.putString("Details", String.valueOf(parentArrayList));
+            editor.apply();
+            Log.e("onbackground",parentArrayList.toString());
             return parentArrayList;
         }
         public void onPostExecute(ArrayList<BestsellerHeaderList> parentList){

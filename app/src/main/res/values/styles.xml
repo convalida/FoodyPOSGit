@@ -7,14 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:titleTextStyle">@style/ToolbarTitle</item>
-
           </style>
 
 
-
+<style name="ToolbarText" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">20sp</item>
+</style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
 
@@ -36,7 +38,7 @@
 
     </style>
 <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-    <item name="android:textSize">20sp</item>
+    <item name="android:textSize">30sp</item>
 </style>
     <style name="errAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/hightlight</item>
