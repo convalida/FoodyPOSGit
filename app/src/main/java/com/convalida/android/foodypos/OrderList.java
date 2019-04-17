@@ -16,14 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -197,6 +202,8 @@ public class OrderList extends AppCompatActivity {
         }**/
 
         if (CheckNetwork.isNetworkAvailable(OrderList.this)) {
+            Toolbar toolbar=findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
             orders = findViewById(R.id.orders);
             amount = findViewById(R.id.amountValue);
             requestQueue = Volley.newRequestQueue(OrderList.this);
@@ -497,10 +504,33 @@ public class OrderList extends AppCompatActivity {
         MenuItem item=menu.findItem(R.id.search_icon);
 
         final SearchView searchView= (SearchView) item.getActionView();
+      //  int options=searchView.getImeOptions();
+      //  searchView.setImeOptions(options);
+
         searchView.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchView.setQueryHint("Enter Order No.");
+      /**  searchView.setOnKeyListener(new View.OnKeyListener() {
+            private boolean extended = false;
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(!extended && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
+                    extended=true;
+                    ViewGroup.LayoutParams layoutParams=view.getLayoutParams();
+                    layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
+                }
+                return false;
+            }
+        });**/
+      //  ViewGroup.LayoutParams layoutParams=searchView.getLayoutParams();
+      //  layoutParams.width=ViewGroup.LayoutParams.MATCH_PARENT;
+      //  item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW|MenuItem.SHOW_AS_ACTION_ALWAYS);
+       // item.expandActionView();
+     //   EditText editText=getBaseContext().getResources().findViewById(R.id.search_)
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         int searchPlateId=android.support.v7.appcompat.R.id.search_plate;
         View searchPlate=searchView.findViewById(searchPlateId);
+      //  ViewGroup.LayoutParams layoutParams=searchPlate.getLayoutParams();
+      //  layoutParams.width= ViewGroup.LayoutParams.MATCH_PARENT;
        final TextView searchText ;
         if(searchPlate!=null){
             searchPlate.setBackgroundColor(Color.parseColor("#ff6501"));

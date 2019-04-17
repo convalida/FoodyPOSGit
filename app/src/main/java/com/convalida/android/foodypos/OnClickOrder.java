@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -73,8 +74,8 @@ public class OnClickOrder extends AppCompatActivity {
        // ordersImg.setTypeface(font);
        // ordersImg.setText("\uf0f5");
 
-
-
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
             progress=findViewById(R.id.orderDetailProgress);
         mainLayout=findViewById(R.id.orderDetailLayout);
