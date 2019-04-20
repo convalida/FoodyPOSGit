@@ -3,9 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLayout"/>
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarLayout">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,17 +58,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                     android:layout_marginBottom="10dp">
+                    android:weightSum="2"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/From"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="mm-dd-yyyy"
+                        android:layout_weight="1"
                         android:textColor="#000"
+                        android:gravity="center_horizontal"
                         android:textSize="18sp"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/rounded_corners"
                         />
 
@@ -69,8 +79,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
                         android:textSize="20sp"
                         android:textColor="#000000" />
 
@@ -79,23 +91,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="mm-dd-yyyy"
+                        android:layout_weight="1"
                         android:textColor="#000000"
                         android:textSize="18sp"
-                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/rounded_corners"
                         />
 
                     <Button
                         android:id="@+id/search"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:text="Search"
                         android:background="@color/colorPrimary"
                         android:textColor="#ffffff"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="7dp"
                         android:textSize="13sp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="end"
                         />
 
                 </LinearLayout>

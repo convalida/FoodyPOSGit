@@ -61,6 +61,7 @@ public class OnClickOrder extends AppCompatActivity {
     ArrayList<OrderDetailData> orderDetailDataArrayList;
     RelativeLayout progress;
     LinearLayout mainLayout;
+    int flag=0;
 
 
 
@@ -136,6 +137,7 @@ public class OnClickOrder extends AppCompatActivity {
            // Toast.makeText(getApplicationContext(),"No extras",Toast.LENGTH_LONG).show();
          //   Toast.makeText(getApplicationContext(),orderNum,Toast.LENGTH_LONG).show();
             //called order no. clicked when in app
+            flag=1;
             Intent i=getIntent();
             startDate=i.getStringExtra("Start date");
             endDate=i.getStringExtra("End date");
@@ -179,6 +181,11 @@ public class OnClickOrder extends AppCompatActivity {
             // called by notification click, call read/unread webservice here
             updateReadStatus();
         }
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+
     }
 
     private void updateReadStatus() {
@@ -408,9 +415,10 @@ public class OnClickOrder extends AppCompatActivity {
                             .show();
                 }
                 else if(flagOderNum==0){
-                    Intent intent=new Intent(OnClickOrder.this,OrderList.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(),"Entered order no. not found",Toast.LENGTH_LONG).show();
+                  //  Intent intent=new Intent(OnClickOrder.this,OrderList.class);
+                  //  startActivity(intent);
+                    onBackPressed();
+                    Toast.makeText(getApplicationContext(),"Entered order no. not found",Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,8 @@ ArrayList<SalesData> topSeller;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_seller);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
     if (getSupportActionBar() != null) {
         ActionBar actionBar = getSupportActionBar();
@@ -90,7 +93,7 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
         restId=sharedPreferences.getString("Id","");
         Log.e(TAG,restId);
-        final String MAIN = "http://business.foodypos.com/App/Api.asmx/sales?RestaurantId="+restId+"&startdate=null&enddate=null";
+        final String MAIN = Constants.BASE_URL+"sales?RestaurantId="+restId+"&startdate=null&enddate=null";
         StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
@@ -158,8 +161,9 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            amountRounded=Math.round(totalAmount);
-            finalAmount=String.valueOf("$"+amountRounded);
+          //  amountRounded=Math.round(totalAmount);
+            //finalAmount=String.valueOf("$"+amountRounded);
+            finalAmount=String.valueOf("$"+totalAmount);
             finalOrder=String.valueOf(totalOrder);
             return salesList;
         }

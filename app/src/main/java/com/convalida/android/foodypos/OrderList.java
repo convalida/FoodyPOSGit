@@ -578,9 +578,7 @@ return super.onCreateOptionsMenu(menu);
 
     public void onBackPressed(){
         super.onBackPressed();
-    /**    editor.remove("To date");
-        editor.remove("From date");
-        editor.commit();**/
+
     }
 
 

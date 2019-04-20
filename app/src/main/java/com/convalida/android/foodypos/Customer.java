@@ -64,12 +64,12 @@ public class Customer extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+       // int orientation = this.getResources().getConfiguration().orientation;
+       // if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             setContentView(R.layout.activity_sales);
-        } else {
-            setContentView(R.layout.sales_landscapemode);
-        }
+        //} //else {
+           // setContentView(R.layout.sales_landscapemode);
+        //}
         if(CheckNetwork.isNetworkAvailable(Customer.this)) {
             if (getSupportActionBar() != null) {
                 android.support.v7.app.ActionBar actionBar = getSupportActionBar();

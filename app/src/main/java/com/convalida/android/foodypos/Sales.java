@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,12 +70,14 @@ public class Sales extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_sales);
-        int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+     //   int orientation = this.getResources().getConfiguration().orientation;
+      //  if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             setContentView(R.layout.activity_sales);
-        } else {
-            setContentView(R.layout.sales_landscapemode);
-        }
+      //  } else {
+         //   setContentView(R.layout.sales_landscapemode);
+      //  }
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (CheckNetwork.isNetworkAvailable(Sales.this)) {
             if (getSupportActionBar() != null) {
                 ActionBar actionBar = getSupportActionBar();
@@ -258,7 +261,7 @@ public void onSaveInstanceState(Bundle state){
       //  progressLayout.setVisibility(View.VISIBLE);
       //  mainLayout.setVisibility(View.VISIBLE);
 
-        final String MAIN = "http://business.foodypos.com/App/Api.asmx/sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
+        final String MAIN = Constants.BASE_URL+"sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
