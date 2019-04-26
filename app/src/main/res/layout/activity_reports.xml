@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.convalida.android.foodypos.Reports">
+    tools:context="com.convalida.android.foodypos.Reports"
+    tools:showIn="@layout/toolbar">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLayout"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"

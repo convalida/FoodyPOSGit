@@ -202,7 +202,7 @@ public class OnClickOrder extends AppCompatActivity {
                     String resultCode=jsonObject1.getString("ResultCode");
                     String message=jsonObject1.getString("Message");
                     if(resultCode.equals("0")){
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
                     }
 
                 } catch (JSONException e) {
@@ -212,7 +212,7 @@ public class OnClickOrder extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
+             //   Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
             }
         }){
             protected Map<String,String> getParams() {
@@ -267,7 +267,7 @@ public class OnClickOrder extends AppCompatActivity {
     }**/
 
     private void fetchPosts() {
-        final String url="http://business.foodypos.com/App/Api.asmx/Orderlist?RestaurantId="+restId+"&startdate="+startDate+"&enddate="+endDate+"&ordernumber="+orderNum;
+        final String url=Constants.BASE_URL+"Orderlist?RestaurantId="+restId+"&startdate="+startDate+"&enddate="+endDate+"&ordernumber="+orderNum;
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

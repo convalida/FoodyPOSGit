@@ -4,14 +4,18 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -49,7 +53,7 @@ public class Reports extends AppCompatActivity{
     String finalAmountDay,finalOrderDay,finalAmountWeek,finalAmountMonth,finalOrderWeek,finalOrderMonth;
     LinearLayout mainReportsLayout;
     RelativeLayout mainProgressLayout,childProgressLayout,noDataLayout;
-    DatePickerDialog startDialog,endDialog;
+    DatePickerDialog startDialog=null,endDialog=null;
     RecyclerView recyclerView;
     ArrayList<ReportsData> dayReports=new ArrayList<>();
     ArrayList<ReportsData> weekReports=new ArrayList<>();
@@ -81,6 +85,10 @@ public class Reports extends AppCompatActivity{
             setContentView(R.layout.report_landscapemode);
         }**/
      setContentView(R.layout.activity_reports);
+
+     Toolbar toolbar=findViewById(R.id.toolbar);
+     setSupportActionBar(toolbar);
+
        from=findViewById(R.id.startDateReport);
        to=findViewById(R.id.endDateReport);
 if(CheckNetwork.isNetworkAvailable(Reports.this)){
@@ -182,6 +190,9 @@ defaultDateFlag=1;
                     startDialog.show();
                 }
                 else{**/
+           /**   if(endDialog!=null){
+                  endDialog=null;
+              }**/
                     Log.e(TAG,"From date set is: "+fromDate);
                     Calendar newCalendar=Calendar.getInstance();
                     try {
@@ -201,10 +212,22 @@ defaultDateFlag=1;
                             Calendar newDate=Calendar.getInstance();
                             newDate.set(year,month,dayOfMonth);
                             from.setText(simpleDateFormat.format(newDate.getTime()));
+                          //  startDialog=null;
                         }
+                       /** public boolean onKeyDown(int keyCode, KeyEvent event){
+                            Calendar selectedDate=Calendar.getInstance();
+                          //  selectedDate.set()
+                            return true;
+                        }**/
+
+                     /**  public void updateDate(int year, int month, int dayOfMonth){
+
+                       }**/
+
                     },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
                     startDialog.getDatePicker().setMaxDate(new Date().getTime());
                     startDialog.show();
+                  //  if()
               //  }
             }
         });
@@ -229,6 +252,9 @@ defaultDateFlag=1;
                     endDialog.show();
                 }
                 else{**/
+     /**   if(startDialog!=null){
+            startDialog=null;
+        }**/
                     Log.e(TAG,"To date is "+to.getText().toString());
                     final Calendar newCalendar=Calendar.getInstance();
                     try {
@@ -237,16 +263,22 @@ defaultDateFlag=1;
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+
                     endDialog = new DatePickerDialog(Reports.this, new DatePickerDialog.OnDateSetListener() {
+                      //  ViewGroup.LayoutParams layoutParams=endDia
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             Calendar newDate = Calendar.getInstance();
                             newDate.set(year,month,dayOfMonth);
                             to.setText(simpleDateFormat.format(newDate.getTime()));
+                          //  endDialog=null;
                         }
                     },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                  //  endDialog.onDateChanged(DatePicker view);
                     endDialog.getDatePicker().setMaxDate(new Date().getTime());
+                   // endDialog.set
                     endDialog.show();
+
                // }
             }
         });
@@ -258,6 +290,68 @@ defaultDateFlag=1;
         displayResults();
     }
     }
+    public void onConfigurationChanged(Configuration newConfig){
+       super.onConfigurationChanged(newConfig);
+
+       if(startDialog!=null) {
+           if (startDialog.isShowing()) {
+               startDialog.dismiss();
+               final Calendar newCalendar = Calendar.getInstance();
+               try {
+                   Date date4 = simpleDateFormat.parse(from.getText().toString());
+                   newCalendar.setTime(date4);
+
+               } catch (ParseException e) {
+                   e.printStackTrace();
+               }
+
+               startDialog = new DatePickerDialog(Reports.this, new DatePickerDialog.OnDateSetListener() {
+                   @Override
+                   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       Calendar newDate = Calendar.getInstance();
+                       newDate.set(year, month, dayOfMonth);
+                       from.setText(simpleDateFormat.format(newDate.getTime()));
+                   }
+               }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+               startDialog.getDatePicker().setMaxDate(new Date().getTime());
+               startDialog.show();
+           }
+       }
+       if(endDialog!=null){
+           if(endDialog.isShowing()) {
+               endDialog.dismiss();
+               final Calendar newCalendar = Calendar.getInstance();
+               try {
+                   Date date5 = simpleDateFormat.parse(to.getText().toString());
+                   newCalendar.setTime(date5);
+               } catch (ParseException e) {
+                   e.printStackTrace();
+               }
+
+               endDialog = new DatePickerDialog(Reports.this, new DatePickerDialog.OnDateSetListener() {
+                   //  ViewGroup.LayoutParams layoutParams=endDia
+                   @Override
+                   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       Calendar newDate = Calendar.getInstance();
+                       newDate.set(year, month, dayOfMonth);
+                       to.setText(simpleDateFormat.format(newDate.getTime()));
+                   }
+               }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+               endDialog.getDatePicker().setMaxDate(new Date().getTime());
+               // endDialog.set
+               endDialog.show();
+
+           }
+       }
+    }
+
+  /**  public void onBackPressed(){
+       super.onBackPressed();
+       if(startDialog!=null || endDialog!=null){
+           startDialog=null;
+           endDialog=null;
+       }
+    }**/
     protected void onSaveInstanceState(Bundle state){
         super.onSaveInstanceState(state);
       //  if(state!=null) {

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -43,8 +44,8 @@ public class CustomerClick extends AppCompatActivity {
     Gson gson;
     RelativeLayout noDataLayout;
   //  LinearLayout linearLayout;
-    RelativeLayout relativeLayout;
-    ProgressBar progressBar;
+    RelativeLayout relativeLayout,progressBar;
+   // ProgressBar progressBar;
     String restId;
     TextView name,email,contact;
     OrderDetailData orderDetailData=new OrderDetailData();
@@ -56,6 +57,8 @@ private static final String TAG="CustomerClick";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_click);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if(CheckNetwork.isNetworkAvailable(CustomerClick.this)) {
             recyclerView = findViewById(R.id.customerDetailList);
             name=findViewById(R.id.userText);
@@ -63,7 +66,7 @@ private static final String TAG="CustomerClick";
             email=findViewById(R.id.mailText);
             noDataLayout=findViewById(R.id.noDataLayout);
             relativeLayout=findViewById(R.id.mainLayout);
-            progressBar=findViewById(R.id.progressBar);
+            progressBar=findViewById(R.id.progressLayout);
             Intent intent=getIntent();
             customerId=intent.getStringExtra("Customer click");
           //  Toast.makeText(getApplicationContext(),customerId,Toast.LENGTH_LONG).show();
@@ -90,7 +93,7 @@ private static final String TAG="CustomerClick";
     }
 
     private void fetchPosts() {
-        final String url="http://business.foodypos.com/App/Api.asmx/CustomerDetails?RestaurantId="+restId+"&CustomerId="+customerId;
+        final String url=Constants.BASE_URL+"CustomerDetails?RestaurantId="+restId+"&CustomerId="+customerId;
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

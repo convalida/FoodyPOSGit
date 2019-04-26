@@ -62,8 +62,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.convalida.android.foodypos.Customer" />
+        <activity android:name="com.convalida.android.foodypos.Customer"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity android:name="com.convalida.android.foodypos.Reports"
+            android:configChanges="screenSize|orientation"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name="com.convalida.android.foodypos.Sales"
             android:configChanges="orientation|screenSize"
@@ -77,7 +81,7 @@
             android:theme="@style/ForgotPasswordDialog" />
         <activity android:name="com.convalida.android.foodypos.OnClickOrder"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"
+            android:configChanges="orientation|screenSize"
             >
             <intent-filter>
                 <action android:name="OPEN_ACTIVITY"/>
@@ -88,7 +92,9 @@
         <activity
             android:name="com.convalida.android.foodypos.AmountDetails"
             android:theme="@style/ForgotPasswordDialog" />
-        <activity android:name="com.convalida.android.foodypos.CustomerClick" />
+        <activity android:name="com.convalida.android.foodypos.CustomerClick"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity
             android:name="com.convalida.android.foodypos.DateNdTimeCustomer"
             android:theme="@style/ForgotPasswordDialog" />

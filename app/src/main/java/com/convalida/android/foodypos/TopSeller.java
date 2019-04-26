@@ -161,9 +161,9 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-          //  amountRounded=Math.round(totalAmount);
-            //finalAmount=String.valueOf("$"+amountRounded);
-            finalAmount=String.valueOf("$"+totalAmount);
+            amountRounded=Math.round(totalAmount *100.0)/100.0;
+            finalAmount=String.valueOf("$"+amountRounded);
+           // finalAmount=String.valueOf("$"+totalAmount);
             finalOrder=String.valueOf(totalOrder);
             return salesList;
         }

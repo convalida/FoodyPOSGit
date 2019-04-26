@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +71,8 @@ public class Customer extends AppCompatActivity{
         //} //else {
            // setContentView(R.layout.sales_landscapemode);
         //}
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if(CheckNetwork.isNetworkAvailable(Customer.this)) {
             if (getSupportActionBar() != null) {
                 android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -230,7 +233,7 @@ public class Customer extends AppCompatActivity{
     }
 
     private void getDatedCustomers() {
-        final String CUSTOMER_DATES="http://business.foodypos.com/App/Api.asmx/customer?RestaurantId="+restId+"&startdate="+start.getText().toString()+"&enddate="+end.getText().toString();
+        final String CUSTOMER_DATES=Constants.BASE_URL+"customer?RestaurantId="+restId+"&startdate="+start.getText().toString()+"&enddate="+end.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,CUSTOMER_DATES,onRequestsLoadedDate,onRequestsErrorDate);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
