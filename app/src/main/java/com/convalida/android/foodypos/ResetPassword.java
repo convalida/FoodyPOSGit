@@ -187,7 +187,7 @@ public class ResetPassword extends AppCompatActivity  {
                 }
               //  }
                 if(hasPasswordFlag==1 && hasConfirmPasswordFlag==1){
-                final String url = "http://business.foodypos.com/App/Api.asmx/OTP";
+                final String url = Constants.BASE_URL+"OTP";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

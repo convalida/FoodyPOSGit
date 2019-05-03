@@ -63,7 +63,7 @@ public class ChangePassword extends AppCompatActivity {
                     restId=sharedPreferences.getString("Id","");
                     sharedPreferences=getApplicationContext().getSharedPreferences("Login",MODE_PRIVATE);
                     email=sharedPreferences.getString("mailid","");
-                    String url="http://business.foodypos.com/App/Api.asmx/ChangePaaword";
+                    String url=Constants.BASE_URL+"ChangePaaword";
                     StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

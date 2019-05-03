@@ -161,7 +161,7 @@ import java.util.Map;
               //  requestQueue.add(stringRequest);
 
                 final String url = "http://business.foodypos.com/App/Api.asmx/UpdateEmployee?AccountId="+acctId+"&RestaurantId="+restId+"&ModifiedBy="+modifiedBy+"&Role="+selectedItem+"&Active="+active;
-               final String url2="http://business.foodypos.com/App/Api.asmx/UpdateEmployee";
+               final String url2=Constants.BASE_URL+"UpdateEmployee";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url2, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

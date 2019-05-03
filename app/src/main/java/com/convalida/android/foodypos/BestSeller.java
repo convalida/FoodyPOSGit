@@ -145,7 +145,7 @@ public class BestSeller extends AppCompatActivity {
         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
         restId=sharedPreferences.getString("Id","");
         Log.e(TAG,restId);
-        final String ENDPOINT="http://business.foodypos.com/App/Api.asmx/bestselleritems?RestaurantId="+restId;
+        final String ENDPOINT=Constants.BASE_URL+"bestselleritems?RestaurantId="+restId;
         StringRequest stringRequest=new StringRequest(Request.Method.GET, ENDPOINT, onPostsLoaded, onPostsError);
         requestQueue.add(stringRequest);
     }

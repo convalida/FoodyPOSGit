@@ -99,7 +99,7 @@ employeeDetailDataArrayList=new ArrayList<>();
         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
         restId=sharedPreferences.getString("Id","");
         Log.e(TAG,restId);
-        final String MAIN = "http://business.foodypos.com/App/Api.asmx/ViewEmployee?RestaurantId="+restId;
+        final String MAIN = Constants.BASE_URL+"ViewEmployee?RestaurantId="+restId;
         StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

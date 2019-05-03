@@ -73,7 +73,7 @@ public class ForgotPassword extends AppCompatActivity {
           //  setTheme(android.R.style.Theme_Black_NoTitleBar);
 
 
-            String url="http://business.foodypos.com/App/Api.asmx/ForgotPassword";
+            String url=Constants.BASE_URL+"ForgotPassword";
             StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

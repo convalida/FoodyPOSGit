@@ -226,7 +226,7 @@ confirmPassword.addTextChangedListener(new TextWatcher() {
                         SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
                         restId=sharedPreferences.getString("Id","");
                         modifiedBy=sharedPreferences.getString("userName","");
-                        String url="http://business.foodypos.com/App/Api.asmx/AddEmployee";
+                        String url=Constants.BASE_URL+"AddEmployee";
                         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

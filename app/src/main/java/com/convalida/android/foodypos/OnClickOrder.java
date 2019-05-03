@@ -191,7 +191,7 @@ public class OnClickOrder extends AppCompatActivity {
     private void updateReadStatus() {
        final String token=SharedPrefManagerToken.getmInstance(this).getDeviceToken();
     //    final String url="http://business.foodypos.com/App/Api.asmx/ReadNotificationByUser";
-        final String url="http://demo.metropolisgrill.com/App/Api.asmx/ReadNotificationByUser";
+        final String url=Constants.BASE_URL+"ReadNotificationByUser";
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

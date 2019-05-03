@@ -438,7 +438,7 @@ public class OrderList extends AppCompatActivity {
     }
 
     private void fetchPosts() {
-        final String url="http://business.foodypos.com/App/Api.asmx/Orderlist?RestaurantId="+restId+"&startdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString()+"&ordernumber=null";
+        final String url=Constants.BASE_URL+"Orderlist?RestaurantId="+restId+"&startdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString()+"&ordernumber=null";
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

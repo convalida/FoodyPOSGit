@@ -284,7 +284,7 @@ public class BestsellerMore extends AppCompatActivity {
     }
 
     private void fetchData() {
-        final String url="http://business.foodypos.com/App/Api.asmx/GetAllBestselleritems?RestaurantId="+restId+"&fromdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString();
+        final String url=Constants.BASE_URL+"GetAllBestselleritems?RestaurantId="+restId+"&fromdate="+fromDate.getText().toString()+"&enddate="+toDate.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(300000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

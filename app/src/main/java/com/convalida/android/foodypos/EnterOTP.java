@@ -88,7 +88,7 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
              //   Log.e(TAG,"Resend Button clicked");
                 Intent intent=new Intent(EnterOTP.this,EmptyActivity.class);
                 startActivity(intent);
-                String url="http://business.foodypos.com/App/Api.asmx/ForgotPassword";
+                String url=Constants.BASE_URL+"ForgotPassword";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -194,7 +194,7 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
                 assert inputMethodManager != null;
                 inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(),0);
                 //EnterOTP.this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                String url="http://business.foodypos.com/App/Api.asmx/OTP";
+                String url=Constants.BASE_URL+"OTP";
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
     TextInputLayout inputLayoutEmail, inputLayoutPassword;
     Button signIn;
     CheckBox rememberCheck;
-    public static final String BASE_URL="http://business.foodypos.com/App/Api.asmx/";
+  //  public static final String BASE_URL="http://business.foodypos.com/App/Api.asmx/";
     private static final String TAG="Login";
     private RequestQueue requestQueue;
     Gson gson;
@@ -238,7 +238,7 @@ public class Login extends AppCompatActivity {
 
      String encodedPassword=URLEncoder.encode(password);
    //  String encodedUrl="http://business.foodypos.com/App/Api.asmx/GetLogin?email="+mail+"&password="+encodedPassword;
-        String encodedUrl="http://business.foodypos.com/App/Api.asmx/LoginByApp?email="+mail+"&password="+encodedPassword+"&deviceId="+token+"&buildversion=null&DeviceType=android";
+        String encodedUrl=Constants.BASE_URL+"LoginByApp?email="+mail+"&password="+encodedPassword+"&deviceId="+token+"&buildversion=null&DeviceType=android";
         StringRequest stringRequest=new StringRequest(Request.Method.GET,encodedUrl,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
