@@ -28,7 +28,6 @@
             android:theme="@style/ForgotPasswordDialog"/>
         <activity
             android:name="com.convalida.android.foodypos.SplashScreen"
-            android:screenOrientation="portrait"
             android:theme="@style/generateNoTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +48,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name="com.convalida.android.foodypos.ChangePassword" />
-        <activity android:name="com.convalida.android.foodypos.EmployeeDetails" />
+        <activity android:name="com.convalida.android.foodypos.EmployeeDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.convalida.android.foodypos.AddEmployeeDetail"
             android:theme="@style/ForgotPasswordDialog" />
@@ -57,7 +57,7 @@
             android:name="com.convalida.android.foodypos.EditEmployeeDetail"
             android:theme="@style/ForgotPasswordDialog">
             <intent-filter>
-                <action android:name="com.example.ctpl_dt10.foodypos.editEmployeeDetail" />
+                <action android:name="com.convalida.android.foodypos.editEmployeeDetail" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -66,7 +66,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="screenSize|orientation"/>
         <activity android:name="com.convalida.android.foodypos.Reports"
-            android:configChanges="screenSize|orientation"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name="com.convalida.android.foodypos.Sales"

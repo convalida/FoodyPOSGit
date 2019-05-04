@@ -775,10 +775,7 @@ public class MainActivity extends AppCompatActivity
 
     }//yearGraph function ends
 
-    @Override
-    public void onPreExecute() {
 
-    }
 
 
     // @Override
@@ -912,7 +909,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class ExecutePosts extends AsyncTask<String,Void,Wrapper> {
+/**    private class ExecutePosts extends AsyncTask<String,Void,Wrapper> {
         String totalSales, totalOrder, totalCustomer, weeklySale, weeklyOrder, weeklyCustomer;
         ArrayList<String> labelsList;
         int v, flagResult = 1;
@@ -1141,6 +1138,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-    }
+    }**/
 
 }
