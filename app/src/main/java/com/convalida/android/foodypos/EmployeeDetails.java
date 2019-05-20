@@ -1,5 +1,7 @@
 package com.convalida.android.foodypos;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 //import okhttp3.Response;
 
 
-public class EmployeeDetails extends AppCompatActivity {
+public class EmployeeDetails extends AppCompatActivity implements EmployeeTaskFragment.EmployeeTaskCallbacks {
     FloatingActionButton add;
     RecyclerView recyclerView;
     RequestQueue requestQueue;
@@ -46,6 +48,8 @@ public class EmployeeDetails extends AppCompatActivity {
     EmployeeDetailAdapter adapter;
     private static final String TAG="EmployeeDetails";
     RelativeLayout mainLayout,progressLayout;
+    private EmployeeTaskFragment employeeTaskFragment;
+    private static final String TAG_EMPLOYEEE_TASK="employee_task";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class EmployeeDetails extends AppCompatActivity {
             ActionBar actionBar = getSupportActionBar();
             actionBar.setTitle("Employee Details");
         }
+        progressLayout=findViewById(R.id.progressLayout);
+        mainLayout=findViewById(R.id.mainLayout);
 employeeDetailDataArrayList=new ArrayList<>();
         add=findViewById(R.id.addDetails);
         recyclerView=findViewById(R.id.employees);
@@ -69,8 +75,7 @@ employeeDetailDataArrayList=new ArrayList<>();
                 startActivity(i1);
             }
         });
-        mainLayout=findViewById(R.id.mainLayout);
-        progressLayout=findViewById(R.id.progressLayout);
+
   //      employeeData="{\"result\":{\"Message\":\"EmailID are already exists\",\"ResultCode\":\"0\"},\"EmployeeDetails\":[{\"Username\":\"order@metropolisgrill.com\",\"EmailId\":\"order@metropolisgrill.com\",\"RolwType\":\"Manager\",\"Active\":\"True\"}]}\n" +
     //            "\n";
 
@@ -110,9 +115,29 @@ employeeDetailDataArrayList=new ArrayList<>();
     Response.Listener<String> onPostsLoaded=new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.e(TAG,response);
-            GetEmployees employees=new GetEmployees();
-            employees.execute(response);
+            Log.e(TAG + " onPosts", response);
+            //  GetEmployees employees=new GetEmployees();
+            //  employees.execute(response);
+            // FragmentManager fragmentManager=getFragmentManager();
+            employeeTaskFragment = (EmployeeTaskFragment) getSupportFragmentManager().findFragmentByTag(TAG_EMPLOYEEE_TASK);
+            Bundle bundle = new Bundle();
+            bundle.putString("responseEmployee", response);
+            //   try{
+            if (employeeTaskFragment == null) {
+             //   try {
+                    employeeTaskFragment = new EmployeeTaskFragment();
+                    employeeTaskFragment.setArguments(bundle);
+                    Log.e(TAG , "On posts Fragment initalized");
+                    getSupportFragmentManager().beginTransaction().add(employeeTaskFragment, TAG_EMPLOYEEE_TASK).commitAllowingStateLoss();
+                    // }
+
+                /**} catch (Exception e) {
+                    e.printStackTrace();
+                }**/
+            }
+            if(employeeTaskFragment!=null){
+                employeeTaskFragment.startBackgroundTask();
+            }
         }
     };
     Response.ErrorListener onPostsError=new Response.ErrorListener() {
@@ -121,6 +146,40 @@ employeeDetailDataArrayList=new ArrayList<>();
             Log.e(TAG,error.toString());
         }
     };
+
+    @Override
+    public void onPostExecute() {
+        Log.e(TAG,"onPostExecute after rotation");
+        if(employeeTaskFragment!=null){
+            employeeTaskFragment.updateExecutingStatus(false);
+        }
+        progressLayout.setVisibility(View.INVISIBLE);
+        Log.e(TAG,"Progress layout invisible");
+        mainLayout.setVisibility(View.VISIBLE);
+        Log.e(TAG,"Main layout visible");
+
+        EmployeeDetailAdapter empAdapter = new EmployeeDetailAdapter(EmployeeTaskFragment.employeeDetailDataArrayList, getApplication());
+        recyclerView.setAdapter(empAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(EmployeeDetails.this));
+    }
+
+    @Override
+    public void onPostFailure() {
+        Log.e(TAG,"Server error");
+        new AlertDialog.Builder(EmployeeDetails.this)
+                .setMessage("Sorry, unable to connect to server. Please try after some time")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        noDataLayout.setVisibility(View.VISIBLE);
+                        mainLayout.setVisibility(View.INVISIBLE);
+                        progressLayout.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
 
     private class GetEmployees extends AsyncTask<String,Void,ArrayList<EmployeeDetailData>> {
         int flagResult=1;

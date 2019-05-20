@@ -1,7 +1,6 @@
 package com.convalida.android.foodypos;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -18,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -456,7 +456,7 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, response);
            //   ExecutePosts posts=new ExecutePosts();
             //  posts.execute(response);
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             taskFragment = (TaskFragment) fragmentManager.findFragmentByTag(TAG_TASK_FRAGMENT);
             Bundle bundle = new Bundle();
             bundle.putString("response", response);
@@ -778,7 +778,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    // @Override
+     @Override
     public void onPostExecute() {
      //   super.onPostExecute(wrapper);
         progressLayout.setVisibility(View.INVISIBLE);

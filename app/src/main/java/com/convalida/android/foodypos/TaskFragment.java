@@ -2,7 +2,8 @@ package com.convalida.android.foodypos;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,9 +82,9 @@ public class TaskFragment extends Fragment {
     private TaskCallbacks taskCallbacks;
     private ExecutePosts executePosts;
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        taskCallbacks = (TaskCallbacks) activity;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        taskCallbacks = (TaskCallbacks) context;
     }
 
     public void onCreate(Bundle savedInstanceState) {

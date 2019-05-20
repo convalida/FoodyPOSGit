@@ -43,8 +43,8 @@ public class BestSeller extends AppCompatActivity {
     List<BestsellerChildlist> yearSeller;
     List<BestsellerChildlist> monthSeller;
     List<BestsellerChildlist> weekSeller;
-    RelativeLayout monthRelativeLayout,weekRelativeLayout;
-    TableLayout monthTableLayout,weekTableLayout;
+    RelativeLayout monthRelativeLayout,weekRelativeLayout,yearRelativeLayout;
+    TableLayout monthTableLayout,weekTableLayout, yearTableLayout;
   //  LinearLayout mainLayout;
    ScrollView mainLayout;
     RelativeLayout progressLayout;
@@ -79,7 +79,10 @@ public class BestSeller extends AppCompatActivity {
         progressLayout=findViewById(R.id.progressLayout);
         noDataLayout=findViewById(R.id.noDataLayout);
         monthRelativeLayout=findViewById(R.id.noDataMonth);
+        weekRelativeLayout=findViewById(R.id.noDataWeek);
+        yearRelativeLayout=findViewById(R.id.noDataYear);
         monthTableLayout=findViewById(R.id.monthTableLayout);
+        yearTableLayout=findViewById(R.id.yearTableLayout);
         yearTopFirst=findViewById(R.id.yearBestOne);
         yearTopFirstNum=findViewById(R.id.yearBestOneNum);
         yearTopSecond=findViewById(R.id.yearBestTwo);
@@ -193,7 +196,7 @@ public class BestSeller extends AppCompatActivity {
         private ProgressBar progressBar;
         private int progressStatus=0;
         private Handler handler=new Handler();
-        int flagMonth=1, flagWeek=1;
+        int flagMonth=1, flagWeek=1, flagYear=1;
         int flagResult=1;
 
         @Override
@@ -246,15 +249,21 @@ public class BestSeller extends AppCompatActivity {
                      }
                      }**/
                     yearSeller = new ArrayList<>();
-                    for (int i = 0; i < yearBestSeller.length(); i++) {
-                        JSONObject jsonObject1 = yearBestSeller.getJSONObject(i);
-                        String name = jsonObject1.getString("Subitems");
-                        String count = jsonObject1.getString("Counting");
-                        bestsellerChildlist = new BestsellerChildlist();
-                        bestsellerChildlist.setItemname(name);
-                        bestsellerChildlist.setCounting(count);
-                        yearSeller.add(bestsellerChildlist);
+                   // if(yearBestSeller.length()!=0){
+                    if(yearBestSeller.length()!=0) {
+                        for (int i = 0; i < yearBestSeller.length(); i++) {
+                            JSONObject jsonObject1 = yearBestSeller.getJSONObject(i);
+                            String name = jsonObject1.getString("Subitems");
+                            String count = jsonObject1.getString("Counting");
+                            bestsellerChildlist = new BestsellerChildlist();
+                            bestsellerChildlist.setItemname(name);
+                            bestsellerChildlist.setCounting(count);
+                            yearSeller.add(bestsellerChildlist);
 
+                        }
+                    }
+                    else{
+                        flagYear = 0;
                     }
                     if (flagWeek != 0) {
                         sumArray.add(weekSeller);
@@ -262,7 +271,9 @@ public class BestSeller extends AppCompatActivity {
                     if (flagMonth != 0) {
                         sumArray.add(monthSeller);
                     }
-                    sumArray.add(yearSeller);
+                    if(flagYear !=0) {
+                        sumArray.add(yearSeller);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -274,13 +285,18 @@ public class BestSeller extends AppCompatActivity {
             if(flagResult==1) {
                 mainLayout.setVisibility(View.VISIBLE);
                 progressLayout.setVisibility(View.INVISIBLE);
-                yearTopFirst.setText(yearSeller.get(0).getItemname());
-                yearTopFirstNum.setText(yearSeller.get(0).getCounting());
-                yearTopSecond.setText(yearSeller.get(1).getItemname());
-                yearTopSecondNum.setText(yearSeller.get(1).getCounting());
-                yearTopThird.setText(yearSeller.get(2).getItemname());
-                yearTopThirdNum.setText(yearSeller.get(2).getCounting());
-
+                if(flagYear == 1) {
+                    yearTopFirst.setText(yearSeller.get(0).getItemname());
+                    yearTopFirstNum.setText(yearSeller.get(0).getCounting());
+                    yearTopSecond.setText(yearSeller.get(1).getItemname());
+                    yearTopSecondNum.setText(yearSeller.get(1).getCounting());
+                    yearTopThird.setText(yearSeller.get(2).getItemname());
+                    yearTopThirdNum.setText(yearSeller.get(2).getCounting());
+                }
+                else{
+                    yearTableLayout.setVisibility(View.INVISIBLE);
+                    yearRelativeLayout.setVisibility(View.VISIBLE);
+                }
                 if (flagMonth == 1) {
                     monthTopFirst.setText(monthSeller.get(0).getItemname());
                     monthTopFirstNum.setText(monthSeller.get(0).getCounting());
