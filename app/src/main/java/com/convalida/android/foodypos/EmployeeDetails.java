@@ -63,7 +63,7 @@ public class EmployeeDetails extends AppCompatActivity implements EmployeeTaskFr
         }
         progressLayout=findViewById(R.id.progressLayout);
         mainLayout=findViewById(R.id.mainLayout);
-employeeDetailDataArrayList=new ArrayList<>();
+        employeeDetailDataArrayList=new ArrayList<>();
         add=findViewById(R.id.addDetails);
         recyclerView=findViewById(R.id.employees);
         noDataLayout=findViewById(R.id.noDataLayout);

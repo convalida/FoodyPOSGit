@@ -47,7 +47,8 @@
         <activity android:name="com.convalida.android.foodypos.TopSeller"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name="com.convalida.android.foodypos.ChangePassword" />
+        <activity android:name="com.convalida.android.foodypos.ChangePassword"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.convalida.android.foodypos.EmployeeDetails"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

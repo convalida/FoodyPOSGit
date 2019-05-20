@@ -3,8 +3,10 @@ package com.convalida.android.foodypos;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -37,8 +39,12 @@ public class ChangePassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-
-
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null){
+            ActionBar actionBar=getSupportActionBar();
+            actionBar.setTitle("FoodyPOS");
+        }
         newPassword=findViewById(R.id.newPassword);
         confirmPassword=findViewById(R.id.confirmPassword);
         oldPassword=findViewById(R.id.oldPassword);

@@ -27,7 +27,7 @@ public class EmployeeTaskFragment extends Fragment {
     private EmployeeTaskCallbacks employeeTaskCallbacks;
     private GetEmployees getEmployees;
 
-    public void onAttach(Activity context){
+    public void onAttach(Context context){
         super.onAttach(context);
         employeeTaskCallbacks= (EmployeeTaskCallbacks) context;
         Log.e(TAG,"OnAttach of fragment");
