@@ -139,8 +139,8 @@ public class BestsellerMore extends AppCompatActivity {
                 actionBar.setTitle("Weekly Bestseller Items");
                 flagDay=0;
                 Calendar calendar=Calendar.getInstance();
-                calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-                calendar.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+                calendar.setFirstDayOfWeek(Calendar.MONDAY);
+                calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
                 fromDate.setText(simpleDateFormat.format(calendar.getTime()));
 
                 Date date=Calendar.getInstance().getTime();

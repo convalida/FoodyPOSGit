@@ -1,5 +1,6 @@
 package com.convalida.android.foodypos;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,9 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,8 +38,9 @@ public class ChangePassword extends AppCompatActivity {
 
     EditText newPassword,oldPassword,confirmPassword;
     Button submit;
-    String old_password,new_password,confirm_password,restId,email;
+    String old_password,new_password,confirm_password,restId,email,newPass,confirmPass;
     SharedPreferences sharedPreferences;
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,71 @@ public class ChangePassword extends AppCompatActivity {
         submit.setEnabled(false);
         submit.setBackgroundColor(Color.parseColor("#ffccaa"));
 
+        newPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId== EditorInfo.IME_ACTION_NEXT){
+                    newPass=newPassword.getText().toString();
+                    if(newPass.length()>0) {
+                        if (8 > newPass.length() || newPass.length() > 15) {
+                            newPassword.setError("Password must be 8 to 15 characters long");
+                            newPassword.requestFocus();
+                            return true;
+                        }
+                    }else{
+                        newPassword.setError("New password is required");
+                        newPassword.requestFocus();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
+        confirmPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                confirmPass=confirmPassword.getText().toString();
+                newPass=newPassword.getText().toString();
+                if(newPass.length()>0) {
+                    if (8 > newPass.length() || newPass.length() > 15) {
+                        newPassword.setError("Password must be 8 to 15 characters long");
+                        newPassword.requestFocus();
+                        return true;
+                    }
+                }
+                /** else{
+                    newPassword.setError("New password is required");
+                    newPassword.requestFocus();
+                    return true;
+                }**/
+                return false;
+            }
+        });
+
+        newPassword.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                newPass=newPassword.getText().toString().trim();
+                confirmPass=confirmPassword.getText().toString().trim();
+                if(confirmPass.length()>0){
+                    if(8 > confirmPass.length() || confirmPass.length()>15){
+                        confirmPassword.setError("Password must be 8 to 15 characters long");
+                        confirmPassword.requestFocus();
+                    }
+                    else{
+                        if(newPass.length()>0 && (8 < newPass.length() && newPass.length() < 15) ){
+                            if(!newPass.equals(confirmPass)){
+                                confirmPassword.setError("Password must be 8 to 15 characters long");
+                                confirmPassword.requestFocus();
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+        });
 
             submit.setOnClickListener(new View.OnClickListener() {
             @Override

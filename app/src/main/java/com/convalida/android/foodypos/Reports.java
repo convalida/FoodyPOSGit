@@ -117,8 +117,8 @@ if(CheckNetwork.isNetworkAvailable(Reports.this)){
         final Date date=new Date();
 
        final Calendar cal=Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.SUNDAY);
-         cal.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+         cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
        //cal.add(Calendar.DATE,-7);
        String startDateWeek=simpleDateFormat.format(cal.getTime());
        from.setText(startDateWeek);
@@ -365,7 +365,7 @@ defaultDateFlag=1;
 
     private void displayDatesResults() {
        // final String DATE_PASS = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
-        final String DATE_PASS = Constants.BASE_URL_LIVE+"getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
+        final String DATE_PASS = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, DATE_PASS, onPostsDateLoaded, onPostsDateError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
@@ -423,7 +423,7 @@ defaultDateFlag=1;
     private void displayResults() {
         StringRequest stringRequest = null;
        // final String MAIN = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=null&enddate=null";
-        final String MAIN = Constants.BASE_URL_LIVE+"getreport?RestaurantId=" + restId + "&fromdate=null&enddate=null";
+        final String MAIN = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=null&enddate=null";
       //  final String DATE_PASS = "http://business.foodypos.com/App/Api.asmx/getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
         //if (defaultDateFlag == 0) {
             stringRequest = new StringRequest(Request.Method.GET, MAIN, onPostsLoaded, onPostsError);
@@ -461,8 +461,8 @@ defaultDateFlag=1;
          //   orders.setText(finalOrderDay);
            // amount.setText(finalAmountDay);
             final Calendar cal = Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.SUNDAY);
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         String startDateWeek = simpleDateFormat.format(cal.getTime());
         from.setText(startDateWeek);
     }//cal.add(Calendar.DATE,-7);

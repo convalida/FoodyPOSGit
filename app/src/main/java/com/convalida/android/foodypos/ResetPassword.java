@@ -55,8 +55,6 @@ public class ResetPassword extends AppCompatActivity  {
         confirmPassword=findViewById(R.id.password);
         pass=password.getText().toString();
 
-
-
         password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {

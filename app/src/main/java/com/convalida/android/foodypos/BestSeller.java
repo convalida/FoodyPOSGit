@@ -288,10 +288,14 @@ public class BestSeller extends AppCompatActivity {
                 if(flagYear == 1) {
                     yearTopFirst.setText(yearSeller.get(0).getItemname());
                     yearTopFirstNum.setText(yearSeller.get(0).getCounting());
-                    yearTopSecond.setText(yearSeller.get(1).getItemname());
-                    yearTopSecondNum.setText(yearSeller.get(1).getCounting());
-                    yearTopThird.setText(yearSeller.get(2).getItemname());
-                    yearTopThirdNum.setText(yearSeller.get(2).getCounting());
+                    if (yearSeller.size() > 1 && yearSeller.get(1) != null) {
+                        yearTopSecond.setText(yearSeller.get(1).getItemname());
+                        yearTopSecondNum.setText(yearSeller.get(1).getCounting());
+                    }
+                    if (yearSeller.size() > 2 && yearSeller.get(2) != null) {
+                        yearTopThird.setText(yearSeller.get(2).getItemname());
+                        yearTopThirdNum.setText(yearSeller.get(2).getCounting());
+                    }
                 }
                 else{
                     yearTableLayout.setVisibility(View.INVISIBLE);
@@ -300,10 +304,14 @@ public class BestSeller extends AppCompatActivity {
                 if (flagMonth == 1) {
                     monthTopFirst.setText(monthSeller.get(0).getItemname());
                     monthTopFirstNum.setText(monthSeller.get(0).getCounting());
-                    monthTopSecond.setText(monthSeller.get(1).getItemname());
-                    monthTopSecondNum.setText(monthSeller.get(1).getCounting());
-                    monthTopThird.setText(monthSeller.get(2).getItemname());
-                    monthTopThirdNum.setText(monthSeller.get(2).getCounting());
+                    if (monthSeller.size() > 1 && monthSeller.get(1) != null) {
+                        monthTopSecond.setText(monthSeller.get(1).getItemname());
+                        monthTopSecondNum.setText(monthSeller.get(1).getCounting());
+                    }
+                    if (monthSeller.size() > 2 && monthSeller.get(2) != null) {
+                        monthTopThird.setText(monthSeller.get(2).getItemname());
+                        monthTopThirdNum.setText(monthSeller.get(2).getCounting());
+                    }
                 } else {
                     monthTableLayout.setVisibility(View.INVISIBLE);
                     monthRelativeLayout.setVisibility(View.VISIBLE);
@@ -311,8 +319,10 @@ public class BestSeller extends AppCompatActivity {
                 if (flagWeek == 1) {
                     weekTopFirst.setText(weekSeller.get(0).getItemname());
                     weekTopFirstNum.setText(weekSeller.get(0).getCounting());
-                    weekTopSecond.setText(weekSeller.get(1).getItemname());
-                    weekTopSecondNum.setText(weekSeller.get(1).getCounting());
+                    if (weekSeller.size() > 1 && weekSeller.get(1) != null) {
+                        weekTopSecond.setText(weekSeller.get(1).getItemname());
+                        weekTopSecondNum.setText(weekSeller.get(1).getCounting());
+                    }
                     if (weekSeller.size() > 2 && weekSeller.get(2) != null) {
                         weekTopThird.setText(weekSeller.get(2).getItemname());
                         weekTopThirdNum.setText(weekSeller.get(2).getCounting());
