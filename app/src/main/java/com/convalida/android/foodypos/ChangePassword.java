@@ -110,12 +110,17 @@ public class ChangePassword extends AppCompatActivity {
                     if(8 > confirmPass.length() || confirmPass.length()>15){
                         confirmPassword.setError("Password must be 8 to 15 characters long");
                         confirmPassword.requestFocus();
+                        return true;
                     }
                     else{
                         if(newPass.length()>0 && (8 < newPass.length() && newPass.length() < 15) ){
                             if(!newPass.equals(confirmPass)){
-                                confirmPassword.setError("Password must be 8 to 15 characters long");
-                                confirmPassword.requestFocus();
+                             //   confirmPassword.requestFocus();
+                                confirmPassword.setError("Passwords do not match");
+
+                            //    newPassword.setError("Passwords do not match");
+                            //    newPassword.requestFocus();
+                               // return true;
                             }
                         }
                     }

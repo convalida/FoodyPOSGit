@@ -171,7 +171,7 @@ searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-defaultDateFlag=1;
+//defaultDateFlag=1;
               /**  if(from.getText().toString().equals("mm-dd-yyyy")) {
                     Calendar newCalendar=Calendar.getInstance();
                     Log.e(TAG,"Default date: "+fromDate);
@@ -235,7 +235,7 @@ defaultDateFlag=1;
         to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defaultDateFlag=1;
+             //   defaultDateFlag=1;
         /**        if(to.getText().toString().equals("mm-dd-yyyy")) {
 
                     final Calendar newCalendar = Calendar.getInstance();
@@ -365,6 +365,7 @@ defaultDateFlag=1;
 
     private void displayDatesResults() {
        // final String DATE_PASS = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
+        defaultDateFlag=1;
         final String DATE_PASS = Constants.BASE_URL+"getreport?RestaurantId=" + restId + "&fromdate=" + from.getText().toString() + "&enddate=" + to.getText().toString();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, DATE_PASS, onPostsDateLoaded, onPostsDateError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -452,11 +453,12 @@ defaultDateFlag=1;
 
     public void DailyReport(View v){
    // fromClick= from.getText().toString();
+        flag=1;
         dailyReport();
       }
 
     private void dailyReport() {
-        flag=1;
+
         if (defaultDateFlag == 0){
          //   orders.setText(finalOrderDay);
            // amount.setText(finalAmountDay);
@@ -498,13 +500,13 @@ defaultDateFlag=1;
 
     public void WeeklyReport(View v){
   //  fromClick= from.getText().toString();
-
+        flag=2;
         weeklyReport();
 
     }
 
     private void weeklyReport() {
-        flag=2;
+
         if(defaultDateFlag==0) {
            // orders.setText(finalOrderWeek);
          //   amount.setText(finalAmountWeek);
@@ -554,12 +556,13 @@ defaultDateFlag=1;
 
     public void MonthlyReport(View v){
  //   fromClick= from.getText().toString();
+        flag=3;
         montlyReport();
            }
 
     private void montlyReport() {
 
-        flag=3;
+
         if(defaultDateFlag==0){
         //    orders.setText(finalOrderMonth);
           //  amount.setText(finalAmountMonth);
