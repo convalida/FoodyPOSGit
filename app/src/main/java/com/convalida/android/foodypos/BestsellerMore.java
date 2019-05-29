@@ -138,10 +138,20 @@ public class BestsellerMore extends AppCompatActivity {
             if(in.getIntExtra("Flag",0)==1){
                 actionBar.setTitle("Weekly Bestseller Items");
                 flagDay=0;
-                Calendar calendar=Calendar.getInstance();
-                calendar.setFirstDayOfWeek(Calendar.MONDAY);
-                calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+               final Calendar calendar=Calendar.getInstance();
+               // calendar.setFirstDayOfWeek(Calendar.MONDAY);
+
+
+                int day=calendar.get(Calendar.DAY_OF_WEEK);
+                if(day==1){
+                    calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+                    calendar.add(Calendar.DAY_OF_WEEK,-7);
+                }
+                else{
+                    calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+                }
                 fromDate.setText(simpleDateFormat.format(calendar.getTime()));
+
 
                 Date date=Calendar.getInstance().getTime();
                 toDate.setText(simpleDateFormat.format(date));
@@ -415,8 +425,10 @@ public class BestsellerMore extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
                 mainLayout.setVisibility(View.VISIBLE);
                 BestsellerMoreAdapter bestsellerMoreAdapter = new BestsellerMoreAdapter(BestsellerMore.this, parentList);
-                expandableListBestseller.setAdapter(bestsellerMoreAdapter);
-                expandableListBestseller.expandGroup(0);
+                if(parentList.size()>0) {
+                    expandableListBestseller.setAdapter(bestsellerMoreAdapter);
+                    expandableListBestseller.expandGroup(0);
+                }
               //  orders.setText(String.valueOf(orderCount));
             }
             else if(flagResult==0){

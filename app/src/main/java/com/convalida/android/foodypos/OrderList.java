@@ -278,8 +278,21 @@ public class OrderList extends AppCompatActivity {
              toDate.setText("mm-dd-yyyy");
              }**/
             final Calendar myCalendar = Calendar.getInstance();
-//  myCalendar.setFirstDayOfWeek(Calendar.SUNDAY);
-  myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+  //myCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+         //   int current_week=myCalendar.get(Calendar.WEEK_OF_MONTH);
+
+          //Log.e(TAG,"Current week"+current_week);
+  //myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+  int day=myCalendar.get(Calendar.DAY_OF_WEEK);
+  //Toast.makeText(getApplicationContext(),"Day"+day,Toast.LENGTH_LONG).show();
+  if(day==1){
+     // myCalendar.set(Calendar.WEEK_OF_MONTH-1,Calendar.MONDAY);
+      myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+      myCalendar.add(Calendar.DAY_OF_WEEK,-7);
+  }
+  else{
+      myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+  }
         //    myCalendar.add(Calendar.DATE, -7);
             startDate = simpleDateFormat.format(myCalendar.getTime());
             fromDate.setText(startDate);

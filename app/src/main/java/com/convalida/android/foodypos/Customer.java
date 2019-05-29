@@ -94,6 +94,14 @@ public class Customer extends AppCompatActivity{
             // Calendar calendar= GregorianCalendar.getInstance(Locale.US);
             Calendar calendar = Calendar.getInstance();
             //  calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+            int day= calendar.get(Calendar.DAY_OF_WEEK);
+            if(day==1){
+                calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+                calendar.add(Calendar.DAY_OF_WEEK,-7);
+            }
+            else{
+                calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+            }
             calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
            // calendar.add(Calendar.DATE, -7);
             String startDate = dateFormat.format(calendar.getTime());

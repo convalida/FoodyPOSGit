@@ -99,6 +99,14 @@ public class Sales extends AppCompatActivity {
 
             final Calendar myCalendar = Calendar.getInstance();
             //  myCalendar.setFirstDayOfWeek(Calendar.SUNDAY);
+            int day=myCalendar.get(Calendar.DAY_OF_WEEK);
+            if(day==1){
+                myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+                myCalendar.add(Calendar.DAY_OF_WEEK,-7);
+            }
+            else{
+                myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+            }
              myCalendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
           //  myCalendar.add(Calendar.DATE, -7);
             String startDate = simpleDateFormat.format(myCalendar.getTime());

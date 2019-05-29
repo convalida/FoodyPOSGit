@@ -117,8 +117,16 @@ if(CheckNetwork.isNetworkAvailable(Reports.this)){
         final Date date=new Date();
 
        final Calendar cal=Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-         cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+      //  cal.setFirstDayOfWeek(Calendar.MONDAY);
+    int day=cal.get(Calendar.DAY_OF_WEEK);
+    if(day==1){
+        cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+        cal.add(Calendar.DAY_OF_WEEK,-7);
+    }
+    else{
+        cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+    }
+      //   cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
        //cal.add(Calendar.DATE,-7);
        String startDateWeek=simpleDateFormat.format(cal.getTime());
        from.setText(startDateWeek);
@@ -463,8 +471,16 @@ searchBtn.setOnClickListener(new View.OnClickListener() {
          //   orders.setText(finalOrderDay);
            // amount.setText(finalAmountDay);
             final Calendar cal = Calendar.getInstance();
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            int day= cal.get(Calendar.DAY_OF_WEEK);
+            if(day==1){
+                cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+                cal.add(Calendar.DAY_OF_WEEK,-7);
+            }
+            else{
+                cal.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+            }
+     //   cal.setFirstDayOfWeek(Calendar.MONDAY);
+      //  cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         String startDateWeek = simpleDateFormat.format(cal.getTime());
         from.setText(startDateWeek);
     }//cal.add(Calendar.DATE,-7);

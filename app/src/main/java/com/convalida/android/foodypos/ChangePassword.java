@@ -80,6 +80,23 @@ public class ChangePassword extends AppCompatActivity {
             }
         });
 
+        confirmPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId==EditorInfo.IME_ACTION_DONE){
+                   // Toast.makeText(getApplicationContext(),"Done key is enter key",Toast.LENGTH_LONG).show();
+                    confirmPass=confirmPassword.getText().toString();
+                    if (8 > confirmPass.length() || confirmPass.length() > 15) {
+                        confirmPassword.setError("Password must be 8 to 15 characters long");
+                        confirmPassword.requestFocus();
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
+
         confirmPassword.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -113,7 +130,7 @@ public class ChangePassword extends AppCompatActivity {
                         return true;
                     }
                     else{
-                        if(newPass.length()>0 && (8 < newPass.length() && newPass.length() < 15) ){
+                        if(newPass.length()>0 && (8<= newPass.length() && newPass.length() <= 15) ){
                             if(!newPass.equals(confirmPass)){
                              //   confirmPassword.requestFocus();
                                 confirmPassword.setError("Passwords do not match");
@@ -185,7 +202,7 @@ public class ChangePassword extends AppCompatActivity {
                 }
 
                 else{
-                    confirmPassword.setError("Password do not matches");
+                    confirmPassword.setError("Password does not match");
                     confirmPassword.requestFocus();
                     submit.setEnabled(false);
                     submit.setBackgroundColor(Color.parseColor("#ffccaa"));
