@@ -70,11 +70,11 @@ public class ChangePassword extends AppCompatActivity {
                             newPassword.requestFocus();
                             return true;
                         }
-                    }else{
+                    }/**else{
                         newPassword.setError("New password is required");
                         newPassword.requestFocus();
                         return true;
-                    }
+                    }**/
                 }
                 return false;
             }
@@ -86,10 +86,18 @@ public class ChangePassword extends AppCompatActivity {
                 if(actionId==EditorInfo.IME_ACTION_DONE){
                    // Toast.makeText(getApplicationContext(),"Done key is enter key",Toast.LENGTH_LONG).show();
                     confirmPass=confirmPassword.getText().toString();
-                    if (8 > confirmPass.length() || confirmPass.length() > 15) {
-                        confirmPassword.setError("Password must be 8 to 15 characters long");
-                        confirmPassword.requestFocus();
-                        return true;
+                    newPass=newPassword.getText().toString();
+                    if(confirmPass.length()>0) {
+                        if (8 > confirmPass.length() || confirmPass.length() > 15) {
+                            confirmPassword.setError("Password must be 8 to 15 characters long");
+                            confirmPassword.requestFocus();
+                            return true;
+                        }
+
+                        if(!newPass.equals(confirmPass)){
+                            confirmPassword.setError("Passwords do not match");
+                            confirmPassword.requestFocus();
+                        }
                     }
                 }
 
@@ -147,6 +155,44 @@ public class ChangePassword extends AppCompatActivity {
             }
         });
 
+        oldPassword.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                String newPass=newPassword.getText().toString();
+                String confirmPass=confirmPassword.getText().toString();
+               /** if(newPass.length()>0 && (8<= newPass.length() && newPass.length() <= 15)){
+                    newPassword.setError("Password should be 8 to 15 characters long");
+                    newPassword.requestFocus();**/
+                    //return true;
+                if((8> newPass.length() || newPass.length() > 15 || (8> confirmPass.length() || confirmPass.length() > 15))) {
+
+                    if (newPass.length() > 0 && (8 > newPass.length() || newPass.length() > 15)) {
+                        newPassword.setError("Password must be 8 to 15 characters long");
+                        newPassword.requestFocus();
+                        return true;
+                    }
+
+                    if (confirmPass.length() > 0 && (8 > confirmPass.length() || confirmPass.length() > 15)) {
+                        confirmPassword.setError("Password must be 8 to 15 characters long");
+                        confirmPassword.requestFocus();
+                        return true;
+                    }
+                }else {
+                      //  if (newPass.length() > 0 && (8 <= newPass.length() && newPass.length() <= 15) && confirmPass.length() > 0 && (8 <= confirmPass.length() && confirmPass.length() <= 15)) {
+                            if (!newPass.equals(confirmPass)) {
+                                //   confirmPassword.requestFocus();
+                                confirmPassword.setError("Passwords do not match");
+                                confirmPassword.requestFocus();
+
+                            }
+                        }
+                  //  }
+               // }
+                return false;
+            }
+        });
+
             submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,57 +201,59 @@ public class ChangePassword extends AppCompatActivity {
                 new_password=newPassword.getText().toString().trim();
                 confirm_password=confirmPassword.getText().toString().trim();
 
-                if(new_password.equals(confirm_password))
-                {
-                    sharedPreferences=getApplicationContext().getSharedPreferences("RestaurantId",MODE_PRIVATE);
-                    restId=sharedPreferences.getString("Id","");
-                    sharedPreferences=getApplicationContext().getSharedPreferences("Login",MODE_PRIVATE);
-                    email=sharedPreferences.getString("mailid","");
-                    String url=Constants.BASE_URL+"ChangePaaword";
-                    StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response);
-                                String msg = jsonObject.getString("Message");
-                                String resultCode = jsonObject.getString("ResultCode");
-                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                                if(resultCode.equals("1")){
-                                    Intent intent=new Intent(ChangePassword.this,Login.class);
-                                    startActivity(intent);
-                                    Toast.makeText(getApplicationContext(),"Password changed successfully",Toast.LENGTH_LONG).show();
-                                }
-                                else if(resultCode.equals("0")){
-                                    Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(),"Some error occured",Toast.LENGTH_LONG).show();
-                        }
-                    }){
-                        protected Map<String,String> getParams() throws AuthFailureError{
-                            Map<String,String> parameters=new HashMap<>();
-                            parameters.put("EmailAddresss",email);
-                            parameters.put("OldPassword",old_password);
-                            parameters.put("NewPassword",new_password);
-                            return parameters;
-                        }
-                    };
-                    RequestQueue requestQueue= Volley.newRequestQueue(ChangePassword.this);
-                    requestQueue.add(stringRequest);
-
+                if(old_password.length()>0 && (8>= old_password.length() || old_password.length() >= 15)){
+                    oldPassword.setError("Password must be 8 to 15 characters long");
+                    oldPassword.requestFocus();
                 }
+                    else {
+                    if (new_password.equals(confirm_password)) {
+                        sharedPreferences = getApplicationContext().getSharedPreferences("RestaurantId", MODE_PRIVATE);
+                        restId = sharedPreferences.getString("Id", "");
+                        sharedPreferences = getApplicationContext().getSharedPreferences("Login", MODE_PRIVATE);
+                        email = sharedPreferences.getString("mailid", "");
+                        String url = Constants.BASE_URL + "ChangePaaword";
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    String msg = jsonObject.getString("Message");
+                                    String resultCode = jsonObject.getString("ResultCode");
+                                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                                    if (resultCode.equals("1")) {
+                                        Intent intent = new Intent(ChangePassword.this, Login.class);
+                                        startActivity(intent);
+                                        Toast.makeText(getApplicationContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
+                                    } /**else if (resultCode.equals("0")) {
+                                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                                    }**/
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "Some error occurred", Toast.LENGTH_LONG).show();
+                            }
+                        }) {
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> parameters = new HashMap<>();
+                                parameters.put("EmailAddresss", email);
+                                parameters.put("OldPassword", old_password);
+                                parameters.put("NewPassword", new_password);
+                                return parameters;
+                            }
+                        };
+                        RequestQueue requestQueue = Volley.newRequestQueue(ChangePassword.this);
+                        requestQueue.add(stringRequest);
 
-                else{
-                    confirmPassword.setError("Password does not match");
-                    confirmPassword.requestFocus();
-                    submit.setEnabled(false);
-                    submit.setBackgroundColor(Color.parseColor("#ffccaa"));
+                    } else {
+                        confirmPassword.setError("Passwords do not match");
+                        confirmPassword.requestFocus();
+                        submit.setEnabled(false);
+                        submit.setBackgroundColor(Color.parseColor("#ffccaa"));
+                    }
                 }
 
             }
@@ -300,9 +348,5 @@ public class ChangePassword extends AppCompatActivity {
 
             }
         });
-
-
-
-
     }
 }
