@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -78,7 +79,7 @@ public class OrderList extends AppCompatActivity {
   //  ImageButton person,orderDetails;
     private static final String TAG="OrderList";
     private SimpleDateFormat simpleDateFormat;
-    private DatePickerDialog startDateDialog, endDateDialog;
+    private DatePickerDialog startDateDialog=null, endDateDialog=null;
     TextView fromDate, toDate;
     RelativeLayout progress, noDataLayout;
     LinearLayout mainLayout;
@@ -586,6 +587,57 @@ return super.onCreateOptionsMenu(menu);
 
 
 //        return true;
+    }
+
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        if(startDateDialog!=null){
+            if(startDateDialog.isShowing()){
+                startDateDialog.dismiss();
+                final Calendar newCalendar=Calendar.getInstance();
+                try{
+                    Date date=simpleDateFormat.parse(fromDate.getText().toString());
+                    newCalendar.setTime(date);
+                }
+                catch (ParseException e){
+                    e.printStackTrace();
+                }
+                startDateDialog=new DatePickerDialog(OrderList.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar newDate=Calendar.getInstance();
+                        newDate.set(year,month,dayOfMonth);
+                        fromDate.setText(simpleDateFormat.format(newDate.getTime()));
+
+                    }
+                },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
+                startDateDialog.getDatePicker().setMaxDate(new Date().getTime());
+                startDateDialog.show();
+            }
+        }
+        if(endDateDialog!=null){
+            if(endDateDialog.isShowing()){
+                endDateDialog.dismiss();
+                final Calendar newCalendar=Calendar.getInstance();
+                try{
+                    Date date=simpleDateFormat.parse(toDate.getText().toString());
+                    newCalendar.setTime(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                endDateDialog=new DatePickerDialog(OrderList.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar newDate=Calendar.getInstance();
+                        newDate.set(year,month,dayOfMonth);
+                        toDate.setText(simpleDateFormat.format(newDate.getTime()));
+                    }
+                },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
+                endDateDialog.getDatePicker().setMaxDate(new Date().getTime());
+                endDateDialog.show();
+
+            }
+        }
     }
 
 

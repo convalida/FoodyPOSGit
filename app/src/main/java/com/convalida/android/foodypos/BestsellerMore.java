@@ -71,7 +71,7 @@ public class BestsellerMore extends AppCompatActivity {
     Gson gson;
     String startDate,endDate,restId,fromDateSaved,toDateSaved,fromClick,toClick;
     private SimpleDateFormat simpleDateFormat;
-    private DatePickerDialog startDateDialog,endDateDialog;
+    private DatePickerDialog startDateDialog=null,endDateDialog=null;
     RequestQueue requestQueue;
 
     protected void onSaveInstanceState(Bundle state){
@@ -239,6 +239,7 @@ public class BestsellerMore extends AppCompatActivity {
                 }
             });
 
+
             searchBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -287,10 +288,55 @@ public class BestsellerMore extends AppCompatActivity {
 
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
-        if(toolbar==null){
+       /** if(toolbar==null){
             return;
         }
-        final Context context=toolbar.getContext();
+        final Context context=toolbar.getContext();**/
+       if(startDateDialog!=null){
+           if(startDateDialog.isShowing()){
+               startDateDialog.dismiss();
+               final Calendar newCalendar=Calendar.getInstance();
+               try{
+                   Date date=simpleDateFormat.parse(fromDate.getText().toString());
+                   newCalendar.setTime(date);
+               }
+               catch (ParseException e){
+                   e.printStackTrace();
+               }
+               startDateDialog=new DatePickerDialog(BestsellerMore.this, new DatePickerDialog.OnDateSetListener() {
+                   @Override
+                   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       Calendar calendar=Calendar.getInstance();
+                       calendar.set(year,month,dayOfMonth);
+                       fromDate.setText(simpleDateFormat.format(calendar.getTime()));
+                   }
+               },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
+               startDateDialog.getDatePicker().setMaxDate(new Date().getTime());
+               startDateDialog.show();
+           }
+       }
+       if(endDateDialog!=null){
+           if(endDateDialog.isShowing()){
+               endDateDialog.dismiss();
+               final Calendar newCalendar=Calendar.getInstance();
+               try{
+                   Date date=simpleDateFormat.parse(toDate.getText().toString());
+                   newCalendar.setTime(date);
+               } catch (ParseException e) {
+                   e.printStackTrace();
+               }
+               endDateDialog=new DatePickerDialog(BestsellerMore.this, new DatePickerDialog.OnDateSetListener() {
+                   @Override
+                   public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       Calendar calendar=Calendar.getInstance();
+                       calendar.set(year,month,dayOfMonth);
+                       toDate.setText(simpleDateFormat.format(calendar.getTime()));
+                   }
+               },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
+               endDateDialog.getDatePicker().setMaxDate(new Date().getTime());
+               endDateDialog.show();
+           }
+       }
     }
 
     private void fetchData() {
