@@ -288,10 +288,7 @@ public class BestsellerMore extends AppCompatActivity {
 
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
-       /** if(toolbar==null){
-            return;
-        }
-        final Context context=toolbar.getContext();**/
+
        if(startDateDialog!=null){
            if(startDateDialog.isShowing()){
                startDateDialog.dismiss();

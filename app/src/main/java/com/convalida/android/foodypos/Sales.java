@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
+//import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +53,9 @@ public class Sales extends AppCompatActivity {
     Button search;
     RecyclerView recyclerView;
     private Gson gson;
+    DatePickerDialog startDatePicker=null, endDatePicker=null;
     DatePickerDialog picker;
+   // private SimpleDateFormat simpleDateFormat;
     private SimpleDateFormat simpleDateFormat;
     String fromdate,todate;
     List<SalesData> data=new ArrayList<>();
@@ -181,7 +186,7 @@ public class Sales extends AppCompatActivity {
                         int month = myCalendar.get(Calendar.MONTH);
                         int year = myCalendar.get(Calendar.YEAR);
                         // date picker dialog
-                        picker = new DatePickerDialog(Sales.this,
+                        startDatePicker = new DatePickerDialog(Sales.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -192,8 +197,8 @@ public class Sales extends AppCompatActivity {
                                         from.setTextColor(Color.parseColor("#000000"));
                                     }
                                 }, year, month, day);
-                        picker.getDatePicker().setMaxDate(System.currentTimeMillis());
-                        picker.show();
+                        startDatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+                        startDatePicker.show();
                     } else {
                         Calendar newCalendar = Calendar.getInstance();
                         try {
@@ -202,7 +207,7 @@ public class Sales extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        picker = new DatePickerDialog(Sales.this,
+                        startDatePicker = new DatePickerDialog(Sales.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -212,8 +217,8 @@ public class Sales extends AppCompatActivity {
                                         from.setText(simpleDateFormat.format(newDate.getTime()));
                                     }
                                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-                        picker.getDatePicker().setMaxDate(System.currentTimeMillis());
-                        picker.show();
+                        startDatePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+                        startDatePicker.show();
                     }
 
                 }
@@ -223,7 +228,7 @@ public class Sales extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (to.getText().toString().equals("mm-dd-yyyy")) {
-                        picker = new DatePickerDialog(Sales.this,
+                        endDatePicker = new DatePickerDialog(Sales.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -233,8 +238,8 @@ public class Sales extends AppCompatActivity {
                                         to.setTextColor(Color.parseColor("#000000"));
                                     }
                                 }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-                        picker.getDatePicker().setMaxDate(new Date().getTime());
-                        picker.show();
+                        endDatePicker.getDatePicker().setMaxDate(new Date().getTime());
+                        endDatePicker.show();
                     } else {
                         Calendar newCalender = Calendar.getInstance();
                         try {
@@ -243,7 +248,7 @@ public class Sales extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        picker = new DatePickerDialog(Sales.this,
+                        endDatePicker = new DatePickerDialog(Sales.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -252,13 +257,63 @@ public class Sales extends AppCompatActivity {
                                         to.setText(simpleDateFormat.format(newDate.getTime()));
                                     }
                                 }, newCalender.get(Calendar.YEAR), newCalender.get(Calendar.MONTH), newCalender.get(Calendar.DAY_OF_MONTH));
-                        picker.getDatePicker().setMaxDate(new Date().getTime());
-                        picker.show();
+                        endDatePicker.getDatePicker().setMaxDate(new Date().getTime());
+                        endDatePicker.show();
                     }
                 }
             });
         }
     }
+
+
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        if (startDatePicker!=null){
+            if(startDatePicker.isShowing()){
+                startDatePicker.dismiss();
+                final Calendar calendar=Calendar.getInstance();
+                try{
+                     Date date=simpleDateFormat.parse(from.getText().toString());
+                    calendar.setTime(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                startDatePicker=new DatePickerDialog(Sales.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar calendar1=Calendar.getInstance();
+                        calendar1.set(year,month,dayOfMonth);
+                        from.setText(simpleDateFormat.format(calendar1.getTime()));
+                    }
+                },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                startDatePicker.getDatePicker().setMaxDate(new Date().getTime());
+                startDatePicker.show();
+            }
+        }
+        if(endDatePicker!=null){
+            if(endDatePicker.isShowing()){
+                endDatePicker.dismiss();
+                final Calendar newCalendar=Calendar.getInstance();
+                try{
+                    Date date=simpleDateFormat.parse(to.getText().toString());
+                    newCalendar.setTime(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                endDatePicker=new DatePickerDialog(Sales.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Calendar calendar=Calendar.getInstance();
+                        calendar.set(year,month,dayOfMonth);
+                        to.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                },newCalendar.get(Calendar.YEAR),newCalendar.get(Calendar.MONTH),newCalendar.get(Calendar.DAY_OF_MONTH));
+                endDatePicker.getDatePicker().setMaxDate(new Date().getTime());
+                endDatePicker.show();
+            }
+        }
+    }
+
 public void onSaveInstanceState(Bundle state){
         super.onSaveInstanceState(state);
     state.putSerializable("Start date",from.getText().toString());
