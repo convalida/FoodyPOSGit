@@ -12,6 +12,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.KeyEvent;
@@ -63,12 +64,17 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         email = findViewById(R.id.emailAddress);
         pass = findViewById(R.id.password);
         inputLayoutEmail = findViewById(R.id.input_email);
         inputLayoutPassword = findViewById(R.id.input_password);
         signIn = findViewById(R.id.signInBtn);
         rememberCheck=findViewById(R.id.rememberMe);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setTitle("FoodyPOS");
+        }
         if(SharedPrefManagerToken.getmInstance(this).getDeviceToken()!=null) {
             token = SharedPrefManagerToken.getmInstance(this).getDeviceToken();
             Log.e(TAG,token);

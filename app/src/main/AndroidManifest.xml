@@ -35,6 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.convalida.android.foodypos.Login"
+            android:theme="@style/AppTheme.NoActionBar"
             />
         <activity android:name="com.convalida.android.foodypos.OrderList"
             android:configChanges="screenSize|orientation"
@@ -59,7 +60,6 @@
             android:theme="@style/ForgotPasswordDialog">
             <intent-filter>
                 <action android:name="com.convalida.android.foodypos.editEmployeeDetail" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
