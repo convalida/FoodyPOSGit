@@ -28,7 +28,8 @@
             android:theme="@style/ForgotPasswordDialog"/>
         <activity
             android:name="com.convalida.android.foodypos.SplashScreen"
-            android:theme="@style/generateNoTitle">
+            android:theme="@style/generateNoTitle"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

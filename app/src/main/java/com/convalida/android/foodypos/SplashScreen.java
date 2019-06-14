@@ -1,7 +1,9 @@
 package com.convalida.android.foodypos;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
@@ -15,13 +17,24 @@ public class SplashScreen extends AppCompatActivity {
     String mail, pass;
     private static final String TAG="SplashScreen";
     ImageView img;
+  //  int orientation;
+   // Activity activity;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        //activity=SplashScreen.this;
+     /**  int orientation=this.getResources().getConfiguration().orientation;
+       if(orientation== Configuration.ORIENTATION_PORTRAIT) {**/
+           setContentView(R.layout.activity_splash_screen);
+      /** }
+       else{
+           setContentView(R.layout.splash_landscape);
+       }**/
+
+
      /**   if (getIntent().getExtras() != null) {
         //    for (String key : getIntent().getExtras().keySet()) {
               //  if (key.equals("body")) {
@@ -53,6 +66,7 @@ public class SplashScreen extends AppCompatActivity {
               //  }
           //  }
         } else {**/
+     if(savedInstanceState==null){
 
             img = findViewById(R.id.splashImage);
 
@@ -80,5 +94,6 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }, SPLASH_TIME_OUT);
         }
+    }
     }
 //}
