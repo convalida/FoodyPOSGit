@@ -181,68 +181,6 @@ public class EmployeeDetails extends AppCompatActivity implements EmployeeTaskFr
                 .show();
     }
 
-    private class GetEmployees extends AsyncTask<String,Void,ArrayList<EmployeeDetailData>> {
-        int flagResult=1;
-        @Override
-        protected ArrayList<EmployeeDetailData> doInBackground(String... response) {
-            try {
-                employeeDetailDataArrayList=new ArrayList<>();
-                JSONObject jsonObject=new JSONObject(response[0]);
-                if(jsonObject.has("Message")){
-                    flagResult=0;
-                }
-                else {
-                    JSONArray employeesArray = jsonObject.getJSONArray("EmployeeDetails");
-                    for (int i = 0; i < employeesArray.length(); i++) {
-                        JSONObject employeeObject = employeesArray.getJSONObject(i);
-                        String name = employeeObject.getString("Username");
-                        String email = employeeObject.getString("EmailId");
-                        String role = employeeObject.getString("RoleType");
-                        String active = employeeObject.getString("Active");
-                        String accountId = employeeObject.getString("AccountId");
-
-                        EmployeeDetailData empData = new EmployeeDetailData();
-                        empData.setActive(active);
-                        empData.setEmail(email);
-                        empData.setName(name);
-                        empData.setRole(role);
-                        empData.setAcctId(accountId);
-                        employeeDetailDataArrayList.add(empData);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return employeeDetailDataArrayList;
-        }
-        public void onPostExecute(ArrayList<EmployeeDetailData> empList){
-            super.onPostExecute(empList);
-            if(flagResult==1) {
-                mainLayout.setVisibility(View.VISIBLE);
-                progressLayout.setVisibility(View.INVISIBLE);
-                EmployeeDetailAdapter empAdapter = new EmployeeDetailAdapter(empList, getApplication());
-                recyclerView.setAdapter(empAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(EmployeeDetails.this));
-            }
-            else {
-                Log.e(TAG,"Server error");
-                new AlertDialog.Builder(EmployeeDetails.this)
-                        .setMessage("Sorry, unable to connect to server. Please try after some time")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                noDataLayout.setVisibility(View.VISIBLE);
-                                mainLayout.setVisibility(View.INVISIBLE);
-                                progressLayout.setVisibility(View.INVISIBLE);
-                            }
-                        })
-                        .setCancelable(false)
-                        .create()
-                        .show();
-            }
-        }
-
-    }
 
 
 }

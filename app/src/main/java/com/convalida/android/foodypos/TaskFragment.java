@@ -72,6 +72,7 @@ public class TaskFragment extends Fragment {
     Menu menu;
     String restId, restName, roleType;
     static ArrayList<String> labelsList;
+    boolean isTaskExecuting=false;
 
 
     interface TaskCallbacks {
@@ -90,18 +91,13 @@ public class TaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        String param1=null;
-        if(getArguments()!=null){
-            param1=getArguments().getString("response");
-        }
-        executePosts = new ExecutePosts();
-        executePosts.execute(param1);
+
     }
 
     public void onDetach() {
         super.onDetach();
         taskCallbacks = null;
-        try {
+       /** try {
             Field childFragmentManager=Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this,null);
@@ -109,7 +105,23 @@ public class TaskFragment extends Fragment {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }**/
+    }
+
+    public void startBackgroundTask(){
+        if(!isTaskExecuting){
+            String param1=null;
+            if(getArguments()!=null){
+                param1=getArguments().getString("response");
+            }
+            executePosts = new ExecutePosts();
+            executePosts.execute(param1);
         }
+
+    }
+
+    public void updateExecutingStatus(boolean isExecuting){
+        this.isTaskExecuting=isExecuting;
     }
 
     private class MyValueFormatter implements com.github.mikephil.charting.formatter.IValueFormatter {
@@ -287,13 +299,13 @@ public class TaskFragment extends Fragment {
 
         public void onPostExecute(Wrapper wrapper) {
             super.onPostExecute(wrapper);
-       //     if(taskCallbacks!=null) {
+            if(taskCallbacks!=null) {
                 if (flagResult == 1) {
                     taskCallbacks.onPostExecute();
                 } else if (flagResult == 0) {
                     taskCallbacks.onPostFailure();
                 }
-          //  }
+            }
             //     if (isNetworkAvailable()) {
         /**    if (flagResult == 1) {
                 progressLayout.setVisibility(View.INVISIBLE);
