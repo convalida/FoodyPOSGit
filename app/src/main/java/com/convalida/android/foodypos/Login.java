@@ -147,8 +147,8 @@ public class Login extends AppCompatActivity {
 
        // Intent intent=new Intent(Login.this,ResetPassword.class);
        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      //  Intent intent = new Intent(Login.this, ForgotPassword.class);
-        Intent intent=new Intent(Login.this, EnterOTP.class);
+        Intent intent = new Intent(Login.this, ForgotPassword.class);
+     //   Intent intent=new Intent(Login.this, EnterOTP.class);
         startActivity(intent);
     }
 
