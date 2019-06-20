@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.convalida.android.foodypos.EnterOTP">
+    tools:context=".EnterOTP"
+    >
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarLayout"
+        />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbarLayout"
+    >
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -130,3 +145,4 @@
 </LinearLayout>
     
     </ScrollView>
+</RelativeLayout>

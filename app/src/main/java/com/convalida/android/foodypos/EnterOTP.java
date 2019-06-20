@@ -4,11 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -31,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class EnterOTP extends AppCompatActivity implements TextWatcher {
     TextView mailId, timerText;
@@ -45,6 +52,12 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_otp);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null){
+            ActionBar actionBar=getSupportActionBar();
+            actionBar.setTitle("FoodyPOS");
+        }
         mailId=findViewById(R.id.userMailId);
         num1=findViewById(R.id.digitOne);
         num2=findViewById(R.id.digitTwo);
@@ -128,6 +141,8 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
                 requestQueue.add(stringRequest);
             }
         });
+
+
     }
 
     @Override
@@ -140,9 +155,10 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void afterTextChanged(Editable s) {
-        if(s.length()==1){
+     //   if(s.length()==1){
             if(num1.length()==1){
                 num2.requestFocus();
             }
@@ -158,30 +174,93 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
             if(num5.length()==1){
                 num6.requestFocus();
             }
-        }
-        else if(s.length()==0){
-            if(num6.length()==0){
+       // }
+      // else
+        if(s.length()==0){
+       //     Toast.makeText(getApplicationContext(),""+s.toString(),Toast.LENGTH_LONG).show();
+
+            if(num6.length()==0) {
                 num5.requestFocus();
+
+                if (num5.length() == 0) {
+                    num4.requestFocus();
+
+                    if (num4.length() == 0) {
+                        num3.requestFocus();
+
+                        if (num3.length() == 0) {
+                            num2.requestFocus();
+
+                            if (num2.length() == 0) {
+                                num1.requestFocus();
+                            }
+                        }
+                    }
+                }
             }
-            if(num5.length()==0){
-                num4.requestFocus();
-            }
-            if(num4.length()==0){
-                num3.requestFocus();
-            }
-            if(num3.length()==0){
-                num2.requestFocus();
-            }
-            if(num2.length()==0){
-                num1.requestFocus();
-            }
+
         }
+
+        num6.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_DEL && num6.length()==0){
+                    num5.requestFocus();
+                }
+                return false;
+            }
+        });
+        num5.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_DEL && num5.length()==0){
+                    num4.requestFocus();
+                }
+                return false;
+            }
+        });
+        num4.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_DEL && num4.length()==0){
+                    num3.requestFocus();
+                }
+                return false;
+            }
+        });
+        num3.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_DEL && num3.length()==0){
+                    num2.requestFocus();
+                }
+                return false;
+            }
+        });
+        num2.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if(keyCode==KeyEvent.KEYCODE_DEL && num2.length()==0){
+                    num1.requestFocus();
+                }
+                return false;
+            }
+        });
+
+       /** int etId= Objects.requireNonNull(this.getCurrentFocus()).getId();
+        if(etId==R.id.digitSix && num6.length()==0){
+            num5.requestFocus();
+        }**/
+
         if(num1.length()==1 && num2.length()==1 && num3.length()==1 && num4.length()==1 && num5.length()==1 && num6.length()==1){
             valueFilled();
         }
         else{
             valueNotFilled();
         }
+
+
+
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,11 +313,23 @@ public class EnterOTP extends AppCompatActivity implements TextWatcher {
         });
     }
 
+    /**  num2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+    Toast.makeText(getApplicationContext(),"On num2",Toast.LENGTH_LONG).show();
+    if(actionId==EditorInfo.IME_ACTION_PREVIOUS){
+    Toast.makeText(getApplicationContext(),"Back button was pressed",Toast.LENGTH_LONG).show();
+    num1.requestFocus();
+    }
+    return false;
+    }
+    });**/
+
     private void valueNotFilled() {
         verify.setBackgroundColor(Color.parseColor("#ffccaa"));
         verify.setEnabled(false);
-        resendOtp.setBackgroundColor(Color.parseColor("#ff6501"));
-        resendOtp.setEnabled(true);
+     //   resendOtp.setBackgroundColor(Color.parseColor("#ff6501"));
+     //   resendOtp.setEnabled(true);
     }
 
     private void valueFilled() {

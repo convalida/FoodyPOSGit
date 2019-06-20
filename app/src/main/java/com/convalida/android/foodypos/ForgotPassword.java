@@ -65,13 +65,13 @@ public class ForgotPassword extends AppCompatActivity {
             requestFocus(mailId);
         } else {
             //forgot password functionality
-           Intent intent=new Intent(ForgotPassword.this,EmptyActivity.class);
-            startActivity(intent);
-          //  com.example.ctpl_dt10.foodypos.Utils.changeToTheme(this, com.example.ctpl_dt10.foodypos.Utils.THEME_WHITE);
+                    //  com.example.ctpl_dt10.foodypos.Utils.changeToTheme(this, com.example.ctpl_dt10.foodypos.Utils.THEME_WHITE);
           //  mainLayout.setVisibility(View.INVISIBLE);
           //  progressLayout.setVisibility(View.VISIBLE);
           //  setTheme(android.R.style.Theme_Black_NoTitleBar);
 
+            Intent intent=new Intent(ForgotPassword.this,EmptyActivity.class);
+            startActivity(intent);
 
             String url=Constants.BASE_URL+"ForgotPassword";
             StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
