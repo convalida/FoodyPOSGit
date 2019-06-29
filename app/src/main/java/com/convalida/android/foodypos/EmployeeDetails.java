@@ -127,7 +127,7 @@ public class EmployeeDetails extends AppCompatActivity implements EmployeeTaskFr
              //   try {
                     employeeTaskFragment = new EmployeeTaskFragment();
                     employeeTaskFragment.setArguments(bundle);
-                    Log.e(TAG , "On posts Fragment initalized");
+                    Log.e(TAG , "On posts Fragment initialized");
                     getSupportFragmentManager().beginTransaction().add(employeeTaskFragment, TAG_EMPLOYEEE_TASK).commitAllowingStateLoss();
                     // }
 
@@ -135,9 +135,9 @@ public class EmployeeDetails extends AppCompatActivity implements EmployeeTaskFr
                     e.printStackTrace();
                 }**/
             }
-            if(employeeTaskFragment!=null){
+          //  if(employeeTaskFragment!=null){
                 employeeTaskFragment.startBackgroundTask();
-            }
+           // }
         }
     };
     Response.ErrorListener onPostsError=new Response.ErrorListener() {

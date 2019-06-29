@@ -471,9 +471,9 @@ public class MainActivity extends AppCompatActivity
                     e.printStackTrace();
                 }**/
             }
-            if(taskFragment!=null){
+       //     if(taskFragment!=null){
                 taskFragment.startBackgroundTask();
-            }
+         //   }
         }
     };
     Response.ErrorListener onPostsError = new Response.ErrorListener() {

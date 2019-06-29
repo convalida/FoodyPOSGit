@@ -46,7 +46,7 @@ public class TopSeller extends AppCompatActivity implements TopSaleTaskFragment.
     Button see;
   //  TopSellerAdapter topSellerAdapter;
     SalesAdapter salesAdapter;
-    private TopSaleTaskFragment topSaleTaskFragment;
+    private TopSaleTaskFragment topSaleTaskFragment=null;
     private static final String TAG="TopSeller";
     private RequestQueue requestQueue;
     private static final String TAG_TOPSALE_TASK_FRAGMENT="topsale_task_fragment";
@@ -118,10 +118,10 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
                 topSaleTaskFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction().add(topSaleTaskFragment,TAG_TOPSALE_TASK_FRAGMENT).commitAllowingStateLoss();
             }
-         //   else{// if we use else instead of if(topSaleTaskFragment!=null - it keeps loading
-            if(topSaleTaskFragment!=null){
+           // else{// if we use else instead of if(topSaleTaskFragment!=null - it keeps loading
+         //   if(topSaleTaskFragment!=null){
                 topSaleTaskFragment.startTask();
-            }
+           // }
         }
     };
     Response.ErrorListener onPostsError=new Response.ErrorListener() {
