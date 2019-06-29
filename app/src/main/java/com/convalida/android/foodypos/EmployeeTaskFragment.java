@@ -117,14 +117,15 @@ public class EmployeeTaskFragment extends Fragment {
             return employeeDetailDataArrayList;
         }
 
-        public void onPostExecute(ArrayList<EmployeeDetailData> employeeDetailDataArrayList){
+        public void onPostExecute(ArrayList<EmployeeDetailData> employeeDetailDataArrayList) {
             super.onPostExecute(employeeDetailDataArrayList);
-            if(flagResult==1){
-                Log.e(TAG,"OnPostExecute of Fragment");
-                employeeTaskCallbacks.onPostExecute();
-            }
-            else if(flagResult==0){
-                employeeTaskCallbacks.onPostFailure();
+            if (employeeTaskCallbacks != null) {
+                if (flagResult == 1) {
+                    Log.e(TAG, "OnPostExecute of Fragment");
+                    employeeTaskCallbacks.onPostExecute();
+                } else if (flagResult == 0) {
+                    employeeTaskCallbacks.onPostFailure();
+                }
             }
         }
     }

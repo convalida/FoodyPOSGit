@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TopSeller extends AppCompatActivity {
+public class TopSeller extends AppCompatActivity implements TopSaleTaskFragment.TopSaleTaskCallback{
 
   TextView orderTotal,amountTotal;
     RecyclerView recyclerView;
@@ -44,8 +46,10 @@ public class TopSeller extends AppCompatActivity {
     Button see;
   //  TopSellerAdapter topSellerAdapter;
     SalesAdapter salesAdapter;
+    private TopSaleTaskFragment topSaleTaskFragment;
     private static final String TAG="TopSeller";
     private RequestQueue requestQueue;
+    private static final String TAG_TOPSALE_TASK_FRAGMENT="topsale_task_fragment";
     Gson gson;
 
     private String jsonString="{\"toprestaurentsale\":[{\"customerName\":\"Phillip Brown \",\"contactnumber\":\"(229)425-6069\",\"totalamount\":\"1370.78\",\"totalorder\":\"9\"},{\"customerName\":\"Brent Bitler\",\"contactnumber\":\"(678)332-7389\",\"totalamount\":\"1127.09\",\"totalorder\":\"17\"},{\"customerName\":\"Lamar Maddox\",\"contactnumber\":\"(478)808-1616\",\"totalamount\":\"701.24\",\"totalorder\":\"16\"}],\"weeksales\":[],\"allsales\":[]}";
@@ -102,8 +106,22 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
         @Override
         public void onResponse(String response) {
         Log.e(TAG,response);
-        ExecuteTask task=new ExecuteTask();
-        task.execute(response);
+       // ExecuteTask task=new ExecuteTask();
+       // task.execute(response);
+           // FragmentManager fragmentManager=getSupportFragmentManager();
+            topSaleTaskFragment= (TopSaleTaskFragment) getSupportFragmentManager().findFragmentByTag(TAG_TOPSALE_TASK_FRAGMENT);
+            Bundle bundle=new Bundle();
+            bundle.putString("response",response);
+
+            if(topSaleTaskFragment==null){
+                topSaleTaskFragment=new TopSaleTaskFragment();
+                topSaleTaskFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().add(topSaleTaskFragment,TAG_TOPSALE_TASK_FRAGMENT).commitAllowingStateLoss();
+            }
+         //   else{// if we use else instead of if(topSaleTaskFragment!=null - it keeps loading
+            if(topSaleTaskFragment!=null){
+                topSaleTaskFragment.startTask();
+            }
         }
     };
     Response.ErrorListener onPostsError=new Response.ErrorListener() {
@@ -118,6 +136,40 @@ if(CheckNetwork.isNetworkAvailable(TopSeller.this)) {
     public void allSales(View view){
         Intent intent=new Intent(TopSeller.this,Sales.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onPostExecute() {
+        Log.e(TAG, "OnPostExecute of TopSeller activity called");
+        if(topSaleTaskFragment!=null){
+            topSaleTaskFragment.updateExecutingStatus(false);
+        }
+        progressLayout.setVisibility(View.INVISIBLE);
+        mainLayout.setVisibility(View.VISIBLE);
+        salesAdapter = new SalesAdapter(TopSaleTaskFragment.salesList, getApplication());
+        recyclerView.setAdapter(salesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(TopSeller.this));
+        orderTotal.setText(TopSaleTaskFragment.finalOrder);
+        amountTotal.setText(TopSaleTaskFragment.finalAmount);
+
+    }
+
+    @Override
+    public void onPostFailure() {
+        Log.e(TAG,"Server error");
+        new AlertDialog.Builder(TopSeller.this)
+                .setMessage("Sorry, Unable to connect to server. Please try after some time")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        noDataLayout.setVisibility(View.VISIBLE);
+                        progressLayout.setVisibility(View.INVISIBLE);
+                        mainLayout.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
     }
 
 
