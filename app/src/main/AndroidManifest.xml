@@ -59,10 +59,7 @@
         <activity
             android:name="com.convalida.android.foodypos.EditEmployeeDetail"
             android:theme="@style/ForgotPasswordDialog">
-            <intent-filter>
-                <action android:name="com.convalida.android.foodypos.editEmployeeDetail" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+
         </activity>
         <activity android:name="com.convalida.android.foodypos.Customer"
             android:theme="@style/AppTheme.NoActionBar"

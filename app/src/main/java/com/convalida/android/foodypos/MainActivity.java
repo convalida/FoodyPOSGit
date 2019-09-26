@@ -372,9 +372,10 @@ public class MainActivity extends AppCompatActivity
                             //   Log.e(TAG,"xLabel Arraylist "+xlabel.get((int)value));
 
                             String val = null;
-                            Log.e(TAG, String.valueOf(xWeekLabel.size()));
+                            Log.e(TAG, String.valueOf(TaskFragment.xWeekLabel.size()));
                             try {
-                                return xWeekLabel.get((int) value);
+                                Log.e(TAG,String.valueOf(TaskFragment.xWeekLabel.get((int) value)));
+                                return TaskFragment.xWeekLabel.get((int) value);
                             } catch (Exception e) {
                                 // return "";
                             }

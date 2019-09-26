@@ -46,7 +46,7 @@ public class TopSeller extends AppCompatActivity implements TopSaleTaskFragment.
     Button see;
   //  TopSellerAdapter topSellerAdapter;
     SalesAdapter salesAdapter;
-    private TopSaleTaskFragment topSaleTaskFragment=null;
+    private TopSaleTaskFragment topSaleTaskFragment;
     private static final String TAG="TopSeller";
     private RequestQueue requestQueue;
     private static final String TAG_TOPSALE_TASK_FRAGMENT="topsale_task_fragment";
