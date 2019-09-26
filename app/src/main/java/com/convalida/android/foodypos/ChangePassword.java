@@ -1,6 +1,7 @@
 package com.convalida.android.foodypos;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,8 +15,10 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ public class ChangePassword extends AppCompatActivity {
 
     EditText newPassword,oldPassword,confirmPassword;
     Button submit;
+    RelativeLayout mainLayout;
     String old_password,new_password,confirm_password,restId,email,newPass,confirmPass;
     SharedPreferences sharedPreferences;
     @SuppressLint("ClickableViewAccessibility")
@@ -45,6 +49,7 @@ public class ChangePassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        mainLayout=findViewById(R.id.mainLayout);
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
@@ -197,6 +202,8 @@ public class ChangePassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
                 old_password=oldPassword.getText().toString().trim();
                 new_password=newPassword.getText().toString().trim();
                 confirm_password=confirmPassword.getText().toString().trim();
@@ -223,7 +230,7 @@ public class ChangePassword extends AppCompatActivity {
                                     if (resultCode.equals("1")) {
                                         Intent intent = new Intent(ChangePassword.this, Login.class);
                                         startActivity(intent);
-                                        Toast.makeText(getApplicationContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
+                                 //       Toast.makeText(getApplicationContext(), "Password changed successfully", Toast.LENGTH_LONG).show();
                                     } /**else if (resultCode.equals("0")) {
                                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                                     }**/
@@ -248,12 +255,12 @@ public class ChangePassword extends AppCompatActivity {
                         RequestQueue requestQueue = Volley.newRequestQueue(ChangePassword.this);
                         requestQueue.add(stringRequest);
 
-                    } else {
+                    }/** else {
                         confirmPassword.setError("Passwords do not match");
                         confirmPassword.requestFocus();
                         submit.setEnabled(false);
                         submit.setBackgroundColor(Color.parseColor("#ffccaa"));
-                    }
+                    }**/
                 }
 
             }
