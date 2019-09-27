@@ -47,7 +47,7 @@ public class AddEmployeeDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_employee_detail);
-        reset=findViewById(R.id.reset);
+        //reset=findViewById(R.id.reset);
         name=findViewById(R.id.EmployeeName);
         email=findViewById(R.id.EmployeeEmail);
         password=findViewById(R.id.EmployeePassword);
@@ -166,6 +166,10 @@ confirmPassword.addTextChangedListener(new TextWatcher() {
                 password.setText("");
                 confirmPassword.setText("");
                 spinner.setSelection(0);
+                name.requestFocus();
+                email.setError(null);
+                password.setError(null);
+                confirmPassword.setError(null);
             }
         });
 
@@ -210,16 +214,19 @@ confirmPassword.addTextChangedListener(new TextWatcher() {
                 pass=password.getText().toString();
                 if(hasValueName && hasEmailValue && hasPsswordValue && hasConfirmPasswordValue && hasSpinnerValue) {
                     if (!isValidEmail(email.getText().toString()) || !pass.equals(confirmPassword.getText().toString())||8 > pass.length() || pass.length() > 15 ) {
-                        if (!pass.equals(confirmPassword.getText().toString())) {
-                            confirmPassword.setError("Passwords do not match");
-                            requestFocus(confirmPassword);
-                        }
+
                         if (!isValidEmail(email.getText().toString())) {
                             email.setError("Please enter a valid email id");
                             requestFocus(email);
                         }
                         if(8 > pass.length() || pass.length() > 15){
-                            Toast.makeText(getApplicationContext(),"Password must be 8 to 15 characters long",Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),"Password must be 8 to 15 characters long",Toast.LENGTH_LONG).show();
+                        password.setError("Password must be 8 to 15 characters long");
+                        requestFocus(password);
+                        }
+                        if (!pass.equals(confirmPassword.getText().toString())) {
+                            confirmPassword.setError("Passwords do not match");
+                            requestFocus(confirmPassword);
                         }
                     }
                     else{
