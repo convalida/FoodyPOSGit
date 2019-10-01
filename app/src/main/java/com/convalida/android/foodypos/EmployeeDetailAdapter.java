@@ -57,6 +57,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeViewHold
                 intent.putExtra("ref3",empRole);
                 intent.putExtra("ref4",isActive);
                 intent.putExtra("ref5",accId);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

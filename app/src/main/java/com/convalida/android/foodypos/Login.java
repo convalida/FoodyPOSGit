@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                     SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(newToken);
 
                     //    Toast.makeText(getApplicationContext(),newToken,Toast.LENGTH_LONG).show();
-                    new AlertDialog.Builder(Login.this)
+                 /**  new AlertDialog.Builder(Login.this)
                             .setMessage(""+newToken)
                             .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
                                 @Override
@@ -104,7 +104,7 @@ public class Login extends AppCompatActivity {
                             })
                             .setCancelable(true)
                             .create()
-                            .show();
+                            .show();**/
                 }
             });
         }
