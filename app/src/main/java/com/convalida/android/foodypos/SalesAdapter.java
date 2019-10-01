@@ -48,6 +48,7 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesListViewHolder>  {
             public void onClick(View view) {
                 Intent intent=new Intent(context,CustomerClick.class);
                 intent.putExtra("Customer click",list.get(position).customerId);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });

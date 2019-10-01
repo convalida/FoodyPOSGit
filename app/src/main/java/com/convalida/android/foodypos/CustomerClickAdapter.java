@@ -41,6 +41,7 @@ public class CustomerClickAdapter extends RecyclerView.Adapter<CustomerClickAdap
                 Intent intent=new Intent(v.getRootView().getContext(),OnClickOrder.class);
                 intent.putExtra("Order num",customerOrdersList.get(position).getOrderNum());
                 intent.putExtra("Start date", (Bundle) null);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 v.getRootView().getContext().startActivity(intent);
             }
         });
@@ -50,6 +51,7 @@ public class CustomerClickAdapter extends RecyclerView.Adapter<CustomerClickAdap
             Intent intent=new Intent(v.getRootView().getContext(),DateNdTimeCustomer.class);
             intent.putExtra("Date",customerOrdersList.get(position).getDate());
             intent.putExtra("Time",customerOrdersList.get(position).getTime());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             v.getRootView().getContext().startActivity(intent);
         }
     });
