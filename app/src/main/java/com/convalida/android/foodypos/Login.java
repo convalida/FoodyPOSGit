@@ -199,24 +199,25 @@ public class Login extends AppCompatActivity {
             // launch main activity
             //login successful
          //   login(mail,password);
-            requestQueue= Volley.newRequestQueue(Login.this);
-            GsonBuilder gsonBuilder=new GsonBuilder();
-            gson=gsonBuilder.create();
-            try {
-                fetchPosts(mail,password);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            if(rememberCheck.isChecked()) {
-                if(!mail.equals("") && !password.equals("")) {
-                    SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("mailid", email.getText().toString());
-                    editor.putString("password", pass.getText().toString());
-                    editor.apply();
-                }
-            }
-
+           if (CheckNetwork.isNetworkAvailable(Login.this)) {
+               requestQueue = Volley.newRequestQueue(Login.this);
+               GsonBuilder gsonBuilder = new GsonBuilder();
+               gson = gsonBuilder.create();
+               try {
+                   fetchPosts(mail, password);
+               } catch (UnsupportedEncodingException e) {
+                   e.printStackTrace();
+               }
+               if (rememberCheck.isChecked()) {
+                   if (!mail.equals("") && !password.equals("")) {
+                       SharedPreferences sharedPreferences = getSharedPreferences("Login", MODE_PRIVATE);
+                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                       editor.putString("mailid", email.getText().toString());
+                       editor.putString("password", pass.getText().toString());
+                       editor.apply();
+                   }
+               }
+           }
          //   startActivity(intent);
         }
 
