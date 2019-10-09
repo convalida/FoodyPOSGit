@@ -62,6 +62,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -116,6 +120,18 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if(!task.isSuccessful()){
+                    Log.d(TAG,"getInstance id failed",task.getException());
+                    return;
+                }
+                String token=task.getResult().getToken();
+                Log.e(TAG,"Token: "+token);
+                SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(token);
+            }
+        });
 
         if (CheckNetwork.isNetworkAvailable(MainActivity.this)) {
             Toolbar toolbar = findViewById(R.id.toolbar);

@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.thoughtbot:expandablecheckrecyclerview:1.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/expandablecheckrecyclerview-1.4.aar/83925c24b3d8f34f7311e7fbe129e92b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/expandablecheckrecyclerview-1.4.aar/83925c24b3d8f34f7311e7fbe129e92b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/629df44c51d467d6782dd43714761465/expandablecheckrecyclerview-1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/629df44c51d467d6782dd43714761465/expandablecheckrecyclerview-1.4/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.thoughtbot/expandablecheckrecyclerview/1.4/dd3d23f0bba406d1cdc0614facff01a28eb107ce/expandablecheckrecyclerview-1.4-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.thoughtbot/expandablecheckrecyclerview/1.4/a974191ab11bebf61e170f95a4d1868efea7d616/expandablecheckrecyclerview-1.4-sources.jar!/" />
     </SOURCES>

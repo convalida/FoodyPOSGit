@@ -110,7 +110,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"/>
         <service android:name="com.convalida.android.foodypos.MyFirebaseMessagingService"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

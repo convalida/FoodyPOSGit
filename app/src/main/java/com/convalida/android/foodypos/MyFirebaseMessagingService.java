@@ -10,11 +10,16 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -28,6 +33,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onNewToken(s);
         Log.e("NEW_TOKEN",s);
 
+        //SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(s);
 
     }
 
@@ -156,5 +162,9 @@ int id= (int) (Math.random()*10);
     }**/
 
 
+}
+
+public static String getToken(Context context){
+        return SharedPrefManagerToken.getmInstance(context).getDeviceToken();
 }
 }
