@@ -83,10 +83,11 @@ public class Login extends AppCompatActivity {
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Login.this, new OnSuccessListener<InstanceIdResult>() {
                 @Override
                 public void onSuccess(InstanceIdResult instanceIdResult) {
-                    final String newToken=instanceIdResult.getToken();
-                    Log.e("NEW_TOKEN",newToken);
-                    String token=newToken;
-                    SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(newToken);
+                    token=instanceIdResult.getToken();
+                    Log.e("NEW_TOKEN",token);
+
+                   // String token=newToken;
+                    SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(token);
 
                     //    Toast.makeText(getApplicationContext(),newToken,Toast.LENGTH_LONG).show();
                  /**  new AlertDialog.Builder(Login.this)
@@ -235,7 +236,7 @@ public class Login extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void fetchPosts(String mail, String password) throws UnsupportedEncodingException {
-         String url ="http://business.foodypos.com/App/Api.asmx/GetLogin?email="+mail+"&password="+password;
+        // String url ="http://business.foodypos.com/App/Api.asmx/GetLogin?email="+mail+"&password="+password;
      /**   try {
             String encoded= URLEncoder.encode(url,"UTF-8");
             StringRequest stringRequest=new StringRequest(Request.Method.GET,encoded,onPostsLoaded,onPostsError);
