@@ -117,7 +117,8 @@ public class OnClickOrder extends AppCompatActivity {
 
 
         if(Objects.requireNonNull(getIntent().getExtras()).get("OrderNo")!=null) {
-            //called when notification is clicked received while app not running
+            //called when notification is clicked received
+
           /**  String extras = getIntent().getExtras().get("body").toString();
            // Toast.makeText(getApplicationContext(), extras, Toast.LENGTH_LONG).show();
             assert extras != null;

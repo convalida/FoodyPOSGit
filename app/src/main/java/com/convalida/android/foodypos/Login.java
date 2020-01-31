@@ -90,22 +90,22 @@ public class Login extends AppCompatActivity {
                     SharedPrefManagerToken.getmInstance(getApplicationContext()).saveDeviceToken(token);
 
                     //    Toast.makeText(getApplicationContext(),newToken,Toast.LENGTH_LONG).show();
-                 /**  new AlertDialog.Builder(Login.this)
-                            .setMessage(""+newToken)
+                   new AlertDialog.Builder(Login.this)
+                            .setMessage(""+token)
                             .setPositiveButton("Copy", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     ClipboardManager clipboardManager;
                                     clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                                     ClipData myClip;
-                                    myClip=ClipData.newPlainText("text",newToken);
+                                    myClip=ClipData.newPlainText("text",token);
                                     assert clipboardManager != null;
                                     clipboardManager.setPrimaryClip(myClip);
                                 }
                             })
                             .setCancelable(true)
                             .create()
-                            .show();**/
+                            .show();
                 }
             });
         }

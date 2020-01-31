@@ -30,10 +30,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -314,19 +316,19 @@ public class Sales extends AppCompatActivity {
         }
     }
 
-public void onSaveInstanceState(Bundle state){
+/**public void onSaveInstanceState(Bundle state){
         super.onSaveInstanceState(state);
     state.putSerializable("Start date",from.getText().toString());
     state.putSerializable("End date",to.getText().toString());
-}
+}**/
 
     private void fetchPosts() {
       //  progressLayout.setVisibility(View.VISIBLE);
       //  mainLayout.setVisibility(View.VISIBLE);
 
-        final String MAIN = Constants.BASE_URL+"sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
+        final String MAIN = Constants.BASE_URL_LIVE+"sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(100000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
     }
     Response.Listener<String> onPostsLoaded=new Response.Listener<String>() {
@@ -344,7 +346,22 @@ public void onSaveInstanceState(Bundle state){
             Log.e(TAG,error.toString());
         }
     };
-
+      /**  JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, MAIN, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e(TAG, response.toString());
+                GetResultsSales resultsSales = new GetResultsSales();
+                String reponseString = response.toString();
+                resultsSales.execute(reponseString);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG,error.toString());
+            }
+        });
+        requestQueue.add(jsonObjReq);
+    }**/
 
 
 

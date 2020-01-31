@@ -93,7 +93,7 @@ private static final String TAG="CustomerClick";
     }
 
     private void fetchPosts() {
-        final String url=Constants.BASE_URL+"CustomerDetails?RestaurantId="+restId+"&CustomerId="+customerId;
+        final String url=Constants.BASE_URL_LIVE+"CustomerDetails?RestaurantId="+restId+"&CustomerId="+customerId;
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);

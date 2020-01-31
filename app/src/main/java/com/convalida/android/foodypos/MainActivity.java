@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity
                             break;
                         case R.id.topSale:
                             //selectedFragment=TopSaleFragment.newInstance();
-                            Intent topSale = new Intent(MainActivity.this, TopSeller.class);
+                            Intent topSale = new Intent(MainActivity.this, Sales.class);
                             startActivity(topSale);
                             break;
                     }
@@ -676,7 +676,7 @@ public class MainActivity extends AppCompatActivity
         monthBtn.setBackgroundColor(Color.parseColor("#ff6501"));
         graphWeek.setBackgroundColor(Color.parseColor("#b3b3ba"));
         yearBtn.setBackgroundColor(Color.parseColor("#b3b3ba"));
-        chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+        chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {//predefined for chart
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 //   Log.e(TAG,"xLabel Arraylist "+xlabel.get((int)value));
@@ -893,7 +893,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-
+//Library for chart
     private class MyValueFormatter implements com.github.mikephil.charting.formatter.IValueFormatter {
       //  private DecimalFormat decimalFormat;
         private java.text.DecimalFormat decimalFormat;
