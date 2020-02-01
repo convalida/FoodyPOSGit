@@ -326,7 +326,7 @@ public class Sales extends AppCompatActivity {
       //  progressLayout.setVisibility(View.VISIBLE);
       //  mainLayout.setVisibility(View.VISIBLE);
 
-        final String MAIN = Constants.BASE_URL_LIVE+"sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
+        final String MAIN = Constants.BASE_URL+"sales?RestaurantId="+restId+"&startdate="+from.getText().toString()+"&enddate="+to.getText().toString();
         StringRequest stringRequest=new StringRequest(Request.Method.GET,MAIN,onPostsLoaded,onPostsError);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(100000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
